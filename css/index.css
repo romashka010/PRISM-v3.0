@@ -99,32 +99,31 @@ body {
 
 /*тел*/
 @media (max-width: 600px) {
-    body {
-        overflow: hidden !important;
-        position: relative;
+    html, body {
+        overflow: hidden !important; 
     }
 
     section {
-        padding: 24px 16px !important;
+        padding: 40px 16px !important;
     }
 
     #slide-menu .flex-grow {
         flex-direction: column !important;
         gap: 8px !important;
         overflow-y: auto !important;
-        max-height: 65vh !important;
+        max-height: 70vh !important;
     }
 
     .menu-strip {
         flex-direction: row !important;
-        padding: 12px 16px !important;
-        border-radius: 12px !important;
+        padding: 16px 20px !important;
+        border-radius: 14px !important;
         filter: grayscale(100%);
         min-height: 70px !important;
         flex-grow: 1 !important;
     }
 
-    .menu-strip:active{
+    .menu-strip:active {
         filter: grayscale(0%) !important;
     }
 
@@ -135,7 +134,7 @@ body {
     .strip-title {
         writing-mode: horizontal-tb !important;
         transform: none !important;
-        font-size: 14px !important;
+        font-size: 16px !important;
         letter-spacing: 1px !important;
         margin: 0 !important;
     }
@@ -147,11 +146,11 @@ body {
     .menu-strip div:last-child {
         align-items: center !important;
         flex-direction: row !important;
-        gap: 6px !important;
+        gap: 8px !important;
     }
 
     .menu-strip span.text-lg {
-        font-size: 20px !important;
+        font-size: 24px !important;
     }
 
     .menu-strip:hover {
