@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Главная</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/speed-insights/script.js"></script>
+
+    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+</head>
+<body class="relative bg-black min-h-screen">
+    <canvas id="bubble-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-10 opacity-35"></canvas>
+
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-20 opacity-[0.02] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+
+    <div id="glow-bg" class="ambient-glow"></div>
+
+    <div id="transition-screen" class="transition-overlay">
+        <div id="transition-content" class="hidden text-center px-10 py-16 md:py-20 md:px-16 max-w-2xl mx-4 opacity-0 transition-all duration-700 flex flex-col items-center bg-neutral-950/90 border border-white/10 rounded-[2.5rem] shadow-[0_30px_70px_rgba(0,0,0,0.8)]">
+            <span class="text-5xl md:text-6xl mb-8 block floating-prism select-none">⚛️</span>
+            <h4 class="font-display text-3xl md:text-4xl font-black uppercase tracking-[0.25em] text-white mb-6 drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]">
+                Физика
+            </h4>
+            <p class="font-sans text-sm md:text-base text-neutral-200/90 leading-relaxed tracking-wide mb-10">
+                Данный сектор исследований находится в процессе симуляций. Физическое ядро Prism подготавливается к запуску и станет доступно в следующих циклах обновления.
+            </p>
+            <button onclick="closeTransition()" class="px-10 py-4 rounded-full border border-white/20 text-white text-xs font-bold tracking-[0.2em] uppercase hover:bg-white hover:text-black hover:border-white hover:scale-105 transition-all duration-300">
+                Вернуться назад
+            </button>
+        </div>
+    </div>
+
+    <div id="contact-modal" class="contact-modal-overlay">
+        <div class="contact-card w-full max-w-2xl mx-4 bg-neutral-950/85 border border-neutral-800 backdrop-blur-2xl rounded-[2.5rem] p-10 md:p-14 shadow-[0_35px_80px_rgba(0,0,0,0.9)] relative overflow-hidden">
+            <button onclick="closeContactModal()" class="absolute top-8 right-8 text-neutral-400 hover:text-white text-2xl font-light transition-colors p-2" aria-label="Закрыть окно">
+                ✕
+            </button>
+            <div id="contact-form-container">
+                <div class="text-center mb-10">
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-rose-400 font-bold block mb-3">Шлюз связи</span>
+                    <h4 class="font-display text-2xl md:text-3xl font-black uppercase tracking-wider text-white">
+                        Написать Prism
+                    </h4>
+                </div>
+                <form id="prism-contact-form" class="space-y-6" novalidate>
+                    <div>
+                        <label for="form-name" class="block text-[14px] font-mono uppercase tracking-[0.35em] text-neutral-400 mb-2.5">Ваше Имя</label>
+                        <input type="text" id="form-name" required placeholder="Введите ваше имя..." class="w-full bg-neutral-950/90 border border-neutral-800 rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-rose-500/50 transition-colors font-sans">
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-2.5">
+                            <label for="form-email" class="block text-[14px] font-mono uppercase tracking-[0.35em] text-neutral-400">Адрес Почты (Email)</label>
+                            <span id="email-error" class="text-[10px] font-mono uppercase tracking-wider text-rose-500 hidden">Некорректный адрес</span>
+                        </div>
+                        <input type="email" id="form-email" required placeholder="name@gmail.com / name@yandex.ru или другие существующие почты..." class="w-full bg-neutral-950/90 border border-neutral-800 rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-rose-500/50 transition-all font-sans">
+                    </div>
+                    <div>
+                        <label for="form-message" class="block text-[14px] font-mono uppercase tracking-[0.35em] text-neutral-400 mb-2.5">Сообщение</label>
+                        <textarea id="form-message" required rows="4" placeholder="Опишите ваше предложение или вопрос..." class="w-full bg-neutral-950/90 border border-neutral-800 rounded-xl px-5 py-4 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-rose-500/50 transition-colors font-sans resize-none"></textarea>
+                    </div>
+                    <button type="submit" id="form-submit-btn" class="w-full py-4 rounded-xl bg-white text-black hover:bg-rose-500 hover:text-white text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300 transform active:scale-95">
+                        Открыть Gmail и подготовить письмо
+                    </button>
+                </form>
+            </div>
+            <div id="contact-success-container" class="hidden text-center py-10 flex flex-col items-center">
+                <div class="w-16 h-16 rounded-full border border-rose-500/20 bg-rose-500/5 flex items-center justify-center text-rose-400 text-2xl mb-8 shadow-[0_0_25px_rgba(244,63,94,0.2)]">✓</div>
+                <h5 class="font-display text-2xl font-black uppercase tracking-widest text-white mb-3">Письмо сгенерировано</h5>
+                <p class="font-sans text-sm md:text-base text-neutral-400 max-w-md leading-relaxed mb-10">
+                    Данные успешно экспортированы. В новой вкладке открылся Gmail для отправки сообщения. Если вкладка не открылась, проверьте настройки блокировщика всплывающих окон.
+                </p>
+                <button onclick="closeContactModal()" class="px-10 py-4 rounded-full border border-neutral-800 text-neutral-400 hover:text-white hover:border-white text-xs font-bold tracking-[0.2em] uppercase transition-all duration-300">
+                    Вернуться к сайту
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed inset-0 w-full h-full z-30 overflow-hidden">
+        <div class="relative w-full h-full">
+            <section id="slide-hero" class="absolute inset-0 w-full h-full flex flex-col justify-between py-12 px-6">
+                <div class="w-full max-w-7xl mx-auto flex justify-between items-center premium-fade" data-speed="1.3">
+                    <div class="font-display text-2xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-500 to-white">
+                        PRISM
+                    </div>
+                    <div class="text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium">
+                        Обучение • Исследования
+                    </div>
+                </div>
+                <div class="flex flex-col items-center justify-center my-auto relative">
+                    <div class="absolute w-[350px] h-[350px] bg-white/5 rounded-full blur-[90px] pointer-events-none"></div>
+                    <div onclick="smoothScrollTo(1)" class="floating-prism w-56 h-56 md:w-72 md:h-72 flex items-center justify-center cursor-pointer relative group premium-fade" data-speed="1.0" title="Ознакомиться с концепцией">
+                        <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow-[0_0_25px_rgba(255,255,255,0.08)] transition-all duration-700 group-hover:drop-shadow-[0_0_50px_rgba(255,255,255,0.25)]">
+                            <defs>
+                                <linearGradient id="prismGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                                    <stop offset="40%" stop-color="#a855f7" stop-opacity="0.6"/>
+                                    <stop offset="75%" stop-color="#06b6d4" stop-opacity="0.6"/>
+                                    <stop offset="100%" stop-color="#f97316" stop-opacity="0.8"/>
+                                </linearGradient>
+                            </defs>
+                            <polygon points="100,20 170,150 30,150" fill="none" stroke="url(#prismGrad)" stroke-width="2" />
+                            <line x1="100" y1="20" x2="100" y2="150" stroke="url(#prismGrad)" stroke-width="1.2" stroke-dasharray="3 3"/>
+                            <line x1="100" y1="20" x2="65" y2="90" stroke="url(#prismGrad)" stroke-width="1.2"/>
+                            <line x1="100" y1="20" x2="135" y2="90" stroke="url(#prismGrad)" stroke-width="1.2"/>
+                            <polygon points="100,60 145,140 55,140" fill="none" stroke="url(#prismGrad)" stroke-width="1" opacity="0.4"/>
+                        </svg>
+                        <div class="absolute font-display text-xs tracking-[0.4em] font-medium text-neutral-400 opacity-60 group-hover:opacity-100 group-hover:text-white transition-all duration-300 transform group-hover:scale-110">
+                            ENTER
+                        </div>
+                    </div>
+                    <h1 class="font-display text-4xl md:text-6xl font-black tracking-[0.3em] text-center uppercase mt-6 premium-fade" data-speed="0.8">PRISM</h1>
+                    <p class="text-neutral-500 text-xs md:text-sm tracking-[0.25em] uppercase mt-2 max-w-lg text-center font-medium premium-fade" data-speed="0.7">Исследование фундаментальных основ Вселенной</p>
+                </div>
+                <div class="flex flex-col items-center gap-2 cursor-pointer premium-fade" data-speed="0.6" onclick="smoothScrollTo(1)">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-neutral-600 font-bold">Прокрутите вниз для ознакомления</span>
+                    <div class="scroller-indicator text-neutral-500 text-lg">↓</div>
+                </div>
+            </section>
+
+            <section id="slide-manifesto" class="absolute inset-0 w-full h-full flex flex-col justify-between py-12 px-6 opacity-0 pointer-events-none">
+                <div class="w-full max-w-7xl mx-auto flex justify-between items-center opacity-50 text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium premium-fade" data-speed="1.3">
+                    <span>02 / Концепция</span>
+                    <span>Исследование фундаментальных истин</span>
+                </div>
+                <div class="max-w-4xl mx-auto text-center space-y-8 my-auto px-6 flex flex-col items-center">
+                    <div class="inline-block px-4 py-1.5 rounded-full border border-neutral-900 text-[10px] tracking-[0.3em] text-neutral-500 uppercase bg-neutral-950/40 premium-fade" data-speed="1.1">
+                        Концепция знаний
+                    </div>
+                    <h2 class="font-display text-4xl md:text-6xl font-black tracking-tight leading-none text-neutral-100 premium-fade" data-speed="0.9">
+                        Добро пожаловать в <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-orange-400">Prism</span>
+                    </h2>
+                    <p class="font-sans text-lg md:text-2xl text-neutral-400 leading-relaxed font-light tracking-wide max-w-3xl mx-auto premium-fade" data-speed="0.8">
+                        Жизнь состоит из множества граней, и каждая из них заслуживает понимания. Это пространство создано для тех, кто не боится задавать сложные вопросы и искать на них честные ответы.
+                    </p>
+                    <div class="pt-6 premium-fade" data-speed="0.7">
+                        <button onclick="smoothScrollTo(2)" class="text-xs tracking-[0.25em] uppercase text-neutral-400 hover:text-white border-b border-neutral-800 hover:border-white pb-1 transition-all duration-300">
+                            Перейти к выбору дисциплин →
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full text-center opacity-30 text-[9px] tracking-widest uppercase premium-fade" data-speed="0.6">
+                    PRISM | 2026
+                </div>
+            </section>
+
+            <section id="slide-menu" class="absolute inset-0 w-full h-full flex flex-col justify-between py-8 px-6 opacity-0 pointer-events-none">
+                <div class="text-center shrink-0 premium-fade" data-speed="1.3">
+                    <span class="text-[10px] uppercase tracking-[0.4em] text-cyan-500 font-bold block mb-1">Направления научных исследований</span>
+                    <h3 class="font-display text-2xl md:text-3xl font-black tracking-widest uppercase text-neutral-100">Научные Грани</h3>
+                </div>
+                <div class="flex-grow flex flex-col md:flex-row w-full overflow-hidden my-4 rounded-xl border border-neutral-900/60 premium-fade" data-speed="1.0">
+                    <div class="menu-strip strip-physics flex-1 flex flex-row md:flex-col items-center justify-between p-4 md:p-8 cursor-pointer relative" onclick="triggerTransition('Физика', 'physics.html', '#a855f7')">
+                        <div class="gradient-bg absolute inset-0 opacity-100 transition-opacity duration-700"></div>
+                        <div class="z-10 text-neutral-500 text-[9px] font-mono tracking-widest">SEC_01 // NATURAL</div>
+                        <div class="z-10 strip-title font-display text-lg md:text-2xl font-black uppercase tracking-[0.1em] text-white my-auto">Физика</div>
+                        <div class="z-10 flex flex-col items-end md:items-center">
+                            <span class="text-lg mb-1">⚛️</span>
+                            <span class="text-[8px] uppercase tracking-wider text-neutral-400 font-bold md:block hidden">Естествознание</span>
+                        </div>
+                    </div>
+                    <div class="menu-strip strip-space flex-1 flex flex-row md:flex-col items-center justify-between p-4 md:p-8 cursor-pointer relative" onclick="triggerTransition('Космос', 'kosmos.html', '#06b6d4')">
+                        <div class="gradient-bg absolute inset-0 opacity-100 transition-opacity duration-700"></div>
+                        <div class="z-10 text-neutral-500 text-[9px] font-mono tracking-widest">SEC_02 // RELATIVITY</div>
+                        <div class="z-10 strip-title font-display text-lg md:text-2xl font-black uppercase tracking-[0.1em] text-white my-auto">Космос</div>
+                        <div class="z-10 flex flex-col items-end md:items-center">
+                            <span class="text-lg mb-1">🪐</span>
+                            <span class="text-[8px] uppercase tracking-wider text-neutral-400 font-bold md:block hidden">Астрофизика</span>
+                        </div>
+                    </div>
+                    <div class="menu-strip strip-alchemy flex-1 flex flex-row md:flex-col items-center justify-between p-4 md:p-8 cursor-pointer relative" onclick="triggerTransition('Алхимия', 'alchemy.html', '#10b981')">
+                        <div class="gradient-bg absolute inset-0 opacity-100 transition-opacity duration-700"></div>
+                        <div class="z-10 text-neutral-500 text-[9px] font-mono tracking-widest">SEC_03 // SYNTHESIS</div>
+                        <div class="z-10 strip-title font-display text-lg md:text-2xl font-black uppercase tracking-[0.1em] text-white my-auto">Алхимия</div>
+                        <div class="z-10 flex flex-col items-end md:items-center">
+                            <span class="text-lg mb-1">🧬</span>
+                            <span class="text-[8px] uppercase tracking-wider text-neutral-400 font-bold md:block hidden">Молекулярный синтез</span>
+                        </div>
+                    </div>
+                    <div class="menu-strip strip-glossary flex-1 flex flex-row md:flex-col items-center justify-between p-4 md:p-8 cursor-pointer relative" onclick="triggerTransition('Глоссарий', 'glossary.html', '#f97316')">
+                        <div class="gradient-bg absolute inset-0 opacity-100 transition-opacity duration-700"></div>
+                        <div class="z-10 text-neutral-500 text-[9px] font-mono tracking-widest">SEC_04 // DICTIONARY</div>
+                        <div class="z-10 strip-title font-display text-lg md:text-2xl font-black uppercase tracking-[0.1em] text-white my-auto">Глоссарий</div>
+                        <div class="z-10 flex flex-col items-end md:items-center">
+                            <span class="text-lg mb-1">📖</span>
+                            <span class="text-[8px] uppercase tracking-wider text-neutral-400 font-bold md:block hidden">Терминология</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full text-center opacity-30 text-[9px] tracking-widest uppercase premium-fade" data-speed="0.7">ВЫБЕРИТЕ ПРИЗМУ ИНТЕРЕСА</div>
+            </section>
+
+            <section id="slide-outro" class="absolute inset-0 w-full h-full flex flex-col justify-between py-12 px-6 opacity-0 pointer-events-none">
+                <div class="w-full max-w-7xl mx-auto flex justify-between items-center opacity-50 text-xs uppercase tracking-[0.25em] text-neutral-500 font-medium premium-fade" data-speed="1.3">
+                    <span>04 / Синтез</span>
+                    <span>Новые Горизонты</span>
+                </div>
+                <div class="max-w-4xl mx-auto text-center space-y-8 my-auto px-6 flex flex-col items-center">
+                    <div class="inline-block px-4 py-1.5 rounded-full border border-neutral-900 text-[10px] tracking-[0.3em] text-neutral-500 uppercase bg-neutral-950/40 premium-fade" data-speed="1.1">
+                        Сотрудничество
+                    </div>
+                    <h2 class="font-display text-4xl md:text-6xl font-black tracking-tight leading-none text-neutral-100 premium-fade" data-speed="0.9">
+                        Раздвигая <br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-rose-400 to-purple-500">грани познания</span>
+                    </h2>
+                    <p class="font-sans text-sm md:text-xl text-neutral-400 leading-relaxed font-light tracking-wide max-w-2xl mx-auto premium-fade" data-speed="0.8">
+                        Эта открытая среда создана для всех, кто хочет познать мир. Ваша идея заслуживает внимания.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4 premium-fade" data-speed="0.7">
+                        <button onclick="smoothScrollTo(2)" class="px-8 py-4 rounded-full bg-white text-black text-xs font-bold tracking-[0.2em] uppercase hover:bg-neutral-200 transition-all duration-300 shadow-lg hover:scale-105 pointer-events-auto">
+                            К исследованиям
+                        </button>
+                        <button onclick="openContactModal()" class="px-8 py-4 rounded-full border border-neutral-800 text-white text-xs font-bold tracking-[0.2em] uppercase hover:border-white transition-all duration-300 hover:scale-105 pointer-events-auto">
+                            Связаться с Prism
+                        </button>
+                    </div>
+                </div>
+                <div class="w-full text-center opacity-30 text-[9px] tracking-widest uppercase premium-fade" data-speed="0.6">PRISM | 2026 • ИСКУССТВО ЧИСТОГО ПОЗНАНИЯ</div>
+            </section>
+        </div>
+    </div>
+
+    <div id="toast-message" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-500 bg-neutral-950 border border-neutral-900 text-white px-6 py-4 rounded-lg flex items-center gap-3 shadow-[0_10px_40px_rgba(0,0,0,0.8)] pointer-events-none">
+        <span id="toast-icon" class="text-lg"></span>
+        <span id="toast-text" class="text-xs font-mono uppercase tracking-wider"></span>
+    </div>
+
+    <script src="js/achievements.js"></script>
+    <script src="js/utils.js" defer></script>
+    <script src="js/index.js" defer></script>
+</body>
+</html>

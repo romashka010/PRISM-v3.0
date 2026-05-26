@@ -1,0 +1,81 @@
+body {
+    background-color: #020202;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ambient-glow {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle 500px at 50% 90%, rgba(168, 85, 247, 0.08), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1deg); }
+}
+.floating-prism {
+    animation: float 6s ease-in-out infinite;
+}
+
+.mobile-menu-strip {
+    background: rgba(15, 15, 22, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.mobile-menu-strip:active {
+    transform: scale(0.98);
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.05);
+}
+
+.strip-glow-physics { background: linear-gradient(135deg, rgba(76, 29, 149, 0.15) 0%, rgba(168, 85, 247, 0.05) 100%); }
+.strip-glow-space { background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(6, 182, 212, 0.05) 100%); }
+.strip-glow-alchemy { background: linear-gradient(135deg, rgba(5, 150, 105, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%); }
+.strip-glow-glossary { background: linear-gradient(135deg, rgba(234, 88, 12, 0.15) 0%, rgba(249, 115, 22, 0.05) 100%); }
+
+.mobile-contact-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    background-color: rgba(2, 2, 2, 0.9);
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-contact-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.mobile-contact-card {
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #09090e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+}

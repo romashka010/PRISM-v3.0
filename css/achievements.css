@@ -1,0 +1,184 @@
+/*декстоп*/
+#prism-ach-btn {
+    position: fixed;
+    bottom: 90px;
+    left: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(20, 20, 25, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 9998;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#prism-ach-btn:hover {
+    transform: scale(1.1);
+    border-color: #a855f7;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+#prism-ach-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+#prism-ach-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.ach-modal-content {
+    background: #12121a;
+    border: 1px solid #333;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.ach-modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ach-modal-header h2 { margin: 0; font-size: 20px; font-weight: 700; color: #a855f7; text-transform: uppercase; letter-spacing: 1px; }
+.ach-close-btn { background: none; border: none; color: #888; font-size: 20px; cursor: pointer; transition: 0.2s; }
+.ach-close-btn:hover { color: white; }
+
+.ach-modal-stats {
+    padding: 10px 24px;
+    font-size: 12px;
+    color: #aaa;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid #222;
+}
+
+.ach-list {
+    padding: 20px 24px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.ach-list::-webkit-scrollbar { width: 6px; }
+.ach-list::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+
+.ach-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #1a1a24;
+    border: 1px solid #2a2a35;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+.ach-item.unlocked {
+    border-color: #a855f7;
+    background: rgba(168, 85, 247, 0.05);
+}
+.ach-item.locked {
+    opacity: 0.5;
+    filter: grayscale(100%);
+}
+.ach-item-icon {
+    font-size: 28px;
+    background: #0a0a0f;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.ach-item-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.ach-item-desc { font-size: 12px; color: #888; }
+
+.achievement-toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: rgba(15, 15, 20, 0.95);
+    border: 1px solid #a855f7;
+    padding: 16px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10000;
+    transform: translateX(120%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+.achievement-toast.show { transform: translateX(0); }
+.ach-toast-icon { font-size: 32px; }
+.ach-toast-header { font-size: 10px; color: #a855f7; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px;}
+.ach-toast-title { font-size: 14px; font-weight: 600; }
+
+/*тел*/
+@media (max-width: 600px) {
+    #prism-ach-btn {
+        bottom: 80px;
+        left: 16px;
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .ach-modal-content {
+        width: 92%;
+        max-height: 85vh;
+        border-radius: 16px;
+    }
+
+    .ach-modal-header { padding: 16px 20px; }
+    .ach-modal-header h2 { font-size: 15px; }
+    .ach-modal-stats { padding: 8px 20px; font-size: 11px; }
+    .ach-list { padding: 16px 20px; gap: 8px; }
+
+    .ach-item { padding: 10px; gap: 12px; border-radius: 10px; }
+    .ach-item-icon { width: 38px; height: 38px; font-size: 20px; border-radius: 8px; }
+    .ach-item-title { font-size: 12px; }
+    .ach-item-desc { font-size: 10px; }
+
+    .achievement-toast {
+        right: 16px;
+        left: 16px;
+        bottom: 16px;
+        padding: 12px 16px;
+        gap: 12px;
+        transform: translateY(150%);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.9);
+    }
+    .achievement-toast.show {
+        transform: translateY(0);
+    }
+    .ach-toast-icon { font-size: 24px; }
+    .ach-toast-title { font-size: 12px; }
+}
