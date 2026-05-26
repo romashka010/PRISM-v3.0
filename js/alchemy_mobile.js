@@ -1,5 +1,5 @@
 let savedProgress = localStorage.getItem('prismAlchemyProgress');
-let inventory = savedProgress ? JSON.parse(savedProgress) : ['water', 'fire', 'earth', 'air'];
+let inventory = savedProgress ? JSON.parse(savedProgress) : ['water', 'fire', 'earth', 'air','time'];
 
 let slot1 = null;
 let slot2 = null;
