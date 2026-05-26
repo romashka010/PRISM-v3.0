@@ -94,30 +94,83 @@ body {
 }
 
 /*тел*/
-@media (max-width: 600px) {
-    body, html {
+@media (max-width: 1024px) {
+    body {
+        overflow-y: auto !important;
+        touch-action: auto;
+    }
+
+    main {
         height: auto !important;
-        padding: 40px 16px !important;
-        justify-content: flex-start !important;
+        min-height: auto !important;
+        flex-direction: column-reverse !important;
+        gap: 20px !important;
+        padding-top: 10px !important;
+        padding-bottom: 40px !important;
     }
 
-    h1 {
+    section {
+        border-radius: 24px !important;
+        padding: 24px !important;
+    }
+
+    .custom-scroll {
+        max-height: 380px !important;
+        min-height: 280px !important;
+        overflow-y: auto !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .flex.gap-2.p-15theme-inner {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        max-width: 100% !important;
+        scrollbar-width: none;
+    }
+
+    .flex.gap-2.p-15theme-inner::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tab-btn {
+        flex-shrink: 0 !important;
+        padding: 6px 14px !important;
+        font-size: 11px !important;
+    }
+
+    .slot-float {
+        width: 85px !important;
+        height: 85px !important;
+    }
+    .slot-float span {
+        font-size: 32px !important;
+    }
+    .slot-float .absolute {
+        font-size: 9px !important;
+        top: -3px !important;
+    }
+
+    #inventory {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    #inventory div {
+        padding: 12px 8px !important;
+        border-radius: 16px !important;
+    }
+    #inventory div span.text-4xl {
+        font-size: 28px !important;
+    }
+
+    #info-screen {
+        padding: 12px !important;
+        gap: 12px !important;
+    }
+    #info-icon {
+        width: 44px !important;
+        height: 44px !important;
         font-size: 24px !important;
-        letter-spacing: 2px !important;
-    }
-
-    .tiles-grid {
-        margin-top: 24px !important;
-        gap: 16px !important;
-    }
-
-    .tile {
-        width: 100% !important;
-        padding: 20px !important;
-    }
-
-    .sub-option {
-        width: 100% !important;
-        padding: 16px !important;
     }
 }
