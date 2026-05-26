@@ -454,6 +454,12 @@ const mouse = new THREE.Vector2();
 
 const asteroidTooltip = document.getElementById('asteroid-tooltip');
 
+let pointerDownPos = { x: 0, y: 0 };
+window.addEventListener('pointerdown', (e) => {
+    pointerDownPos.x = e.clientX;
+    pointerDownPos.y = e.clientY;
+});
+
 window.addEventListener('mousemove', (e) => {
     mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
@@ -480,8 +486,14 @@ window.addEventListener('mousemove', (e) => {
     }
 });
 
-window.addEventListener('click', (e) => {
+window.addEventListener('pointerup', (e) => {
     if (e.target.tagName !== 'CANVAS') return;
+
+    const diffX = Math.abs(e.clientX - pointerDownPos.x);
+    const diffY = Math.abs(e.clientY - pointerDownPos.y);
+
+    if (diffX > 6 || diffY > 6) return;
+
     raycaster.setFromCamera(mouse, camera);
     const hits = raycaster.intersectObjects(planets.map(p => p.hitbox));
 
@@ -493,6 +505,10 @@ window.addEventListener('click', (e) => {
         startPos.copy(camera.position);
         transitionProgress = 0;
         cameraMode = 'TRANSITION';
+
+        if (selectedPlanet.name === 'Нептун' && typeof unlockAchievement !== 'undefined') {
+            unlockAchievement('FIND_NEPTUNE');
+        }
 
         document.getElementById('info-panel').classList.add('active');
         document.getElementById('p-name').innerText = selectedPlanet.name;
