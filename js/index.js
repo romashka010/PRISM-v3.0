@@ -45,6 +45,9 @@ function updateSmoothScroll() {
     ensureSlidesInitialized();
     currentY = lerp(currentY, targetY, 0.085);
 
+    if (targetY < 0) targetY = 0;
+    if (targetY > totalSlides - 1) targetY = totalSlides - 1;
+
     if (Math.abs(targetY - currentY) < 0.0005) {
         currentY = targetY;
     }
