@@ -96,3 +96,61 @@ body {
 .contact-modal-overlay.active .contact-card {
     transform: scale(1) translateY(0px);
 }
+
+/*тел*/
+@media (max-width: 600px) {
+    body {
+        overflow-y: auto !important;
+        position: relative;
+    }
+
+    section {
+        padding: 40px 16px !important;
+    }
+
+    #slide-menu .flex-grow {
+        flex-direction: column !important;
+        gap: 8px !important;
+        overflow-y: auto !important;
+        max-height: 70vh !important;
+    }
+
+    .menu-strip {
+        flex-direction: row !important;
+        padding: 16px 20px !important;
+        border-radius: 14px !important;
+        filter: grayscale(0%);
+        min-height: 70px !important;
+        flex-grow: 1 !important;
+    }
+
+    .menu-strip::before {
+        background: linear-gradient(90deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 100%) !important;
+    }
+
+    .strip-title {
+        writing-mode: horizontal-tb !important;
+        transform: none !important;
+        font-size: 16px !important;
+        letter-spacing: 1px !important;
+        margin: 0 !important;
+    }
+
+    .menu-strip:hover .strip-title {
+        transform: scale(1.02) !important;
+    }
+
+    .menu-strip div:last-child {
+        align-items: center !important;
+        flex-direction: row !important;
+        gap: 8px !important;
+    }
+
+    .menu-strip span.text-lg {
+        font-size: 24px !important;
+    }
+
+    .menu-strip:hover {
+        flex-grow: 1 !important;
+    }
+}
