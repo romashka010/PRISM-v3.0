@@ -1,4 +1,3 @@
-//определитель устр-ва
 function detectDeviceAndRedirect() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
         || (window.innerWidth <= 768);
@@ -12,7 +11,7 @@ function detectDeviceAndRedirect() {
 
 detectDeviceAndRedirect();
 
-//декстоп
+
 let currentY = 0;
 let targetY = 0;
 const totalSlides = 4;
@@ -28,7 +27,7 @@ function lerp(start, end, factor) {
 
 let slides = [];
 function ensureSlidesInitialized() {
-    if (slides.length === 0 || slides.every(s => s === null)) {
+    if (slides.length === 0 || slides.some(s => s === null)) {
         slides = [
             document.getElementById('slide-hero'),
             document.getElementById('slide-manifesto'),
@@ -123,12 +122,12 @@ function processScroll(delta) {
     const transitionScreen = document.getElementById('transition-screen');
     const contactModal = document.getElementById('contact-modal');
 
+    // Блокируем скролл только если активны окна переходов или обратной связи
     if ((transitionScreen && transitionScreen.classList.contains('active')) ||
         (contactModal && contactModal.classList.contains('active'))) return;
 
     if (snapTimeout) clearTimeout(snapTimeout);
 
-    // Ограничение диапазона приращения
     targetY = Math.max(0, Math.min(totalSlides - 1, targetY + delta * scrollSensitivity));
 
     if (isMagnetActive) {
@@ -330,7 +329,7 @@ function handleFormSubmit(event) {
     setTimeout(() => {
         const recipientEmail = "prismlabsedu@gmail.com";
         const emailSubject = `Prism | Запрос на обратную связь от ${name}`;
-        const emailBody = `Приветствую, команда Prism!\n\nМеня зовут ${name}(${email}).\n\nСообщение:\n\n${message}\n\n\nС уважением,\n${name}`;
+        const emailBody = `Приветствую, команда Prism!\n\nМеня зовут ${name}(${email}\n\nСообщение:\n----------------------------------------\n${message}\n----------------------------------------\n\nС уважением,\n${name}`;
 
         const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipientEmail)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
         const newWindow = window.open(gmailWebUrl, '_blank');
