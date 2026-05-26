@@ -92,3 +92,32 @@ body {
     transform: translateY(-100%);
     transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
 }
+
+/*тел*/
+@media (max-width: 600px) {
+    body, html {
+        height: auto !important;
+        padding: 40px 16px !important;
+        justify-content: flex-start !important;
+    }
+
+    h1 {
+        font-size: 24px !important;
+        letter-spacing: 2px !important;
+    }
+
+    .tiles-grid {
+        margin-top: 24px !important;
+        gap: 16px !important;
+    }
+
+    .tile {
+        width: 100% !important;
+        padding: 20px !important;
+    }
+
+    .sub-option {
+        width: 100% !important;
+        padding: 16px !important;
+    }
+}
