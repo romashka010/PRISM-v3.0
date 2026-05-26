@@ -141,7 +141,7 @@
 .ach-toast-header { font-size: 10px; color: #a855f7; font-weight: 700; letter-spacing: 1px; margin-bottom: 2px;}
 .ach-toast-title { font-size: 14px; font-weight: 600; }
 
-/*телефон*/
+/*тел*/
 @media (max-width: 600px) {
     #prism-ach-btn {
         bottom: 80px;
