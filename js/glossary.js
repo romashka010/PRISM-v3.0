@@ -82,9 +82,11 @@ function transitionBack(e, url) {
 function handleThemeToggle() {
     isLightMode = !isLightMode;
     if (isLightMode) {
+        document.documentElement.classList.remove('dark');
         document.body.classList.add('light-theme');
         themeIcon.setAttribute('data-lucide', 'sun');
     } else {
+        document.documentElement.classList.add('dark');
         document.body.classList.remove('light-theme');
         themeIcon.setAttribute('data-lucide', 'moon');
     }
