@@ -1,5 +1,5 @@
 function detectDeviceAndRedirect() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
         || (window.innerWidth <= 768);
 
     if (isMobile) {
@@ -121,9 +121,8 @@ requestAnimationFrame(updateSmoothScroll);
 function processScroll(delta) {
     const transitionScreen = document.getElementById('transition-screen');
     const contactModal = document.getElementById('contact-modal');
-
-    // Блокируем скролл только если активны окна переходов или обратной связи
-    if ((transitionScreen && transitionScreen.classList.contains('active')) ||
+    
+    if ((transitionScreen && transitionScreen.classList.contains('active')) || 
         (contactModal && contactModal.classList.contains('active'))) return;
 
     if (snapTimeout) clearTimeout(snapTimeout);
@@ -329,7 +328,7 @@ function handleFormSubmit(event) {
     setTimeout(() => {
         const recipientEmail = "prismlabsedu@gmail.com";
         const emailSubject = `Prism | Запрос на обратную связь от ${name}`;
-        const emailBody = `Приветствую, команда Prism!\n\nМеня зовут ${name}(${email}\n\nСообщение:\n----------------------------------------\n${message}\n----------------------------------------\n\nС уважением,\n${name}`;
+        const emailBody = `Приветствую, команда Prism!\n\nМеня зовут ${name}(${email})\n\nСообщение:\n\n${message}\n\n\nС уважением,\n${name}`;
 
         const gmailWebUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(recipientEmail)}&su=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
         const newWindow = window.open(gmailWebUrl, '_blank');
