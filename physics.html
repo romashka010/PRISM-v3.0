@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Физика</title>
+
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/physics.css">
+</head>
+<body>
+
+    <div id="main-menu" class="container">
+        <h1 style="letter-spacing: 5px; color: var(--accent); margin-bottom: 0;">ФИЗИЧЕСКИЕ МОДУЛИ</h1>
+        <div class="tiles-grid">
+
+            <div class="tile" onclick="showSub('sub-mechanics')">
+                <span class="icon">⚙️</span>
+                <h3>Механика</h3>
+                <p>Кинематика, свободное падение и движение тел.</p>
+            </div>
+
+            <div class="tile" onclick="showSub('sub-coulomb')">
+                <span class="icon">⚛️</span>
+                <h3>Электростатика</h3>
+                <p>Взаимодействие зарядов и силовые линии.</p>
+            </div>
+
+            <div class="tile" onclick="showSub('sub-circuits')">
+                <span class="icon">⚡</span>
+                <h3>Цепи и Ток</h3>
+                <p>Законы Ома и проектирование схем.</p>
+            </div>
+
+            <div class="tile" onclick="showSub('sub-optics')">
+                <span class="icon">🔍</span>
+                <h3>Оптика</h3>
+                <p>Линзы, преломление и ход лучей.</p>
+            </div>
+
+            <div class="tile" onclick="showSub('sub-thermo')">
+                <span class="icon">🌡️</span>
+                <h3>Термодинамика</h3>
+                <p>Изопроцессы и идеальный газ.</p>
+            </div>
+        </div>
+        <a href="index.html" class="back-nav">← На главную</a>
+    </div>
+
+    <div id="sub-mechanics" class="container hidden">
+        <h2 style="color: var(--mech);">МЕХАНИКА</h2>
+        <div class="submenu" style="display: flex;">
+            <a href="phys_mechanics.html" class="sub-option">
+                <b>Баллистика</b>
+            </a>
+            <a href="phys_gravity_fall.html" class="sub-option">
+                <b>Свободное падение</b>
+            </a>
+        </div>
+        <button class="back-btn" onclick="hideAll()">← Назад</button>
+    </div>
+
+    <div id="sub-optics" class="container hidden">
+        <h2 style="color: var(--opt);">ОПТИКА</h2>
+        <div class="submenu" style="display: flex;">
+            <a href="phys_optics_lenses.html" class="sub-option">
+                <b>Тонкие линзы и фокус</b>
+            </a>
+            <a href="phys_optics_refraction.html" class="sub-option">
+                <b>Преломление</b>
+            </a>
+        </div>
+        <button class="back-btn" onclick="hideAll()">← Назад</button>
+    </div>
+
+    <div id="sub-thermo" class="container hidden">
+        <h2 style="color: var(--thermo);">ТЕРМОДИНАМИКА</h2>
+        <div class="submenu" style="display: flex;">
+            <a href="phys_thermo_iso.html" class="sub-option">
+                <b>Изопроцессы (P-V диаграммы)</b>
+            </a>
+            <a href="phys_thermo_carnot.html" class="sub-option">
+                <b>Цикл Карно (КПД)</b>
+            </a>
+        </div>
+        <button class="back-btn" onclick="hideAll()">← Назад</button>
+    </div>
+
+    <div id="sub-coulomb" class="container hidden">
+        <h2 style="color: var(--accent);">ЭЛЕКТРОСТАТИКА</h2>
+        <div class="submenu" style="display: flex;">
+            <a href="phys_coulomb_sandbox.html" class="sub-option">
+                <b>Свободный режим (Песочница)</b>
+            </a>
+            <a href="phys_coulomb_lab1.html" class="sub-option">
+                <b>Лабораторная работа №1</b>
+                <span>Исследование закона Кулона</span>
+            </a>
+            <a href="phys_coulomb_lab2.html" class="sub-option">
+                <b>Лабораторная работа №2</b>
+                <span>Напряженность и потенциал</span>
+            </a>
+        </div>
+        <button class="back-btn" onclick="hideAll()">← Назад</button>
+    </div>
+
+    <div id="sub-circuits" class="container hidden">
+    	<h2 style="color: var(--blue);">ЭЛЕКТРИЧЕСКИЕ ЦЕПИ</h2>
+    	<div class="submenu" style="display: flex;">
+            <div class="sub-option in-dev">
+                <span class="dev-badge">В разработке</span>
+                <b>Лабораторная песочница</b>
+            </div>
+            <a href="phys_ohm_full.html" class="sub-option">
+            	<b>Закон Ома для полной цепи</b>
+            </a>
+        </div>
+        <button class="back-btn" onclick="hideAll()">← Назад</button>
+    </div>
+
+    <script src="js/achievements.js"></script>
+    <script src="js/physics.js"></script>
+</body>
+</html>

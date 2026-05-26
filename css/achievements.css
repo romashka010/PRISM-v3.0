@@ -1,0 +1,24 @@
+.achievement-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(10, 10, 15, 0.95);
+    border: 1px solid #a855f7;
+    border-left: 4px solid #a855f7;
+    padding: 15px 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 9999;
+    transform: translateX(120%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+}
+
+.achievement-toast.show { transform: translateX(0); }
+
+.ach-icon { font-size: 24px; }
+.ach-title { font-weight: bold; color: #fff; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+.ach-desc { color: #aaa; font-size: 12px; }
