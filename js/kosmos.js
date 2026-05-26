@@ -3,7 +3,9 @@ function checkAndRedirectToDesktop() {
         || (window.innerWidth <= 768);
 
     if (!isMobile) {
-        window.location.href = 'kosmos.html';
+        if(!window.location.pathname.includes('kosmos_mobile.html')){
+            window.location.href = 'kosmos_mobile.html';
+        }
     }
 }
 checkAndRedirectToDesktop();
