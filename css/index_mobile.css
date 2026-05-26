@@ -3,7 +3,8 @@ body {
     color: #ffffff;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: auto !important;
+    touch-action: pan-y !important;
     -webkit-overflow-scrolling: touch;
 }
 
