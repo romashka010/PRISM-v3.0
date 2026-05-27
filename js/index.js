@@ -1,5 +1,5 @@
 function detectDeviceAndRedirect() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
         || (window.innerWidth <= 768);
 
     if (isMobile) {
@@ -121,8 +121,8 @@ requestAnimationFrame(updateSmoothScroll);
 function processScroll(delta) {
     const transitionScreen = document.getElementById('transition-screen');
     const contactModal = document.getElementById('contact-modal');
-    
-    if ((transitionScreen && transitionScreen.classList.contains('active')) || 
+
+    if ((transitionScreen && transitionScreen.classList.contains('active')) ||
         (contactModal && contactModal.classList.contains('active'))) return;
 
     if (snapTimeout) clearTimeout(snapTimeout);
@@ -235,17 +235,9 @@ function triggerTransition(name, url, color) {
     transitionScreen.style.backgroundColor = color;
     transitionScreen.classList.add('active');
 
-    if (name === 'Физика' && transitionContent) {
-        setTimeout(() => {
-            transitionContent.classList.remove('hidden');
-            setTimeout(() => {
-                transitionContent.classList.remove('opacity-0');
-                transitionContent.classList.add('opacity-100');
-            }, 50);
-        }, 400);
-    } else {
-        setTimeout(() => { window.location.href = url; }, 800);
-    }
+    setTimeout(() => {
+        window.location.href = url;
+    }, 800);
 }
 
 function closeTransition() {
