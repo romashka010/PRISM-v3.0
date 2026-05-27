@@ -93,8 +93,8 @@ header {
 
 .action-row {
     position: absolute;
-    top: 12px;
-    left: 95px;
+    top: 60px; 
+    left: 16px;
     z-index: 101;
     pointer-events: none;
 }
@@ -118,9 +118,9 @@ header {
 
 #prism-ach-btn {
     bottom: auto !important;
-    top: 12px !important;
+    top: 60px !important; 
     left: auto !important;
-    right: 130px !important;
+    right: 16px !important; 
     width: 36px !important;
     height: 36px !important;
     font-size: 18px !important;
@@ -146,11 +146,11 @@ header {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    max-height: 28vh;
+    max-height: 28vh; 
     transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 #info-panel.active {
-    bottom: 16px;
+    bottom: 16px; 
 }
 
 .drag-handle {
@@ -162,35 +162,35 @@ header {
     flex-shrink: 0;
 }
 
-#p-name {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'Syne', sans-serif;
-    letter-spacing: 0.5px;
+#p-name { 
+    margin: 0; 
+    font-size: 18px; 
+    font-weight: 800; 
+    font-family: 'Syne', sans-serif; 
+    letter-spacing: 0.5px; 
     color: #06b6d4;
 }
 
-.dist-text {
-    font-size: 10px;
-    color: #888888;
+.dist-text { 
+    font-size: 10px; 
+    color: #888888; 
     margin-top: 2px;
-    margin-bottom: 8px;
-    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 8px; 
+    font-family: 'JetBrains Mono', monospace; 
     text-transform: uppercase;
 }
 
-#p-dist {
-    color: #ffffff;
-    font-weight: bold;
+#p-dist { 
+    color: #ffffff; 
+    font-weight: bold; 
 }
 
-#p-desc {
-    font-size: 12px;
-    line-height: 1.55;
-    color: #cccccc;
-    margin: 0;
-    overflow-y: auto;
+#p-desc { 
+    font-size: 12px; 
+    line-height: 1.55; 
+    color: #cccccc; 
+    margin: 0; 
+    overflow-y: auto; 
     padding-right: 4px;
     flex-grow: 1;
     -webkit-overflow-scrolling: touch;
@@ -227,6 +227,15 @@ header {
     box-sizing: border-box;
     padding: 14px;
 }
-#asteroid-tooltip strong { color: #06b6d4; font-size: 13px; display: block; margin-bottom: 6px;}
-#asteroid-tooltip p { margin: 0 0 6px 0; }
-#asteroid-tooltip p:last-child { margin: 0; }
+#asteroid-tooltip strong { 
+    color: #06b6d4; 
+    font-size: 13px; 
+    display: block; 
+    margin-bottom: 6px;
+}
+#asteroid-tooltip p { 
+    margin: 0 0 6px 0; 
+}
+#asteroid-tooltip p:last-child {
+    margin: 0; 
+}
