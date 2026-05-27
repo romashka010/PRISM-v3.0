@@ -1,3 +1,13 @@
+window.onload = function() {
+    const overlay = document.getElementById('intro-transition-overlay');
+
+    if (overlay) {
+        setTimeout(() => {
+            overlay.classList.add('inactive');
+        }, 300);
+    }
+};
+
 function showSub(id) {
     const mainMenu = document.getElementById('main-menu');
     const targetSub = document.getElementById(id);
