@@ -59,6 +59,20 @@ sunGroup.add(sunGlow);
 sun.renderOrder = 1;
 sunGlow.renderOrder = 2;
 
+const sunHitbox = new THREE.Mesh(
+    new THREE.SphereGeometry(30, 16, 16),
+    new THREE.MeshBasicMaterial({ visible: false })
+);
+sunGroup.add(sunHitbox);
+
+const sunData = {
+    name: "Солнце",
+    dist: 0,
+    desc: "Центральная звезда нашей системы, желтый карлик. Её масса составляет 99,86% от суммарной массы всей Солнечной системы. Температура на поверхности достигает 5500 °C, а в ядре — около 15 миллионов градусов. Без энергии Солнца жизнь на Земле была бы невозможна.",
+    mesh: sunGroup,
+    size: 25
+};
+
 const flares = [];
 for (let i = 0; i < 2; i++) {
     const flareSprite = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -249,7 +263,7 @@ const configs = [
             dist: 12,
             speed: 0.015,
             texture: 'textures/moon.jpg' }],
-        desc: "Наш дом. Единственная известная планета во Вселенной с жидкой водой на поверхности и разнообразными биосферными экосистемами. Здесь есть кислородный воздух и мощный электромагнитный щит, защищающий живых организмов от солнечной радиации."
+        desc: "Наш дом. Единственная известная планета во Вселенной с жидкой водой на поверхности и разнообразными биосферными экосистемами. Её единственный естественный спутник — Луна, которая управляет океанскими приливами и стабилизирует климат Земли."
     },
     { name: "Марс",
         size: 2.8,
@@ -269,7 +283,7 @@ const configs = [
             dist: 8,
             speed: 0.012,
             texture: 'textures/deimos.jpg' }],
-        desc: "Красная планета. Характерный марсианский оттенок обусловлен высоким содержанием оксида железа (ржавчины) в пыли и почве. Здесь находится самый высокий потухший вулкан в Солнечной системе — Олимп, высота которого превышает 22 километра, что почти в три раза выше Эвереста. Атмосфера чрезвычайно разреженная, а температура падает до критических значений."
+        desc: "Красная планета. Характерный оттенок обусловлен высоким содержанием оксида железа (ржавчины). Здесь находится самый высокий потухший вулкан в Солнечной системе — Олимп. У Марса есть два небольших спутника — Фобос и Деймос, которые, скорее всего, являются захваченными гравитацией астероидами.\\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно."
     },
     { name: "Юпитер",
         size: 12,
@@ -284,7 +298,7 @@ const configs = [
             dist: 20,
             speed: 0.01,
             texture: 'textures/europa.jpg' }],
-        desc: "Крупнейший газовый гигант нашей системы, превосходящий по массе все остальные планеты вместе взятые. Знаменитое Большое Красное Пятно — это мегашторм-антициклон шириной больше Земли, бушующий как минимум 300 лет. Благодаря сильнейшей гравитации, Юпитер притягивает опасные кометы, защищая планеты земной группы."
+        desc: "Крупнейший газовый гигант нашей системы. Знаменитое Большое Красное Пятно — это мегашторм-антициклон, бушующий как минимум 300 лет. Окружен десятками спутников, среди которых выделяется ледяная Европа — под её толстым льдом скрывается глобальный океан, где теоретически возможна жизнь.\\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно."
     },
     { name: "Сатурн",
         size: 10,
@@ -322,7 +336,7 @@ const configs = [
             dist: 12,
             speed: 0.008,
             texture: 'textures/triton.jpg' }],
-        desc: "Удаленный темно-синий ледяной гигант, где бушуют самые яростные ураганы и ветры в Солнечной системе, скорость которых превосходит скорость звука (до 2000 км/ч). Из-за огромного расстояния солнечный свет добирается сюда более 4 часов."
+        desc: "Удаленный темно-синий ледяной гигант, где бушуют самые яростные ураганы и ветры в Солнечной системе, скорость которых превосходит скорость звука (до 2000 км/ч). Из-за огромного расстояния солнечный свет добирается сюда более 4 часов.Его крупнейший спутник Тритон уникален тем, что вращается в обратном направлении, а на его поверхности извергаются ледяные гейзеры (криовулканы). \\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно."
     }
 ];
 
@@ -465,7 +479,11 @@ window.addEventListener('mousemove', (e) => {
     mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
-    const planetHits = raycaster.intersectObjects(planets.map(p => p.hitbox));
+
+    const allHitboxes = planets.map(p => p.hitbox);
+    allHitboxes.push(sunHitbox);
+
+    const planetHits = raycaster.intersectObjects(allHitboxes);
     const beltHit = raycaster.intersectObject(asteroidHitbox);
 
     planets.forEach(p => { p.selectRing.material.opacity = 0; });
@@ -473,10 +491,16 @@ window.addEventListener('mousemove', (e) => {
     document.body.style.cursor = 'default';
 
     if (planetHits.length > 0) {
-        const p = planets.find(pl => pl.hitbox === planetHits[0].object);
-        if (p !== selectedPlanet) {
-            p.selectRing.material.opacity = 0.7;
+        const hitObj = planetHits[0].object;
+
+        if (hitObj === sunHitbox) {
             document.body.style.cursor = 'pointer';
+        } else {
+            const p = planets.find(pl => pl.hitbox === hitObj);
+            if (p && p !== selectedPlanet) {
+                p.selectRing.material.opacity = 0.7;
+                document.body.style.cursor = 'pointer';
+            }
         }
     } else if (beltHit.length > 0) {
         asteroidTooltip.style.display = 'block';
@@ -495,10 +519,22 @@ window.addEventListener('pointerup', (e) => {
     if (diffX > 6 || diffY > 6) return;
 
     raycaster.setFromCamera(mouse, camera);
-    const hits = raycaster.intersectObjects(planets.map(p => p.hitbox));
+
+    const allHitboxes = planets.map(p => p.hitbox);
+    allHitboxes.push(sunHitbox);
+
+    const hits = raycaster.intersectObjects(allHitboxes);
 
     if (hits.length > 0) {
-        const newSelected = planets.find(pl => pl.hitbox === hits[0].object);
+        const hitObj = hits[0].object;
+        let newSelected;
+
+        if (hitObj === sunHitbox) {
+            newSelected = sunData;
+        } else {
+            newSelected = planets.find(pl => pl.hitbox === hitObj);
+        }
+
         if (newSelected === selectedPlanet) return;
 
         selectedPlanet = newSelected;
