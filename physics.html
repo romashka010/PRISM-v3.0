@@ -12,12 +12,22 @@
     <script>
         window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script src="/_vercel/speed-insights/script.js"></script>
 
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <script src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
     <div id="intro-transition-overlay"></div>
+
+    <div id="mobile-warning-overlay" class="hidden">
+        <div class="warning-card">
+            <span class="warning-icon">🖥️</span>
+            <h2>ОПТИМИЗИРОВАНО ДЛЯ ПК</h2>
+            <p>Физические интерактивные лаборатории и симуляции требуют высокой точности управления и простора экрана.</p>
+            <p class="warning-hint">Пожалуйста, откройте этот раздел на компьютере или включите режим отображения «Версия для ПК» в браузере.</p>
+            <a href="index.html" class="warning-back-btn">← На главную</a>
+        </div>
+    </div>
 
     <div id="main-menu" class="container">
         <h1 style="letter-spacing: 5px; color: var(--accent); margin-bottom: 0;">ФИЗИЧЕСКИЕ МОДУЛИ</h1>
@@ -59,7 +69,7 @@
     <div id="sub-mechanics" class="container hidden">
         <h2 style="color: var(--mech);">МЕХАНИКА</h2>
         <div class="submenu" style="display: flex;">
-            <a href="ballistics.html" class="sub-option">
+            <a href="phys_mechanics.html" class="sub-option">
                 <b>Баллистика</b>
             </a>
             <a href="phys_gravity_fall.html" class="sub-option">
@@ -130,4 +140,3 @@
     <script src="js/achievements.js"></script>
     <script src="js/physics.js"></script>
 </body>
-</html>
