@@ -6,7 +6,23 @@ window.onload = function() {
             overlay.classList.add('inactive');
         }, 300);
     }
+
+    checkDevice();
 };
+
+function checkDevice() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
+    const warning = document.getElementById('mobile-warning-overlay');
+    if (warning) {
+        if (isMobile) {
+            warning.classList.remove('hidden');
+        } else {
+            warning.classList.add('hidden');
+        }
+    }
+}
+
+window.addEventListener('resize', checkDevice);
 
 function showSub(id) {
     const mainMenu = document.getElementById('main-menu');
