@@ -1,15 +1,3 @@
-function checkAndRedirectToDesktop() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-        || (window.innerWidth <= 768);
-
-    if (isMobile) {
-        if(!window.location.pathname.includes('kosmos_mobile.html')){
-            window.location.href = 'kosmos_mobile.html';
-        }
-    }
-}
-checkAndRedirectToDesktop();
-
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 15000);
 const renderer = new THREE.WebGLRenderer({ antialias: true });
