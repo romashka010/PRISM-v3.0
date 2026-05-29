@@ -31,17 +31,27 @@
     <script>
         window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script src="/_vercel/speed-insights/script.js"></script>
 
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <script src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body class="relative bg-black min-h-screen">
+    <div id="mobile-warning-overlay" class="hidden">
+        <div class="warning-card">
+            <span class="warning-icon">🖥️</span>
+            <h2>ОПТИМИЗИРОВАНО ДЛЯ ПК</h2>
+            <p>Пожалуйста, откройте этот раздел на компьютере или включите режим отображения «Версия для ПК» в браузере.</p>
+            <p class="warning-hint">Нажимая эту кнопку, вы продолжаете на свой страх и риск.</p>
+            <button onclick="closeWarning()" class="warning-back-btn">Продолжить все равно</button>
+        </div>
+    </div>
+
     <canvas id="bubble-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-10 opacity-35"></canvas>
 
     <div class="fixed inset-0 w-full h-full pointer-events-none z-20 opacity-[0.02] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
     <div id="glow-bg" class="ambient-glow"></div>
-    
+
     <div id="transition-screen" class="transition-overlay"></div>
 
     <div id="contact-modal" class="contact-modal-overlay">
@@ -209,7 +219,7 @@
                     <span>04 / Синтез</span>
                     <span>Новые Горизонты</span>
                 </div>
-                <div class="max-w-4xl mx-auto text-center space-y-8 my-auto px-6 flex flex-col items-center">
+                <div class="max-w-4xl mx-auto text-center space-y-6 my-auto px-6 flex flex-col items-center">
                     <div class="inline-block px-4 py-1.5 rounded-full border border-neutral-900 text-[10px] tracking-[0.3em] text-neutral-500 uppercase bg-neutral-950/40 premium-fade" data-speed="1.1">
                         Сотрудничество
                     </div>
@@ -227,6 +237,37 @@
                         <button onclick="openContactModal()" class="px-8 py-4 rounded-full border border-neutral-800 text-white text-xs font-bold tracking-[0.2em] uppercase hover:border-white transition-all duration-300 hover:scale-105 pointer-events-auto">
                             Связаться с Prism
                         </button>
+                    </div>
+
+                    <div class="flex gap-4 justify-center items-center pt-6 premium-fade pointer-events-auto">
+                        <a href="https://t.me/prismlab1" target="_blank" class="expandable-social-btn btn-tg">
+                            <span class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                                    <path d="M21 5L2 12.5L9 15L12 21L15.5 17.5L19 19L21 5Z" stroke-linejoin="round"/>
+                                    <path d="M9 15L14.5 10.5" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <span class="social-text">Ссылка на канал</span>
+                        </a>
+
+                        <a href="https://github.com/romashka010/PRISM-v3.0" target="_blank" class="expandable-social-btn btn-gh">
+                            <span class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                                    <path d="M9 19C4 20.5 4 16.5 2 16M16 22V18.13C16 17.03 15.57 16.11 14.87 15.5C17.67 15.19 20.62 14.12 20.62 9.28C20.62 7.9 20.13 6.77 19.32 5.89C19.45 5.57 19.88 4.19 19.2 2.34C19.2 2.34 18.14 2 15.74 3.63C14.73 3.35 13.67 3.21 12.62 3.21C11.57 3.21 10.51 3.35 9.5 3.63C7.1 2 6.04 2.34 6.04 2.34C5.36 4.19 5.79 5.57 5.92 5.89C5.11 6.77 4.62 7.9 4.62 9.28C4.62 14.11 7.56 15.19 10.36 15.52C9.79 16.03 9.3 16.94 9.3 18.33V22" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </span>
+                            <span class="social-text">Ссылка на github</span>
+                        </a>
+
+                        <a href="https://boosty.to/prismlab01" target="_blank" class="expandable-social-btn btn-boosty">
+                            <span class="social-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-5 h-5">
+                                    <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke-linecap="round"/>
+                                    <path d="M12 8V16M8 12H16" stroke-linecap="round"/>
+                                </svg>
+                            </span>
+                            <span class="social-text">Поддержать автора</span>
+                        </a>
                     </div>
                 </div>
                 <div class="w-full text-center opacity-30 text-[9px] tracking-widest uppercase premium-fade" data-speed="0.6">PRISM | 2026 • ИСКУССТВО ЧИСТОГО ПОЗНАНИЯ</div>
