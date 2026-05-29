@@ -230,6 +230,86 @@ body, html {
     display: none !important;
 }
 
+#mobile-warning-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 9, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.warning-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(168, 85, 247, 0.2);
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    animation: warningGlow 4s infinite ease-in-out;
+}
+
+.warning-icon {
+    font-size: 55px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.warning-card h2 {
+    color: var(--accent);
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+}
+
+.warning-card p {
+    color: #ccc;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.warning-card .warning-hint {
+    color: #666;
+    font-size: 0.8rem;
+    margin-bottom: 25px;
+}
+
+.warning-back-btn {
+    display: inline-block;
+    color: #999;
+    text-decoration: none;
+    font-size: 0.85rem;
+    border: 1px solid #333;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.warning-back-btn:hover {
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+}
+
+@keyframes warningGlow {
+    0%, 100% {
+        border-color: rgba(168, 85, 247, 0.2);
+        box-shadow: 0 0 40px rgba(168, 85, 247, 0.1);
+    }
+    50% {
+        border-color: rgba(0, 210, 255, 0.4);
+        box-shadow: 0 0 50px rgba(0, 210, 255, 0.2);
+    }
+}
+
 /*тел*/
 @media (max-width: 600px) {
     body, html {
