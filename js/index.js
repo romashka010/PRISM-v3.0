@@ -1,17 +1,3 @@
-function detectDeviceAndRedirect() {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-        || (window.innerWidth <= 768);
-
-    if (isMobile) {
-        if (!window.location.pathname.includes('index_mobile.html')) {
-            window.location.href = 'index_mobile.html';
-        }
-    }
-}
-
-detectDeviceAndRedirect();
-
-
 let currentY = 0;
 let targetY = 0;
 const totalSlides = 4;
