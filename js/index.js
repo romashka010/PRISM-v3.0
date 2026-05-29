@@ -205,10 +205,46 @@ function initBubbles() {
     animate();
 }
 
+function checkDevice() {
+    if (sessionStorage.getItem('prism_warning_dismissed') === 'true') {
+        const warning = document.getElementById('mobile-warning-overlay');
+        if (warning) warning.classList.add('hidden');
+        return;
+    }
+
+    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+    const isMobile = isMobileUA || (isTouchDevice && window.innerWidth < 800);
+
+    const warning = document.getElementById('mobile-warning-overlay');
+    if (warning) {
+        if (isMobile) {
+            warning.classList.remove('hidden');
+        } else {
+            warning.classList.add('hidden');
+        }
+    }
+}
+
+function closeWarning() {
+    const warning = document.getElementById('mobile-warning-overlay');
+    if (warning) {
+        warning.classList.add('hidden');
+        sessionStorage.setItem('prism_warning_dismissed', 'true');
+    }
+}
+
+window.addEventListener('resize', checkDevice);
+
 if (document.readyState === 'complete') {
     initBubbles();
+    checkDevice();
 } else {
-    window.addEventListener('load', initBubbles);
+    window.addEventListener('load', () => {
+        initBubbles();
+        checkDevice();
+    });
 }
 
 function triggerTransition(name, url, color) {
