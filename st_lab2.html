@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Лабораторная работа №2</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="css/st_lab2.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <div class="control-panel">
+            <h2>⚛️ ЛАБОРАТОРНАЯ РАБОТА №2</h2>
+            <p class="subtitle">Тема: Напряженность и потенциал поля</p>
+
+            <div class="info-box">
+                <b>Цель работы: Исследовать распределение электростатического потенциала $\varphi$ и напряженности поля $E$ точечного заряда в зависимости от расстояния.</b>
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ НАСТРОЙКИ СТЕНДА</h3>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-Q">Величина Q, нКл</label>
+                        <input type="number" id="num-Q" min="-40" max="40" step="1" value="15" class="num-input">
+                    </div>
+                    <input type="range" id="input-Q" min="-40" max="40" step="1" value="15">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-r">Расстояние (r), м</label>
+                        <input type="number" id="num-r" min="0.05" max="1.00" step="0.01" value="0.40" class="num-input">
+                    </div>
+                    <input type="range" id="input-r" min="0.05" max="1.00" step="0.01" value="0.40">
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📊 ДАТЧИК-ПРОБНИК</h3>
+                <p>Расстояние до заряда ($r$): <span id="stat-r" class="highlight">0.40</span> м</p>
+                <div class="latex-formula-row">
+                    <span id="math-field-formula"></span>
+                </div>
+                <div class="latex-formula-row">
+                    <span id="math-potential-formula"></span>
+                </div>
+            </div>
+
+            <div class="buttons-grid">
+                <button id="btn-add-record" class="btn primary">Записать в журнал</button>
+                <button id="btn-clear-table" class="btn secondary">Очистить журнал</button>
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace">
+            <div class="canvas-container" id="canvas-wrapper">
+                <canvas id="sim-canvas"></canvas>
+                <div class="canvas-overlay-text">Исследование электростатического поля</div>
+
+                <div class="ruler-hint">
+                    🌐 Слайдер «Расстояние (r)» слева или перетаскивание датчика (зеленый) мышкой
+                </div>
+            </div>
+
+            <div class="report-container">
+                <div class="report-left">
+                    <div class="report-header">
+                        <h3>📓 ЖУРНАЛ ИЗМЕРЕНИЙ ПОЛЯ</h3>
+                        <span class="table-tip">Снимите показания в 5-6 точках на разном расстоянии от заряда</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table id="measurements-table">
+                            <thead>
+                                <tr>
+                                    <th>№ опыта</th>
+                                    <th>Заряд $Q$, нКл</th>
+                                    <th>Дистанция $r$, м</th>
+                                    <th>Потенциал $\varphi$, В</th>
+                                    <th>Напряженность $E$, В/м</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="empty-row">
+                                    <td colspan="5">Журнал пуст. Переместите пробник и нажмите «Записать в журнал»</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="report-right">
+                    <div class="report-header">
+                        <h3>📈 ГРАФИКИ ЗАВИСИМОСТЕЙ</h3>
+                    </div>
+                    <div class="charts-wrapper">
+                        <canvas id="graph-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/st_lab2.js"></script>
+</body>
+</html>
