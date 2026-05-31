@@ -18,6 +18,18 @@
     <link rel="icon" type="png" href="textures/icon.png">
 
     <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || localStorage.getItem('darkMode');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || savedTheme === 'true' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+
+    <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
@@ -64,8 +76,8 @@
         <div class="absolute top-[40%] left-[60%] w-[30vw] h-[30vw] rounded-full bg-emerald-500/5 blur-[100px]"></div>
     </div>
 
-    <div class="absolute top-3 left-1/2 -translate-x-1/2 theme-card border border-white/5 bg-neutral-900/60 px-5 py-1.5 rounded-full z-40 text-center backdrop-blur-md">
-        <span class="text-[12px] font-mono tracking-[0.15em] uppercase text-gemini-textMuted font-bold">
+    <div class="absolute top-3 left-1/2 -translate-x-1/2 theme-card border border-neutral-200/50 dark:border-white/5 bg-white/80 dark:bg-neutral-900/60 px-5 py-1.5 rounded-full z-40 text-center backdrop-blur-md shadow-sm dark:shadow-none">
+        <span class="text-[12px] font-mono tracking-[0.15em] uppercase text-neutral-600 dark:text-neutral-400 font-bold">
             Сейчас есть около 45 тем. Но не переживайте, в будущем их будет больше.
         </span>
     </div>
@@ -114,7 +126,7 @@
                         </button>
                         <button id="modeScientific" class="flex-1 sm:flex-initial px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 text-gemini-textMuted hover:text-gemini-text">
                             <i data-lucide="book-open" class="w-4 h-4 text-gemini-blue"></i>
-                            Научный
+                            Научно
                         </button>
                     </div>
                 </div>
