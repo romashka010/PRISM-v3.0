@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электростатика: Песочница — Prism</title>
+    <link rel="stylesheet" href="css/sandbox_st.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <div class="control-panel">
+            <h2>⚛️ ИНСТРУМЕНТЫ</h2>
+
+            <div class="tools-grid">
+                <button id="tool-add-pos" class="tool-btn active" data-tool="add-pos">
+                    <span class="tool-icon" style="color: var(--accent-red)">+</span>
+                    Заряд (+)
+                </button>
+                <button id="tool-add-neg" class="tool-btn" data-tool="add-neg">
+                    <span class="tool-icon" style="color: var(--accent-cyan)">−</span>
+                    Заряд (−)
+                </button>
+                <button id="tool-add-plate-pos" class="tool-btn" data-tool="add-plate-pos">
+                    <span class="tool-icon" style="color: var(--accent-red)">▬+</span>
+                    Пластина (+)
+                </button>
+                <button id="tool-add-plate-neg" class="tool-btn" data-tool="add-plate-neg">
+                    <span class="tool-icon" style="color: var(--accent-cyan)">▬−</span>
+                    Пластина (−)
+                </button>
+                <button id="tool-move" class="tool-btn" data-tool="move">
+                    <span class="tool-icon">🖐️</span>
+                    Перемещение
+                </button>
+                <button id="tool-delete" class="tool-btn" data-tool="delete">
+                    <span class="tool-icon">❌</span>
+                    Удаление
+                </button>
+            </div>
+
+            <div id="charge-editor" class="stats-panel editor-panel hidden">
+                <h3>НАСТРОЙКА ЭЛЕМЕНТА</h3>
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label>Заряд (q), нКл</label>
+                        <input type="number" id="num-q" min="-50" max="50" step="1" value="1" class="num-input">
+                    </div>
+                    <input type="range" id="input-q" min="-50" max="50" step="1" value="1">
+                </div>
+            </div>
+
+            <h2 style="margin-top: 15px;">ОТОБРАЖЕНИЕ</h2>
+            <div class="toggles-list">
+                <label class="toggle-row">
+                    <span>Векторное поле (E)</span>
+                    <input type="checkbox" id="toggle-field" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="toggle-row">
+                    <span>Силы Кулона (F)</span>
+                    <input type="checkbox" id="toggle-forces" checked>
+                    <span class="checkmark"></span>
+                </label>
+                <label class="toggle-row">
+                    <span>Цветовое гало потенциала</span>
+                    <input type="checkbox" id="toggle-glow" checked>
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div class="buttons-grid">
+                <button id="btn-clear" class="btn secondary" style="grid-column: span 2;">Очистить пространство</button>
+            </div>
+
+            <div class="info-box" style="margin-top: auto;">
+                💡 <b>Напряженность (E)</b> показывает силу и направление действия поля на пробный положительный заряд.
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace">
+            <div class="canvas-container" id="canvas-wrapper">
+                <canvas id="sim-canvas"></canvas>
+                <div class="canvas-overlay-text" id="status-text">Песочница Электростатики</div>
+
+                <div class="legend">
+                    <div class="legend-item"><div class="color-box" style="background: var(--accent-red)"></div> Положительный (q > 0)</div>
+                    <div class="legend-item"><div class="color-box" style="background: var(--accent-cyan)"></div> Отрицательный (q &lt; 0)</div>
+                    <div class="legend-item"><div class="color-box" style="background: rgba(255,255,255,0.4)"></div> Векторы поля (E)</div>
+                    <div class="legend-item"><div class="color-box" style="background: var(--accent-orange)"></div> Силы (F)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/sandbox_st.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Лабораторная работа №1</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="css/st_lab1.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <div class="control-panel">
+            <h2>⚛️ ЛАБОРАТОРНАЯ РАБОТА №1</h2>
+            <p class="subtitle">Тема: Исследование закона Кулона</p>
+
+            <div class="info-box">
+                <b>Цель работы: Экспериментально проверить зависимость силы электростатического взаимодействия от величины зарядов и расстояния между ними.</b>
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ НАСТРОЙКА ИСТОЧНИКОВ</h3>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-q1">Заряд $q_1$, нКл</label>
+                        <input type="number" id="num-q1" min="-50" max="50" step="1" value="20" class="num-input">
+                    </div>
+                    <input type="range" id="input-q1" min="-50" max="50" step="1" value="20">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-q2">Заряд $q_2$, нКл</label>
+                        <input type="number" id="num-q2" min="-50" max="50" step="1" value="-20" class="num-input">
+                    </div>
+                    <input type="range" id="input-q2" min="-50" max="50" step="1" value="-20">
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📊 ТЕКУЩИЕ ПОКАЗАНИЯ</h3>
+                <p>Расстояние ($r$): <span id="stat-r" class="highlight">0.50</span> м</p>
+                <div class="latex-formula-row">
+                    <span id="math-force-formula"></span>
+                </div>
+            </div>
+
+            <div class="buttons-grid">
+                <button id="btn-add-record" class="btn primary">Записать в журнал</button>
+                <button id="btn-clear-table" class="btn secondary">Очистить журнал</button>
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace">
+            <div class="canvas-container" id="canvas-wrapper">
+                <canvas id="sim-canvas"></canvas>
+                <div class="canvas-overlay-text">Экспериментальная установка закона Кулона</div>
+
+                <div class="ruler-hint">
+                    📏 Перетаскивайте заряды вдоль оптической оси для изменения расстояния
+                </div>
+            </div>
+
+            <div class="report-container">
+                <div class="report-header">
+                    <h3>📓 ЖУРНАЛ ЭКСПЕРИМЕНТАЛЬНЫХ ИЗМЕРЕНИЙ</h3>
+                    <span class="table-tip">Для подтверждения закона $F \sim 1/r^2$ сделайте не менее 4-5 измерений на разном расстоянии</span>
+                </div>
+                <div class="table-wrapper">
+                    <table id="measurements-table">
+                        <thead>
+                            <tr>
+                                <th>№ опыта</th>
+                                <th>Заряд $q_1$, нКл</th>
+                                <th>Заряд $q_2$, нКл</th>
+                                <th>Расстояние $r$, м</th>
+                                <th>Величина $1/r^2$, м⁻²</th>
+                                <th>Сила $F_{\text{изм}}$, мкН</th>
+                                <th>Теор. сила $F_{\text{теор}}$, мкН</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="empty-row">
+                                <td colspan="7">Журнал пуст. Настройте параметры и нажмите «Записать в журнал»</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/st_lab1.js"></script>
+</body>
+</html>
