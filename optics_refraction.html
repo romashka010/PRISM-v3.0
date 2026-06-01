@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Преломление света</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+    <link rel="stylesheet" href="css/optics_refraction.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="control-panel">
+            <div>
+                <h2>🔍 ПРЕЛОМЛЕНИЕ</h2>
+                <p class="subtitle">Закон Снеллиуса и полное внутреннее отражение</p>
+            </div>
+
+            <div class="stats-panel legend-panel">
+                <h3>📖 ОБОЗНАЧЕНИЯ</h3>
+                <ul class="legend-list">
+                    <li><b style="color: var(--accent-cyan)">n₁</b> — Показатель преломления среды 1</li>
+                    <li><b style="color: var(--accent-blue)">n₂</b> — Показатель преломления среды 2</li>
+                    <li><b style="color: var(--accent-laser)">α</b> — Угол падения луча</li>
+                    <li><b style="color: var(--accent-green)">β</b> — Угол преломления луча</li>
+                    <li><b style="color: var(--accent-purple)">γ</b> — Угол отражения луча</li>
+                </ul>
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ НАСТРОЙКА СРЕД</h3>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="input-n1" style="color: var(--accent-cyan); font-weight: bold;">Среда 1 (Верхняя), n₁</label>
+                        <input type="number" id="num-n1" min="1.0" max="3.0" step="0.01" value="1.00" oninput="syncInputs('input-n1', this.value)">
+                    </div>
+                    <input type="range" id="input-n1" min="1.0" max="3.0" step="0.01" value="1.00" oninput="syncInputs('num-n1', this.value)">
+                    <div class="presets-row">
+                        <button class="preset-btn" onclick="syncInputs('input-n1', 1.00)">Воздух</button>
+                        <button class="preset-btn" onclick="syncInputs('input-n1', 1.33)">Вода</button>
+                        <button class="preset-btn" onclick="syncInputs('input-n1', 1.50)">Стекло</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="input-n2" style="color: var(--accent-blue); font-weight: bold;">Среда 2 (Нижняя), n₂</label>
+                        <input type="number" id="num-n2" min="1.0" max="3.0" step="0.01" value="1.50" oninput="syncInputs('input-n2', this.value)">
+                    </div>
+                    <input type="range" id="input-n2" min="1.0" max="3.0" step="0.01" value="1.50" oninput="syncInputs('num-n2', this.value)">
+                    <div class="presets-row">
+                        <button class="preset-btn" onclick="syncInputs('input-n2', 1.00)">Воздух</button>
+                        <button class="preset-btn" onclick="syncInputs('input-n2', 1.33)">Вода</button>
+                        <button class="preset-btn" onclick="syncInputs('input-n2', 1.50)">Стекло</button>
+                    </div>
+                </div>
+
+                <div class="control-group" style="margin-top: 15px;">
+                    <div class="control-label-row">
+                        <label for="input-alpha">Угол падения (α), °</label>
+                        <input type="number" id="num-alpha" min="0" max="89" step="1" value="45" oninput="syncInputs('input-alpha', this.value)">
+                    </div>
+                    <input type="range" id="input-alpha" min="0" max="89" step="1" value="45" oninput="syncInputs('num-alpha', this.value)">
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📊 ВЫЧИСЛЕНИЯ</h3>
+
+                <div class="latex-formula-row">
+                    <span id="math-snell-formula">Формула загружается...</span>
+                </div>
+
+                <p style="margin-top: 15px;">Состояние луча:</p>
+                <p id="stat-type" class="highlight" style="color: var(--accent-green); text-align: center; font-size: 1.1rem;"></p>
+
+                <div class="latex-formula-row" id="math-critical-container" style="display: none; margin-top: 10px; background: rgba(242, 139, 130, 0.1); border: 1px solid rgba(242, 139, 130, 0.3);">
+                    <span id="math-critical-formula"></span>
+                </div>
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace" id="workspace">
+            <canvas id="sim-canvas"></canvas>
+            <div class="canvas-overlay-text">ГРАНИЦА РАЗДЕЛА СРЕД</div>
+            <div class="ruler-hint" id="hint">
+                💡 <b>Зажмите лазер</b>, чтобы менять угол, <b>фон</b> — для панорамирования, <b>колесико</b> — масштаб.
+            </div>
+        </div>
+    </div>
+
+    <script src="js/optics_refraction.js"></script>
+</body>
+</html>
