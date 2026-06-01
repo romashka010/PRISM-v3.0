@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Тонкие линзы</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
+    <link rel="stylesheet" href="css/optics_lenses.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="control-panel">
+            <div>
+                <h2>🔍 ТОНКИЕ ЛИНЗЫ</h2>
+                <p class="subtitle">Интерактивный оптический стенд</p>
+            </div>
+
+            <div class="stats-panel legend-panel">
+                <h3>📖 ОБОЗНАЧЕНИЯ НА СХЕМЕ</h3>
+                <ul class="legend-list">
+                    <li><b style="color: var(--accent-blue)">F</b> — Фокусное расстояние линзы</li>
+                    <li><b style="color: var(--accent-orange)">d</b> — Расстояние от линзы до предмета</li>
+                    <li><b style="color: var(--accent-green)">f</b> — Расстояние от линзы до изображения</li>
+                    <li><b style="color: var(--accent-orange)">h</b> — Высота самого предмета</li>
+                    <li><b style="color: var(--accent-green)">H</b> — Высота полученного изображения</li>
+                    <li><b style="color: white">Γ</b> — Линейное увеличение (Во сколько раз изображение больше исходного объекта)</li>
+                </ul>
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ НАСТРОЙКА СИСТЕМЫ</h3>
+                <div class="control-group">
+                    <label class="control-label-row">Тип линзы</label>
+                    <div class="lens-type-grid">
+                        <button id="btn-lens-converge" class="lens-type-btn active" onclick="setLensType(1)">Собирающая</button>
+                        <button id="btn-lens-diverge" class="lens-type-btn" onclick="setLensType(-1)">Рассеивающая</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="input-F">Фокусное расстояние (F), см</label>
+                        <input type="number" id="num-F" min="10" max="40" step="1" value="20" oninput="syncInputs('input-F', this.value)">
+                    </div>
+                    <input type="range" id="input-F" min="10" max="40" step="1" value="20" oninput="syncInputs('num-F', this.value)">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="input-h">Высота предмета (h), см</label>
+                        <input type="number" id="num-h" min="5" max="30" step="1" value="15" oninput="syncInputs('input-h', this.value)">
+                    </div>
+                    <input type="range" id="input-h" min="5" max="30" step="1" value="15" oninput="syncInputs('num-h', this.value)">
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📊 ВЫЧИСЛЕНИЯ</h3>
+                <p>Положение предмета (d): <span id="stat-d" class="highlight" style="color: var(--accent-orange)">40.00 см</span></p>
+                <p>Положение изображения (f): <span id="stat-f" class="highlight" style="color: var(--accent-green)">40.00 см</span></p>
+
+                <div class="latex-formula-row">
+                    <span id="math-lens-formula">Формула загружается...</span>
+                </div>
+                <div class="latex-formula-row">
+                    <span id="math-magnification-formula">Формула загружается...</span>
+                </div>
+
+                <p style="margin-top: 10px;">Тип изображения:</p>
+                <p id="stat-type" class="highlight" style="color: var(--accent-green); text-align: right;"></p>
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace" id="workspace">
+            <canvas id="sim-canvas"></canvas>
+            <div class="ruler-hint" id="hint">
+                💡 Зажмите и перемещайте <b>оранжевую стрелку</b> (предмет)
+            </div>
+        </div>
+    </div>
+
+    <script src="js/optics_lenses.js"></script>
+</body>
+</html>
