@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Изопроцессы</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="css/thermo_iso.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <div class="control-panel">
+            <h2>🌡️ Изопроцессы</h2>
+            <p class="subtitle">Идеальный газ под поршнем</p>
+            <div class="stats-panel process-panel">
+                <h3>🔄 Выберите процесс</h3>
+                <div class="process-grid">
+                    <button id="btn-proc-isotherm" class="proc-btn active" data-process="isotherm">
+                        <b>Изотермический</b>
+                        <span>T = const</span>
+                    </button>
+                    <button id="btn-proc-isobar" class="proc-btn" data-process="isobar">
+                        <b>Изобарный</b>
+                        <span>P = const</span>
+                    </button>
+                    <button id="btn-proc-isochore" class="proc-btn" data-process="isochore">
+                        <b>Изохорный</b>
+                        <span>V = const</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ Параметры состояния</h3>
+                <div class="control-group" id="group-P">
+                    <div class="control-label-row">
+                        <label for="num-P">Давление (P), кПа</label>
+                        <span class="const-badge" id="badge-P" style="display: none;">CONST</span>
+                        <input type="number" id="num-P" min="10" max="2000" step="1" value="100" class="num-input">
+                    </div>
+                    <input type="range" id="input-P" min="10" max="2000" step="1" value="100">
+                </div>
+
+                <div class="control-group" id="group-V">
+                    <div class="control-label-row">
+                        <label for="num-V">Объём (V), л</label>
+                        <span class="const-badge" id="badge-V" style="display: none;">CONST</span>
+                        <input type="number" id="num-V" min="1" max="100" step="0.1" value="10" class="num-input">
+                    </div>
+                    <input type="range" id="input-V" min="1" max="100" step="0.1" value="10">
+                </div>
+
+                <div class="control-group" id="group-T">
+                    <div class="control-label-row">
+                        <label for="num-T">Температура (T), К</label>
+                        <span class="const-badge" id="badge-T">CONST</span>
+                        <input type="number" id="num-T" min="10" max="10000" step="10" value="300" class="num-input">
+                    </div>
+                    <input type="range" id="input-T" min="10" max="10000" step="10" value="300">
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📊 Закон процесса</h3>
+                <div class="latex-formula-row">
+                    <span id="math-law-title" class="law-title-text">Закон Бойля-Мариотта</span>
+                </div>
+                <div class="latex-formula-row formula-display">
+                    <span id="math-law-formula"></span>
+                </div>
+                <div class="latex-formula-row formula-display">
+                    <span class="law-title-text">Закон Менделеева - Клапейрона</span>
+                    <span id="math-state-formula"></span>
+                </div>
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace">
+            <div class="canvas-container" id="piston-wrapper">
+                <canvas id="piston-canvas"></canvas>
+                <div class="piston-stats">
+                    <span>Температура: <b id="val-t-indicator" style="color: var(--accent-orange)">300 K</b></span>
+                    <span>Удары/сек: <b id="val-collisions-indicator" style="color: var(--accent-cyan)">0</b></span>
+                </div>
+            </div>
+
+            <div class="charts-section" id="graph-wrapper">
+                <div class="chart-header">
+                    <h3>📈 Диаграмма состояния газа</h3>
+
+                    <div class="axes-selector">
+                        <button id="btn-axis-pv" class="axis-btn active">P-V</button>
+                        <button id="btn-axis-vt" class="axis-btn">V-T</button>
+                        <button id="btn-axis-pt" class="axis-btn">P-T</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="graph-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/thermo_iso.js"></script>
+</body>
+</html>
