@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Цикл Карно</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="css/thermo_carnot.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <div class="control-panel">
+            <h2>🔥 Цикл Карно</h2>
+            <p class="subtitle">Идеальный тепловой двигатель</p>
+
+            <div class="stats-panel process-panel">
+                <h3>🔄 Участок цикла</h3>
+                <div class="process-grid">
+                    <button id="btn-stage-1" class="proc-btn active" data-stage="1">
+                        <b>1-2: Изотерма H</b>
+                        <span>Расширение, T<sub>H</sub></span>
+                    </button>
+                    <button id="btn-stage-2" class="proc-btn" data-stage="2">
+                        <b>2-3: Адиабата</b>
+                        <span>Расширение, T<sub>H</sub> &rarr; T<sub>C</sub></span>
+                    </button>
+                    <button id="btn-stage-3" class="proc-btn" data-stage="3">
+                        <b>3-4: Изотерма C</b>
+                        <span>Сжатие, T<sub>C</sub></span>
+                    </button>
+                    <button id="btn-stage-4" class="proc-btn" data-stage="4">
+                        <b>4-1: Адиабата</b>
+                        <span>Сжатие, T<sub>C</sub> &rarr; T<sub>H</sub></span>
+                    </button>
+                     <button id="btn-stage-full" class="proc-btn" data-stage="full">
+                        <b>Полный цикл</b>
+                        <span>Анимация</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ Параметры состояния</h3>
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-TH">Темп. нагревателя (T<sub>H</sub>), К</label>
+                        <input type="number" id="num-TH" min="300" max="1000" step="10" value="800" class="num-input">
+                    </div>
+                    <input type="range" id="input-TH" min="300" max="1000" step="10" value="800">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-TC">Темп. холодильника (T<sub>C</sub>), К</label>
+                        <input type="number" id="num-TC" min="100" max="500" step="10" value="300" class="num-input">
+                    </div>
+                    <input type="range" id="input-TC" min="100" max="500" step="10" value="300">
+                </div>
+
+                 <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-Vmin">Мин. объём (V<sub>1</sub>), л</label>
+                        <input type="number" id="num-Vmin" min="1" max="20" step="0.1" value="5" class="num-input">
+                    </div>
+                    <input type="range" id="input-Vmin" min="1" max="20" step="0.1" value="5">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-V2">Объём в т.2 (V<sub>2</sub>), л</label>
+                        <input type="number" id="num-V2" min="2" max="40" step="0.1" value="10" class="num-input">
+                    </div>
+                    <input type="range" id="input-V2" min="2" max="40" step="0.1" value="10">
+                </div>
+            </div>
+
+             <div class="stats-panel efficiency-panel">
+                <h3>📊 Результаты</h3>
+                <div class="stat-row">
+                    <span>Макс. давление (P<sub>1</sub>):</span>
+                    <b id="val-pmax" style="color: var(--accent-cyan)">0 кПа</b>
+                </div>
+                 <div class="stat-row">
+                    <span>Мин. давление (P<sub>3</sub>):</span>
+                    <b id="val-pmin" style="color: var(--accent-cyan)">0 кПа</b>
+                </div>
+                <div class="stat-row highlight">
+                    <span>КПД Карно (&eta;):</span>
+                    <b id="val-eta" style="color: var(--accent-green)">0 %</b>
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📚 Формулы</h3>
+                <div class="latex-formula-row formula-display">
+                    <span id="math-eta-formula"></span>
+                </div>
+                <div class="latex-formula-row formula-display">
+                    <span id="math-work-formula"></span>
+                </div>
+            </div>
+
+            <a href="physics.html" class="back-link">← Назад в модули</a>
+        </div>
+
+        <div class="workspace">
+            <div class="canvas-container" id="piston-wrapper">
+                <canvas id="piston-canvas"></canvas>
+                <div class="piston-stats">
+                    <span>Температура: <b id="val-t-indicator" style="color: var(--accent-orange)">300 K</b></span>
+                    <span>Давление: <b id="val-p-indicator" style="color: var(--accent-cyan)">100 кПа</b></span>
+                    <span>Объём: <b id="val-v-indicator" style="color: var(--accent-green)">10.0 л</b></span>
+                </div>
+            </div>
+
+            <div class="charts-section" id="graph-wrapper">
+                <div class="chart-header">
+                    <h3>📈 P-V Диаграмма цикла</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="graph-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/thermo_carnot.js"></script>
+</body>
+</html>
