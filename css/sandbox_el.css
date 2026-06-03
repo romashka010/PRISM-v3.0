@@ -1,0 +1,381 @@
+:root {
+    --bg-dark: #050509;
+    --panel-bg: rgba(255, 255, 255, 0.03);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-main: #efefef;
+    --text-muted: #888;
+
+    --accent-cyan: #00d2ff;
+    --accent-blue: #8ab4f8;
+    --accent-green: #2ed573;
+    --accent-purple: #c58af9;
+    --accent-orange: #ff9f43;
+    --accent-red: #ff4757;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Левая боковая панель */
+.control-panel {
+    width: 380px;
+    background-color: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+}
+
+/* Красивый и стильный кастомный скроллбар для панели управления и прочих блоков */
+.control-panel::-webkit-scrollbar,
+.stats-panel::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.control-panel::-webkit-scrollbar-track,
+.stats-panel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 3px;
+}
+
+.control-panel::-webkit-scrollbar-thumb,
+.stats-panel::-webkit-scrollbar-thumb {
+    background: rgba(138, 180, 248, 0.2); /* Полупрозрачный синий в тон акцента */
+    border-radius: 3px;
+    transition: background 0.3s ease;
+}
+
+.control-panel::-webkit-scrollbar-thumb:hover,
+.stats-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(138, 180, 248, 0.5); /* Более яркий при наведении */
+}
+
+/* Стандартные стили для Firefox */
+.control-panel,
+.stats-panel {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(138, 180, 248, 0.2) rgba(255, 255, 255, 0.01);
+}
+
+.control-panel h2 {
+    color: var(--accent-blue);
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(138, 180, 248, 0.3);
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.stats-panel {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 14px 16px;
+    transition: all 0.3s ease;
+}
+
+.stats-panel.hidden {
+    display: none;
+}
+
+.stats-panel h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.tool-btn {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    color: #bbb;
+    border-radius: 6px;
+    padding: 10px 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-size: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.tool-icon {
+    font-size: 1.3rem;
+}
+
+.tool-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+}
+
+.tool-btn.active {
+    background: rgba(138, 180, 248, 0.15);
+    border-color: var(--accent-blue);
+    color: white;
+    box-shadow: 0 0 12px rgba(138, 180, 248, 0.25);
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+.control-group.hidden {
+    display: none;
+}
+
+.control-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+    color: #ccc;
+}
+
+input[type="number"] {
+    width: 70px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--accent-blue);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: right;
+    transition: all 0.2s ease;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background: rgba(138, 180, 248, 0.1);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent-blue);
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.math-panel {
+    border-left: 3px solid var(--accent-cyan);
+    background: rgba(0, 210, 255, 0.01);
+}
+
+.law-title-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+.latex-formula-row {
+    margin-top: 8px;
+    padding: 4px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.1rem;
+    color: #fff;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.editor-info-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    line-height: 1.4;
+    margin-top: 5px;
+}
+
+.buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.btn {
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+}
+
+.btn.secondary:hover {
+    background: rgba(255, 71, 87, 0.15);
+    border-color: var(--accent-red);
+    color: white;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-blue);
+    color: var(--text-main);
+    box-shadow: 0 0 15px rgba(138, 180, 248, 0.15);
+}
+
+.back-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover .back-arrow {
+    transform: translateX(-4px);
+    color: var(--accent-blue);
+}
+
+.workspace {
+    flex-grow: 1;
+    position: relative;
+    background: radial-gradient(circle at center, #080812 0%, #050509 100%);
+    height: 100vh;
+}
+
+.canvas-container {
+    height: 100%;
+    position: relative;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+}
+
+.canvas-overlay-text {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    color: rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    font-weight: bold;
+    pointer-events: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ruler-hint {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.65);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-blue);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+}
+
+.tooltip {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: opacity 0.2s ease;
+    z-index: 100;
+    white-space: nowrap;
+}
+
+.tooltip.hidden {
+    opacity: 0;
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column-reverse;
+        overflow-y: auto;
+        height: auto;
+    }
+    .control-panel {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-top: 1px solid var(--border-color);
+    }
+    .workspace {
+        height: 60vh;
+        width: 100%;
+    }
+}
