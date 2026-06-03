@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism — Закон Ома для полной цепи</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <link rel="stylesheet" href="css/ohm_full.css">
+    <link rel="icon" type="png" href="textures/icon.png">
+</head>
+<body>
+    <div class="app-container">
+        <div class="control-panel">
+            <h2>⚡ ЗАКОН ОМА</h2>
+            <p class="subtitle">Для полной (замкнутой) цепи</p>
+
+            <div class="info-box">
+                <b>Инструкция:</b> Меняйте сопротивление реостата (<span id="math-r-inline"></span>), ЭДС источника (<span id="math-e-inline"></span>) и его внутреннее сопротивление(<span id="math-rint-inline"></span>) с помощью ползунков. Замыкайте ключ на схеме кликом мыши.
+            </div>
+
+            <div class="stats-panel">
+                <h3>⚙️ Параметры цепи</h3>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-E">ЭДС источника (ε), В</label>
+                        <input type="number" id="num-E" min="1.5" max="30" step="0.5" value="12" class="num-input">
+                    </div>
+                    <input type="range" id="input-E" min="1.5" max="30" step="0.5" value="12">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-r">Внутр. сопротивление (r), Ом</label>
+                        <input type="number" id="num-r" min="0.1" max="10" step="0.1" value="1.5" class="num-input">
+                    </div>
+                    <input type="range" id="input-r" min="0.1" max="10" step="0.1" value="1.5">
+                </div>
+
+                <div class="control-group">
+                    <div class="control-label-row">
+                        <label for="num-R">Реостат (R), Ом</label>
+                        <input type="number" id="num-R" min="0.1" max="100" step="0.5" value="10" class="num-input">
+                    </div>
+                    <input type="range" id="input-R" min="0.1" max="100" step="0.5" value="10">
+                </div>
+            </div>
+
+            <div class="stats-panel math-panel">
+                <h3>📊 Вычисления и КПД</h3>
+                <p>Сила тока (<span id="math-i-stat"></span>): <span id="stat-I" class="highlight" style="color: var(--accent-green)">0.00 А</span></p>
+                <p>Напряжение на клеммах (<span id="math-u-stat"></span>): <span id="stat-U" class="highlight" style="color: var(--accent-cyan)">0.00 В</span></p>
+                <p>Полезная мощность (<span id="math-puse-stat"></span>): <span id="stat-P-use" class="highlight" style="color: var(--accent-orange)">0.00 Вт</span></p>
+                <p>Потери тепла на r (<span id="math-ploss-stat"></span>): <span id="stat-P-loss" class="highlight" style="color: var(--accent-red)">0.00 Вт</span></p>
+                <p>КПД источника (<span id="math-eta-stat"></span>): <span id="stat-eta" class="highlight" style="color: #fff">0.0 %</span></p>
+
+                <div class="latex-formula-row" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px; margin-top: 10px;">
+                    <span id="math-ohm-law"></span>
+                </div>
+                <div class="latex-formula-row">
+                    <span id="math-eta-law"></span>
+                </div>
+            </div>
+
+            <a href="physics.html" class="back-link">
+                <span class="back-arrow">←</span> Назад в модули
+            </a>
+        </div>
+
+        <div class="workspace">
+            <div class="canvas-container" id="circuit-wrapper">
+                <canvas id="circuit-canvas"></canvas>
+                <div class="canvas-overlay-text">Экспериментальный стенд: Цепь</div>
+
+                <div class="ruler-hint">
+                    💡 Кликните по <b>рычагу ключа (выключателя)</b> на схеме, чтобы замкнуть или разомкнуть цепь
+                </div>
+            </div>
+
+            <div class="charts-section" id="graph-wrapper">
+                <div class="chart-header">
+                    <h3>📈 Вольт-амперная характеристика источника: U(I) = ε − I · r</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="graph-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/ohm_full.js"></script>
+</body>
+</html>
