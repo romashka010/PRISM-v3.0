@@ -1,0 +1,349 @@
+:root {
+    --bg-dark: #050509;
+    --panel-bg: rgba(255, 255, 255, 0.03);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --text-main: #efefef;
+    --text-muted: #888;
+
+    --accent-cyan: #00d2ff;
+    --accent-blue: #8ab4f8;
+    --accent-green: #2ed573;
+    --accent-purple: #c58af9;
+    --accent-orange: #ff9f43;
+    --accent-red: #ff4757;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    user-select: none;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--bg-dark);
+    color: var(--text-main);
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Левая боковая панель */
+.control-panel {
+    width: 380px;
+    background-color: var(--panel-bg);
+    border-right: 1px solid var(--border-color);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    z-index: 10;
+    box-shadow: 5px 0 20px rgba(0,0,0,0.5);
+}
+
+/* Стилизация скроллбара */
+.control-panel::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.control-panel::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.control-panel::-webkit-scrollbar-thumb {
+    background: rgba(138, 180, 248, 0.2);
+    border-radius: 3px;
+}
+
+.control-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(138, 180, 248, 0.5);
+}
+
+.control-panel h2 {
+    color: var(--accent-purple);
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.stats-panel {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 8px;
+    padding: 14px 16px;
+}
+
+.stats-panel h3 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.control-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+    color: #ccc;
+}
+
+input[type="number"] {
+    width: 70px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--accent-cyan);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: right;
+    transition: all 0.2s ease;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    background: rgba(0, 210, 255, 0.1);
+}
+
+input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent-purple);
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+.math-panel {
+    border-left: 3px solid var(--accent-cyan);
+    background: rgba(0, 210, 255, 0.01);
+}
+
+.math-panel h3 {
+    color: var(--accent-cyan) !important;
+}
+
+.math-panel p {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.highlight {
+    font-weight: bold;
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+.latex-formula-row {
+    margin-top: 6px;
+    padding: 2px 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #fff;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.latex-formula-row::-webkit-scrollbar {
+    display: none;
+}
+
+.latex-formula-row .katex {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.law-title-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-cyan);
+}
+
+.info-box {
+    background: rgba(168, 85, 247, 0.05);
+    border-left: 3px solid var(--accent-purple);
+    padding: 10px 12px;
+    font-size: 0.72rem;
+    color: #bbb;
+    line-height: 1.4;
+    border-radius: 0 4px 4px 0;
+}
+
+.back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    margin-top: auto;
+}
+
+.back-link:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-purple);
+    color: var(--text-main);
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.15);
+}
+
+.back-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.back-link:hover .back-arrow {
+    transform: translateX(-4px);
+    color: var(--accent-purple);
+}
+
+/* Правое рабочее пространство */
+.workspace {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Холст схемы (65%) */
+.canvas-container {
+    height: 65%;
+    position: relative;
+    background: radial-gradient(circle at center, #080812 0%, #050509 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.canvas-overlay-text {
+    position: absolute;
+    top: 20px;
+    left: 25px;
+    color: rgba(255, 255, 255, 0.15);
+    font-size: 1.1rem;
+    font-weight: bold;
+    pointer-events: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ruler-hint {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.65);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--accent-purple);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    pointer-events: none;
+    backdrop-filter: blur(5px);
+}
+
+/* Секция графиков (35%) */
+.charts-section {
+    height: 35%;
+    min-height: 220px;
+    background: rgba(5, 5, 9, 0.95);
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 6px;
+}
+
+.chart-header h3 {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--accent-cyan);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.chart-wrapper {
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column-reverse;
+        overflow-y: auto;
+        height: auto;
+    }
+    .control-panel {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-top: 1px solid var(--border-color);
+    }
+    .workspace {
+        height: auto;
+        width: 100%;
+    }
+    .canvas-container {
+        height: 50vh;
+    }
+    .charts-section {
+        height: 40vh;
+    }
+}
