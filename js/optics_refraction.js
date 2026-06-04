@@ -1,3 +1,13 @@
+function tryUnlock(achKey) {
+    if (typeof window.unlockAchievement === 'function') {
+        window.unlockAchievement(achKey);
+    } else if (typeof parent !== 'undefined' && typeof parent.unlockAchievement === 'function') {
+        parent.unlockAchievement(achKey);
+    } else if (typeof unlockAchievement === 'function') {
+        unlockAchievement(achKey);
+    }
+}
+
 const COLOR_LASER = '#00e676';
 const COLOR_REFRACT = '#81c995';
 const COLOR_REFLECT = '#ba68c8';
@@ -47,12 +57,12 @@ window.addEventListener('resize', resizeCanvas);
 
 function updatePhysics() {
     let alphaRad = alphaDeg * (Math.PI / 180);
-
     let sinBeta = (n1 / n2) * Math.sin(alphaRad);
 
     if (Math.abs(sinBeta) >= 1) {
         isTIR = true;
         betaDeg = 0;
+        tryUnlock('TOTAL_REFLECTION');
     } else {
         isTIR = false;
         betaDeg = Math.asin(sinBeta) * (180 / Math.PI);
