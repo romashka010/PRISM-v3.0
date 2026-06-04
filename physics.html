@@ -30,7 +30,7 @@
     </div>
 
     <div id="main-menu" class="container">
-        <h1 style="letter-spacing: 5px; color: var(--accent); margin-bottom: 0;">ФИЗИЧЕСКИЕ МОДУЛИ</h1>
+        <h1 id="physics-main-title" style="letter-spacing: 5px; color: var(--accent); margin-bottom: 0; cursor: pointer; user-select: none;">ФИЗИЧЕСКИЕ МОДУЛИ</h1>
         <div class="tiles-grid">
 
             <div class="tile" onclick="showSub('sub-mechanics')">
@@ -46,7 +46,7 @@
             </div>
 
             <div class="tile" onclick="showSub('sub-circuits')">
-                <span class="icon">⚡</span>
+                <span class="icon" id="tesla-icon" style="cursor: pointer;">⚡</span>
                 <h3>Цепи и Ток</h3>
                 <p>Законы Ома и проектирование схем.</p>
             </div>
@@ -139,3 +139,4 @@
     <script src="js/achievements.js"></script>
     <script src="js/physics.js"></script>
 </body>
+</html>
