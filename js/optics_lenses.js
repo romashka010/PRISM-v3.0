@@ -1,3 +1,13 @@
+function tryUnlock(achKey) {
+    if (typeof window.unlockAchievement === 'function') {
+        window.unlockAchievement(achKey);
+    } else if (typeof parent !== 'undefined' && typeof parent.unlockAchievement === 'function') {
+        parent.unlockAchievement(achKey);
+    } else if (typeof unlockAchievement === 'function') {
+        unlockAchievement(achKey);
+    }
+}
+
 const COLOR_BLUE = '#8ab4f8';
 const COLOR_ORANGE = '#ffb74d';
 const COLOR_GREEN = '#81c995';
@@ -141,7 +151,7 @@ function draw() {
     drawLine(-canvas.width * 5, cy, canvas.width * 5, cy, '#555', 2);
 
     let lensHeight = Math.max(Math.abs(h_cm), Math.abs(H_cm)) * pixelsPerCm + 40;
-    lensHeight = Math.min(lensHeight, canvas.height / 2 - 20); // Ограничение высоты
+    lensHeight = Math.min(lensHeight, canvas.height / 2 - 20);
     drawLine(cx, cy - lensHeight, cx, cy + lensHeight, '#ccc', 3);
 
     let lY = cy - lensHeight;
@@ -224,7 +234,6 @@ function draw() {
     }
 
     drawDimension(objX, cx, -40, "d", COLOR_ORANGE);
-
     drawDimension(cx - F_px, cx, 40, "F", COLOR_BLUE);
 
     if (f_cm < 10000 && Math.abs(f_cm) > 1) {
@@ -241,7 +250,10 @@ let lastMouseY = 0;
 
 function syncInputs(targetId, value) {
     document.getElementById(targetId).value = value;
-    if (targetId.includes('F')) F_cm = parseFloat(value);
+    if (targetId.includes('F')) {
+        F_cm = parseFloat(value);
+        tryUnlock('LENS_FOCUS');
+    }
     if (targetId.includes('h')) h_cm = parseFloat(value);
 
     updatePhysics();
@@ -310,6 +322,8 @@ function drag(e) {
         d_cm = new_d;
         updatePhysics();
         draw();
+
+        tryUnlock('LENS_FOCUS');
     } else if (isPanning) {
         let dx = pos.x - lastMouseX;
         let dy = pos.y - lastMouseY;
