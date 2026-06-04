@@ -1,3 +1,13 @@
+function tryUnlock(achKey) {
+    if (typeof window.unlockAchievement === 'function') {
+        window.unlockAchievement(achKey);
+    } else if (typeof parent !== 'undefined' && typeof parent.unlockAchievement === 'function') {
+        parent.unlockAchievement(achKey);
+    } else if (typeof unlockAchievement === 'function') {
+        unlockAchievement(achKey);
+    }
+}
+
 const canvas = document.getElementById('sim-canvas');
 const ctx = canvas.getContext('2d');
 const wrapper = document.getElementById('canvas-wrapper');
@@ -182,16 +192,28 @@ function getInteractiveElementAt(x, y) {
     return null;
 }
 
+function checkGravityMasterAchievement() {
+    let hasPositive = charges.some(c => c.q > 0);
+    let hasNegative = charges.some(c => c.q < 0);
+    let hasPlate = plates.length > 0;
+
+    if (hasPositive && hasNegative && hasPlate) {
+        tryUnlock('GRAVITY_MASTER');
+    }
+}
+
 function handleDown(e) {
     const pos = getPointerPos(e);
     const interact = getInteractiveElementAt(pos.x, pos.y);
 
     if (currentTool === 'add-pos') {
         charges.push({ x: pos.x, y: pos.y, q: 10, id: chargeCounter++ });
+        checkGravityMasterAchievement();
         draw();
     }
     else if (currentTool === 'add-neg') {
         charges.push({ x: pos.x, y: pos.y, q: -10, id: chargeCounter++ });
+        checkGravityMasterAchievement();
         draw();
     }
     else if (currentTool === 'add-plate-pos' || currentTool === 'add-plate-neg') {
@@ -226,17 +248,14 @@ function handleDown(e) {
                 dragOffsetX = interact.element.x - pos.x;
                 dragOffsetY = interact.element.y - pos.y;
             } else if (interact.type === 'plate') {
-                // Перемещение пластины целиком
                 dragOffsetX = interact.element.x1 - pos.x;
                 dragOffsetY = interact.element.y1 - pos.y;
                 dragOffsetX2 = interact.element.x2 - pos.x;
                 dragOffsetY2 = interact.element.y2 - pos.y;
             } else if (interact.type === 'handle1') {
-                // Изменение левой/верхней координаты
                 dragOffsetX = interact.element.x1 - pos.x;
                 dragOffsetY = interact.element.y1 - pos.y;
             } else if (interact.type === 'handle2') {
-                // Изменение правой/нижней координаты
                 dragOffsetX = interact.element.x2 - pos.x;
                 dragOffsetY = interact.element.y2 - pos.y;
             }
@@ -288,7 +307,7 @@ function handleUp() {
     if (isDrawingPlate) {
         isDrawingPlate = false;
         let dist = Math.sqrt((plateEndX - plateStartX)**2 + (plateEndY - plateStartY)**2);
-        if (dist > 15) { // Игнорируем случайные короткие клики
+        if (dist > 15) {
             let chargeVal = (currentTool === 'add-plate-pos') ? 30 : -30;
             plates.push({
                 x1: plateStartX,
@@ -299,6 +318,7 @@ function handleUp() {
                 id: chargeCounter++,
                 type: 'plate'
             });
+            checkGravityMasterAchievement();
         }
         draw();
     }
@@ -593,7 +613,7 @@ function drawForces() {
                 for (let j = 0; j < N; j++) {
                     let oT = (j + 0.5) / N;
                     let oSx = other.x1 + oDx * oT;
-                    let oSy = other.y1 + oDy * oT;
+                    let oSy = other.y1 + oDx * oT;
 
                     let rDx = sx - oSx;
                     let rDy = sy - oSy;
