@@ -340,7 +340,7 @@ function handleFormSubmit(event) {
     submitBtn.style.color = '#ffffff';
 
     setTimeout(() => {
-        const recipientEmail = "prismlabsedu@gmail.com";
+        const recipientEmail = "prismlabedu@gmail.com";
         const emailSubject = `Prism | Запрос на обратную связь от ${name}`;
         const emailBody = `Приветствую, команда Prism!\n\nМеня зовут ${name}(${email})\n\nСообщение:\n\n${message}\n\n\nС уважением,\n${name}`;
 
