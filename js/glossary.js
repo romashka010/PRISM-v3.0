@@ -80,23 +80,14 @@ function transitionBack(e, url) {
 
 function handleThemeToggle() {
     isLightMode = !isLightMode;
-    localStorage.setItem('prism_theme', isLightMode ? 'light' : 'dark');
-    applyThemeUI();
-
-    if (typeof unlockAchievement === 'function') {
-        unlockAchievement('LET_THERE_BE_LIGHT');
-    }
-}
-
-function applyThemeUI() {
     if (isLightMode) {
         document.documentElement.classList.remove('dark');
         document.body.classList.add('light-theme');
-        if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+        themeIcon.setAttribute('data-lucide', 'sun');
     } else {
         document.documentElement.classList.add('dark');
         document.body.classList.remove('light-theme');
-        if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+        themeIcon.setAttribute('data-lucide', 'moon');
     }
     if (window.lucide) lucide.createIcons();
 }
@@ -216,14 +207,6 @@ function startNewQuizQuestion() {
                 quizStreak++;
                 localStorage.setItem('prism_quiz_score', quizScore);
                 localStorage.setItem('prism_quiz_streak', quizStreak);
-
-                // ТРЕКЕР: Очки и Серия в викторине (Достижения)
-                if (quizScore >= 5 && typeof unlockAchievement === 'function') {
-                    unlockAchievement('QUIZ_HERO');
-                }
-                if (quizStreak >= 5 && typeof unlockAchievement === 'function') {
-                    unlockAchievement('QUIZ_STREAKER');
-                }
             } else {
                 btn.classList.add('border-red-500', 'bg-red-500/10', 'text-red-500');
                 gameFeedbackBlock.className = "mt-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-3 text-red-500 bg-red-500/10";
@@ -309,16 +292,6 @@ function openDetails(termObj) {
     } else {
         modalDynamicBlock.classList.add('hidden');
     }
-
-    let viewedTerms = JSON.parse(localStorage.getItem('prism_viewed_terms') || '[]');
-    if (!viewedTerms.includes(termObj.term)) {
-        viewedTerms.push(termObj.term);
-        localStorage.setItem('prism_viewed_terms', JSON.stringify(viewedTerms));
-    }
-    if (viewedTerms.length >= 8 && typeof unlockAchievement === 'function') {
-        unlockAchievement('TERM_COLLECTOR');
-    }
-
     detailsModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
@@ -341,6 +314,25 @@ function renderCards() {
         const matchesLetter = currentLetter ? item.term[0].toUpperCase() === currentLetter : true;
         return matchesCategory && matchesSearch && matchesLetter;
     });
+
+    if (searchQuery !== "") {
+        const searchLower = searchQuery.toLowerCase();
+        filteredData.sort((a, b) => {
+            const aTerm = a.term.toLowerCase();
+            const bTerm = b.term.toLowerCase();
+
+            if (aTerm === searchLower && bTerm !== searchLower) return -1;
+            if (bTerm === searchLower && aTerm !== searchLower) return 1;
+
+            if (aTerm.startsWith(searchLower) && !bTerm.startsWith(searchLower)) return -1;
+            if (bTerm.startsWith(searchLower) && !aTerm.startsWith(searchLower)) return 1;
+
+            if (aTerm.includes(searchLower) && !bTerm.includes(searchLower)) return -1;
+            if (bTerm.includes(searchLower) && !aTerm.includes(searchLower)) return 1;
+
+            return aTerm.localeCompare(bTerm);
+        });
+    }
 
     if (!isFiltering) {
         filteredData = filteredData.filter(item => item.isPopular);
@@ -459,10 +451,6 @@ function bindEvents() {
 
 window.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
-
-    isLightMode = localStorage.getItem('prism_theme') === 'light';
-    applyThemeUI();
-
     bindEvents();
 
     setTimeout(() => {
