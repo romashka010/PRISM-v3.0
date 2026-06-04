@@ -1,3 +1,13 @@
+function tryUnlock(achKey) {
+    if (typeof window.unlockAchievement === 'function') {
+        window.unlockAchievement(achKey);
+    } else if (typeof parent !== 'undefined' && typeof parent.unlockAchievement === 'function') {
+        parent.unlockAchievement(achKey);
+    } else if (typeof unlockAchievement === 'function') {
+        unlockAchievement(achKey);
+    }
+}
+
 const canvas = document.getElementById('sim-canvas');
 const ctx = canvas.getContext('2d');
 const wrapper = document.getElementById('canvas-wrapper');
@@ -504,6 +514,7 @@ function solveCircuit() {
         if (c.type === 'fuse' && !c.burnt && Math.abs(i) > c.Imax) {
             c.burnt = true;
             fuseTriggered = true;
+            tryUnlock('FUSE_BURNT');
         }
     });
 
@@ -516,6 +527,7 @@ function solveCircuit() {
             mainBattery.damaged = true;
             shortCircuitState = true;
             shortCircuitTriggered = true;
+            tryUnlock('SHORT_CIRCUIT');
         }
     }
 
