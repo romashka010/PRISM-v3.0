@@ -1,3 +1,13 @@
+function tryUnlock(achKey) {
+    if (typeof window.unlockAchievement === 'function') {
+        window.unlockAchievement(achKey);
+    } else if (typeof parent !== 'undefined' && typeof parent.unlockAchievement === 'function') {
+        parent.unlockAchievement(achKey);
+    } else if (typeof unlockAchievement === 'function') {
+        unlockAchievement(achKey);
+    }
+}
+
 const canvas = document.getElementById('sim-canvas');
 const ctx = canvas.getContext('2d');
 const wrapper = document.getElementById('canvas-wrapper');
@@ -12,6 +22,7 @@ const colors = {
 };
 
 const inputs = {
+    h0: document.getElementById('input-h0'),
     v0: document.getElementById('input-v0'),
     angle: document.getElementById('input-angle'),
     g: document.getElementById('input-g'),
@@ -20,6 +31,7 @@ const inputs = {
 };
 
 const nums = {
+    h0: document.getElementById('num-h0'),
     v0: document.getElementById('num-v0'),
     angle: document.getElementById('num-angle'),
     g: document.getElementById('num-g'),
@@ -41,7 +53,7 @@ const btnStart = document.getElementById('btn-start');
 const btnReset = document.getElementById('btn-reset');
 const btnCamera = document.getElementById('btn-camera');
 
-let p = { v0: 20, angle: 45, g: 9.8, m: 5, k: 0 };
+let p = { h0: 0, v0: 20, angle: 45, g: 9.8, m: 5, k: 0 };
 
 let state = {
     isRunning: false,
@@ -51,7 +63,7 @@ let state = {
     trajectory: [],
     flags: [],
     cameraLocked: false,
-    apex: { x: 0, y: 0 }
+    apex: { x: 0, y: p.h0 }
 };
 
 let scale = 12;
@@ -151,7 +163,7 @@ function syncInput(key, value, source) {
         inputs[key].value = val;
     }
     if (source !== 'num') {
-        nums[key].value = val.toFixed(key === 'k' || key === 'g' || key === 'm' ? 1 : 0);
+        nums[key].value = val.toFixed(key === 'k' || key === 'g' || key === 'm' || key === 'h0' ? 1 : 0);
     }
 
     calculateTheoreticalPrediction();
@@ -200,15 +212,16 @@ function integrateStep(obj, dt) {
 function calculateTheoreticalPrediction() {
     const rad = p.angle * Math.PI / 180;
     let simObj = {
-        x: 0, y: 0,
+        x: 0,
+        y: p.h0,
         vx: p.v0 * Math.cos(rad),
         vy: p.v0 * Math.sin(rad)
     };
 
-    let maxH = 0;
+    let maxH = p.h0;
     const dt = 0.01;
 
-    for (let i = 0; i < 5000; i++) {
+    for (let i = 0; i < 6000; i++) {
         integrateStep(simObj, dt);
         if (simObj.y > maxH) {
             maxH = simObj.y;
@@ -225,8 +238,8 @@ function calculateTheoreticalPrediction() {
 function renderTheoreticalLaTeX(hMax, lMax) {
     if (typeof katex === 'undefined') return;
 
-    const hString = `H_{\\text{max}} = \\frac{v_0^2 \\sin^2\\alpha}{2g} \\approx ${hMax.toFixed(2)}\\text{ м}`;
-    const lString = `L_{\\text{max}} = \\frac{v_0^2 \\sin 2\\alpha}{g} \\approx ${lMax.toFixed(2)}\\text{ м}`;
+    const hString = `H_{\\text{max}} = h_0 + \\frac{v_0^2 \\sin^2\\alpha}{2g} \\approx ${hMax.toFixed(2)}\\text{ м}`;
+    const lString = `L_{\\text{max}} = \\frac{v_0 \\cos\\alpha}{g} \\left( v_0 \\sin\\alpha + \\sqrt{v_0^2 \\sin^2\\alpha + 2gh_0} \\right) \\approx ${lMax.toFixed(2)}\\text{ м}`;
 
     try {
         katex.render(hString, mathHFormula, { throwOnError: false });
@@ -239,9 +252,9 @@ function renderTheoreticalLaTeX(hMax, lMax) {
 btnStart.addEventListener('click', () => {
     state.time = 0;
     state.x = 0;
-    state.y = 0;
+    state.y = p.h0;
     state.trajectory = [];
-    state.apex = { x: 0, y: 0 };
+    state.apex = { x: 0, y: p.h0 };
 
     const rad = p.angle * Math.PI / 180;
     state.vx = p.v0 * Math.cos(rad);
@@ -249,6 +262,12 @@ btnStart.addEventListener('click', () => {
 
     state.isRunning = true;
     statusText.innerText = "В ПОЛЕТЕ";
+
+    tryUnlock('SNIPER');
+    if (Math.abs(p.angle - 45) < 0.1) {
+        tryUnlock('PERFECT_ANGLE');
+    }
+
     lastTime = performance.now();
     requestAnimationFrame(loop);
 });
@@ -257,10 +276,10 @@ btnReset.addEventListener('click', () => {
     state.isRunning = false;
     state.time = 0;
     state.x = 0;
-    state.y = 0;
+    state.y = p.h0;
     state.trajectory = [];
     state.flags = [];
-    state.apex = { x: 0, y: 0 };
+    state.apex = { x: 0, y: p.h0 };
     statusText.innerText = "ОЖИДАНИЕ ЗАПУСКА";
     updateStats();
     requestAnimationFrame(draw);
@@ -355,7 +374,8 @@ function draw() {
         ctx.beginPath();
         const rad = p.angle * Math.PI / 180;
         let simObj = {
-            x: 0, y: 0,
+            x: 0,
+            y: p.h0,
             vx: p.v0 * Math.cos(rad),
             vy: p.v0 * Math.sin(rad)
         };
@@ -377,7 +397,7 @@ function draw() {
 
     if (state.trajectory.length > 0) {
         ctx.beginPath();
-        ctx.moveTo(w2sX(0), w2sY(0));
+        ctx.moveTo(w2sX(0), w2sY(p.h0));
         state.trajectory.forEach(pt => {
             ctx.lineTo(w2sX(pt.x), w2sY(pt.y));
         });
@@ -387,7 +407,7 @@ function draw() {
         ctx.stroke();
     }
 
-    if (state.apex.y > 0) {
+    if (state.apex.y > p.h0 || (p.h0 > 0 && state.apex.y > 0)) {
         const ax = w2sX(state.apex.x);
         const ay = w2sY(state.apex.y);
         const groundY = w2sY(0);
@@ -411,8 +431,21 @@ function draw() {
         ctx.fillText(`H = ${state.apex.y.toFixed(2)}м (x: ${state.apex.x.toFixed(2)}м)`, ax + 8, ay - 4);
     }
 
-    const bx = w2sX(state.x);
-    const by = w2sY(state.y);
+    if (p.h0 > 0) {
+        ctx.beginPath();
+        ctx.moveTo(w2sX(0) - 15, w2sY(0));
+        ctx.lineTo(w2sX(0) - 15, w2sY(p.h0));
+        ctx.lineTo(w2sX(0), w2sY(p.h0));
+        ctx.lineTo(w2sX(0), w2sY(0));
+        ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+        ctx.fill();
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.2)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+
+    const bx = w2sX(state.isRunning ? state.x : 0);
+    const by = w2sY(state.isRunning ? state.y : p.h0);
 
     ctx.beginPath();
     ctx.arc(bx, by, 8, 0, Math.PI * 2);
@@ -423,7 +456,7 @@ function draw() {
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    if (state.isRunning || (!state.isRunning && state.y === 0 && state.time === 0)) {
+    if (state.isRunning || (!state.isRunning && state.time === 0)) {
         let currentVx = state.isRunning ? state.vx : p.v0 * Math.cos(p.angle * Math.PI / 180);
         let currentVy = state.isRunning ? state.vy : p.v0 * Math.sin(p.angle * Math.PI / 180);
         const vScale = scale * 0.2;
