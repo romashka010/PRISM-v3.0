@@ -8,7 +8,6 @@ let currentQuizTerm = null;
 let quizScore = parseInt(localStorage.getItem('prism_quiz_score')) || 0;
 let quizStreak = parseInt(localStorage.getItem('prism_quiz_streak')) || 0;
 
-// Определение элементов DOM
 let themeToggleBtn, themeIcon, grid, searchInput, filterContainer, alphabetContainer, noResults, gridTitle;
 let modeSimpleBtn, modeScientificBtn;
 let detailsModal, closeModalBtn, bottomCloseBtn;
@@ -81,14 +80,23 @@ function transitionBack(e, url) {
 
 function handleThemeToggle() {
     isLightMode = !isLightMode;
+    localStorage.setItem('prism_theme', isLightMode ? 'light' : 'dark');
+    applyThemeUI();
+
+    if (typeof unlockAchievement === 'function') {
+        unlockAchievement('LET_THERE_BE_LIGHT');
+    }
+}
+
+function applyThemeUI() {
     if (isLightMode) {
         document.documentElement.classList.remove('dark');
         document.body.classList.add('light-theme');
-        themeIcon.setAttribute('data-lucide', 'sun');
+        if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
     } else {
         document.documentElement.classList.add('dark');
         document.body.classList.remove('light-theme');
-        themeIcon.setAttribute('data-lucide', 'moon');
+        if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
     }
     if (window.lucide) lucide.createIcons();
 }
@@ -208,6 +216,14 @@ function startNewQuizQuestion() {
                 quizStreak++;
                 localStorage.setItem('prism_quiz_score', quizScore);
                 localStorage.setItem('prism_quiz_streak', quizStreak);
+
+                // ТРЕКЕР: Очки и Серия в викторине (Достижения)
+                if (quizScore >= 5 && typeof unlockAchievement === 'function') {
+                    unlockAchievement('QUIZ_HERO');
+                }
+                if (quizStreak >= 5 && typeof unlockAchievement === 'function') {
+                    unlockAchievement('QUIZ_STREAKER');
+                }
             } else {
                 btn.classList.add('border-red-500', 'bg-red-500/10', 'text-red-500');
                 gameFeedbackBlock.className = "mt-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-3 text-red-500 bg-red-500/10";
@@ -293,6 +309,16 @@ function openDetails(termObj) {
     } else {
         modalDynamicBlock.classList.add('hidden');
     }
+
+    let viewedTerms = JSON.parse(localStorage.getItem('prism_viewed_terms') || '[]');
+    if (!viewedTerms.includes(termObj.term)) {
+        viewedTerms.push(termObj.term);
+        localStorage.setItem('prism_viewed_terms', JSON.stringify(viewedTerms));
+    }
+    if (viewedTerms.length >= 8 && typeof unlockAchievement === 'function') {
+        unlockAchievement('TERM_COLLECTOR');
+    }
+
     detailsModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
@@ -431,9 +457,12 @@ function bindEvents() {
     });
 }
 
-// Запуск инициализации при полной готовности DOM
 window.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
+
+    isLightMode = localStorage.getItem('prism_theme') === 'light';
+    applyThemeUI();
+
     bindEvents();
 
     setTimeout(() => {
