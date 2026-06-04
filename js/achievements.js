@@ -1,23 +1,34 @@
 const ACHIEVEMENTS = {
-    //алхимия
-    ALCHEMY_MASTER: { id: 'alc_master', title: 'Великий Алхимик', desc: 'Открыть все элементы', icon: '🏆' },
-    FIRST_SYNTHESIS: { id: 'first_synth', title: 'Первая Искра', desc: 'Создать первый элемент', icon: '✨' },
-    EVOLUTION_PEAK: { id: 'evo_peak', title: 'Высшая степень эволюции', desc: 'Синтезировать человека', icon: '👤' },
-    ALMOST_HELL: { id: 'almost_hell', title: 'До ада осталось немного', desc: 'Попытаться смешать обсидиан с водой', icon: '🌋' },
+    ALCHEMY_MASTER: { id: 'alc_master', title: 'Великий Алхимик', desc: 'Открыть все элементы на складе алхимии', icon: '🏆' },
+    FIRST_SYNTHESIS: { id: 'first_synth', title: 'Первая Искра', desc: 'Создать свой самый первый химический элемент', icon: '✨' },
+    EVOLUTION_PEAK: { id: 'evo_peak', title: 'Высшая степень эволюции', desc: 'Синтезировать человека в реакторе слияния', icon: '👤' },
+    ALMOST_HELL: { id: 'almost_hell', title: 'До ада осталось немного', desc: 'Попытаться соединить обсидиан с водой в реакторе', icon: '🌋' },
 
-    //глоссарий
     GLOSSARY_SAGE: { id: 'glo_sage', title: 'Вечный Студент', desc: 'Провести суммарно 30 минут в глоссарии', icon: '📜' },
-    QUIZ_HERO: { id: 'quiz_hero', title: 'Интеллектуал', desc: 'Набрать 5 очков в интерактивной викторине', icon: '🧠' },
+    QUIZ_HERO: { id: 'quiz_hero', title: 'Интеллектуал', desc: 'Набрать 5 очков в интерактивной викторине глоссария', icon: '🧠' },
     QUIZ_STREAKER: { id: 'quiz_streaker', title: 'Эрудит в ударе', desc: 'Дать 5 правильных ответов подряд в викторине', icon: '🔥' },
-    TERM_COLLECTOR: { id: 'term_collector', title: 'Жажда знаний', desc: 'Изучить подробное описание 8 терминов в глоссарии', icon: '📚' },
+    TERM_COLLECTOR: { id: 'term_collector', title: 'Жажда знаний', desc: 'Изучить подробное описание 8 различных терминов', icon: '📚' },
 
-    //космос
-    FIND_NEPTUNE: { id: 'neptune', title: 'Это конец..?', desc: 'Исследовать Нептун', icon: '❄️' },
-    SUN_EXPLORER: { id: 'sun_explorer', title: 'Прикосновение к звезде', desc: 'Нажать на Солнце', icon: '☀️' },
+    FIND_NEPTUNE: { id: 'neptune', title: 'Это конец..?', desc: 'Запустить подробное сканирование ледяного гиганта Нептуна', icon: '❄️' },
+    SUN_EXPLORER: { id: 'sun_explorer', title: 'Прикосновение к звезде', desc: 'Нажать на Солнце и изучить его характеристики', icon: '☀️' },
 
-    //глобальные
     EXPLORER: { id: 'explorer', title: 'Первооткрыватель', desc: 'Посетить все 4 научных сектора Prism', icon: '🧭' },
-    LET_THERE_BE_LIGHT: { id: 'light', title: 'Да будет свет', desc: 'Сменить тему интерфейса', icon: '🌓' }
+    LET_THERE_BE_LIGHT: { id: 'light', title: 'Да будет свет', desc: 'Сменить тему интерфейса со светлой на тёмную', icon: '🌓' },
+
+    PHYS_WELCOME: { id: 'phys_welcome', title: 'Теория и практика', desc: 'Впервые зайти в раздел физических симуляций', icon: '🍎' },
+    PHYS_EXPERIMENTER: { id: 'phys_experimenter', title: 'Заслуженный Экспериментатор', desc: 'Изучить все 5 физических направлений', icon: '🧪' },
+    DESKTOP_CHAD: { id: 'desktop_chad', title: 'ПК Боярин', desc: 'Запустить физику на полноценном мониторе без мобильных предупреждений', icon: '🖥️' },
+    EINSTEIN_BRAIN: { id: 'einstein_brain', title: 'Теория Относительности', desc: 'Секрет: Постучать по вывеске физических модулей', icon: '🧠' },
+    TESLA_DISCIPLE: { id: 'tesla_disciple', title: 'Искры Теслы', desc: 'Секрет: Пощелкать по иконке молнии электрических цепей', icon: '🔌' },
+    PERPETUUM_MOBILE: { id: 'perpetuum_mobile', title: 'Вечный Двигатель', desc: 'Провести на странице физики более 5 минут', icon: '⏳' },
+
+    SHORT_CIRCUIT: { id: 'short_circuit', title: 'Короткое замыкание', desc: 'Перегрузить и заблокировать источник питания высоким током', icon: '💥' },
+    FUSE_BURNT: { id: 'fuse_burnt', title: 'Огнеупорный', desc: 'Сжечь плавкий предохранитель высоким током в цепи', icon: '🛡️' },
+    SNIPER: { id: 'sniper', title: 'Снайпер', desc: 'Запустить снаряд в баллистическом симуляторе', icon: '🎯' },
+    PERFECT_ANGLE: { id: 'perfect_angle', title: 'Идеальный угол', desc: 'Выстрелить под углом 45° для достижения максимальной дальности', icon: '📐' },
+    GRAVITY_MASTER: { id: 'gravity_master', title: 'Повелитель притяжения', desc: 'Добавить на электростатический стенд разноименные заряды и пластины', icon: '🌌' },
+    TOTAL_REFLECTION: { id: 'total_reflection', title: 'Мираж', desc: 'Добиться полного внутреннего отражения на границе двух сред', icon: '🌈' },
+    LENS_FOCUS: { id: 'lens_focus', title: 'Фокусировка', desc: 'Изменить фокусное расстояние или положение предмета у линзы', icon: '🔎' }
 };
 
 function isUnlocked(achId) {
@@ -106,8 +117,8 @@ function renderAchievementsModal() {
         item.innerHTML = `
             <div class="ach-item-icon">${unlocked ? ach.icon : '🔒'}</div>
             <div class="ach-item-info">
-                <div class="ach-item-title">${ach.title}</div>
-                <div class="ach-item-desc">${unlocked ? ach.desc : 'Скрытое достижение (или еще не получено)'}</div>
+                <div class="ach-item-title">${unlocked ? ach.title : 'Скрытое достижение'}</div>
+                <div class="ach-item-desc">${unlocked ? ach.desc : 'Условия получения скрыты'}</div>
             </div>
         `;
         container.appendChild(item);
@@ -139,6 +150,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
+    // Слушатель глобального изменения тем
     document.addEventListener('click', (e) => {
         if (e.target.closest('#themeToggleBtn') || e.target.closest('.theme-switcher')) {
             unlockAchievement('LET_THERE_BE_LIGHT');
