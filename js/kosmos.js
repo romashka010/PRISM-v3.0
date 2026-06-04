@@ -531,6 +531,10 @@ window.addEventListener('pointerup', (e) => {
 
         if (hitObj === sunHitbox) {
             newSelected = sunData;
+
+            if (typeof unlockAchievement === 'function') {
+                unlockAchievement('SUN_EXPLORER');
+            }
         } else {
             newSelected = planets.find(pl => pl.hitbox === hitObj);
         }
