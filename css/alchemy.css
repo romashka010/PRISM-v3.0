@@ -93,7 +93,6 @@ body {
     transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/*тел*/
 @media (max-width: 1024px) {
     body {
         overflow-y: auto !important;
@@ -122,7 +121,7 @@ body {
 }
 
 @media (max-width: 640px) {
-    .flex.gap-2.p-15theme-inner {
+    .flex.gap-2.p-1\.5.theme-inner {
         display: flex !important;
         overflow-x: auto !important;
         white-space: nowrap !important;
@@ -130,7 +129,7 @@ body {
         scrollbar-width: none;
     }
 
-    .flex.gap-2.p-15theme-inner::-webkit-scrollbar {
+    .flex.gap-2.p-1\.5.theme-inner::-webkit-scrollbar {
         display: none;
     }
 
