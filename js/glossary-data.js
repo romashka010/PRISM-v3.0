@@ -1488,9 +1488,9 @@ const glossaryData = [
         category: "Физика",
         categoryEn: "Physics",
         isPopular: true,
-        formula: "\\(\\nu \\) = \\frac{1}{T}",
+        formula: "\\nu = \\frac{1}{T}",
         variables: [
-            { symbol: "\\(\\nu \\)", name: "Герц (Гц)", nameEn: "Hertz (Hz)", desc: "Количество повторений в секунду.", descEn: "The number of cycles per second." }
+            { symbol: "\\nu", name: "Герц (Гц)", nameEn: "Hertz (Hz)", desc: "Количество повторений в секунду.", descEn: "The number of cycles per second." }
         ],
         definitionScientific: "Физическая величина, характеристика периодического процесса, равная количеству полных циклов (колебаний), совершённых за единицу времени.",
         definitionScientificEn: "A physical quantity representing the number of occurrences of a repeating event per unit of time.",
