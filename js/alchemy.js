@@ -1,5 +1,5 @@
 let savedProgress = localStorage.getItem('prismAlchemyProgress');
-let inventory = savedProgress ? JSON.parse(savedProgress) : ['water', 'fire', 'earth', 'air', 'time'];
+let inventory = savedProgress ? JSON.parse(savedProgress) : ['water', 'fire', 'earth', 'air', 'time', 'void'];
 
 let slot1 = null;
 let slot2 = null;
@@ -32,12 +32,12 @@ function initializeDOMElements() {
 function applyTheme() {
     if (isLightMode) {
         document.body.classList.add('light-theme');
-        sunPath.classList.remove('hidden');
-        moonPath.classList.add('hidden');
+        if (sunPath) sunPath.classList.remove('hidden');
+        if (moonPath) moonPath.classList.add('hidden');
     } else {
         document.body.classList.remove('light-theme');
-        sunPath.classList.add('hidden');
-        moonPath.classList.remove('hidden');
+        if (sunPath) sunPath.classList.add('hidden');
+        if (moonPath) moonPath.classList.remove('hidden');
     }
 }
 
@@ -49,6 +49,7 @@ function handleThemeToggle() {
 }
 
 function renderInventory() {
+    if (!inventoryElement) return;
     inventoryElement.innerHTML = '';
     totalItemsElement.innerText = Object.keys(db).length;
     counterElement.innerText = inventory.length;
@@ -62,7 +63,13 @@ function renderInventory() {
         return true;
     });
 
-    filtered.sort((a, b) => db[a].name.localeCompare(db[b].name));
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+
+    filtered.sort((a, b) => {
+        const nameA = activeLang === 'ru' ? db[a].name : (db[a].nameEn || db[a].name);
+        const nameB = activeLang === 'ru' ? db[b].name : (db[b].nameEn || db[b].name);
+        return nameA.localeCompare(nameB);
+    });
 
     filtered.forEach(id => {
         const element = db[id];
@@ -71,10 +78,13 @@ function renderInventory() {
         card.onclick = () => selectElement(id);
         card.addEventListener('mouseenter', () => inspectElement(id));
 
+        const elName = activeLang === 'ru' ? element.name : (element.nameEn || element.name);
+        const tierText = 'T';
+
         card.innerHTML = `
             <span class="text-4xl mb-2 transition-transform duration-300 group-hover:scale-110">${element.icon}</span>
-            <span class="text-xs font-mono tracking-widest uppercase theme-text group-hover:text-emerald-500 transition-colors font-bold">${element.name}</span>
-            <span class="absolute top-2.5 right-4 text-[10px] font-mono theme-text-muted group-hover:text-emerald-500/50 font-bold">T${element.tier}</span>
+            <span class="text-xs font-mono tracking-widest uppercase theme-text group-hover:text-emerald-500 transition-colors font-bold">${elName}</span>
+            <span class="absolute top-2.5 right-4 text-[10px] font-mono theme-text-muted group-hover:text-emerald-500/50 font-bold">${tierText}${element.tier}</span>
         `;
         inventoryElement.appendChild(card);
     });
@@ -98,38 +108,51 @@ function selectElement(id) {
 function inspectElement(id) {
     if (!db[id]) return;
     const element = db[id];
+
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const elName = activeLang === 'ru' ? element.name : (element.nameEn || element.name);
+    const elDesc = activeLang === 'ru' ? element.desc : (element.descEn || element.desc);
+    const tierText = activeLang === 'ru' ? 'Уровень' : 'Tier';
+
     infoIcon.innerText = element.icon;
-    infoName.innerText = `${element.name} (Уровень ${element.tier})`;
-    infoDesc.innerText = element.desc;
+    infoName.innerText = `${elName} (${tierText} ${element.tier})`;
+    infoDesc.innerText = elDesc;
 }
 
 function updateSlots() {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const s1Title = 'SLOT_1';
+    const s2Title = 'SLOT_2';
+    const emptyTxt = 'EMPTY';
+
     if (slot1) {
+        const elName = activeLang === 'ru' ? db[slot1].name : (db[slot1].nameEn || db[slot1].name);
         slot1Element.innerHTML = `
             <div class="reactor-ring absolute inset-0 rounded-full border-emerald-500/50"></div>
             <span class="text-5xl z-10 drop-shadow-[0_0_12px_rgba(16,185,129,0.4)]">${db[slot1].icon}</span>
-            <span class="absolute bottom-2 text-xs font-mono uppercase theme-bg px-3 py-1 rounded text-emerald-300 z-10 border theme-border font-bold">${db[slot1].name}</span>
+            <span class="absolute bottom-2 text-xs font-mono uppercase theme-bg px-3 py-1 rounded text-emerald-300 z-10 border theme-border font-bold">${elName}</span>
         `;
         slot1Element.classList.remove('slot-float');
     } else {
         slot1Element.innerHTML = `
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-widest theme-text-muted group-hover:text-emerald-400 transition-colors uppercase font-bold">SLOT_1</div>
-            <div class="text-xs font-mono tracking-widest theme-text-muted group-hover:text-white transition-colors">EMPTY</div>
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-widest theme-text-muted group-hover:text-emerald-400 transition-colors uppercase font-bold">${s1Title}</div>
+            <div class="text-xs font-mono tracking-widest theme-text-muted group-hover:text-emerald-500 transition-colors">${emptyTxt}</div>
         `;
         slot1Element.classList.add('slot-float');
     }
 
     if (slot2) {
+        const elName = activeLang === 'ru' ? db[slot2].name : (db[slot2].nameEn || db[slot2].name);
         slot2Element.innerHTML = `
             <div class="reactor-ring absolute inset-0 rounded-full border-emerald-500/50"></div>
             <span class="text-5xl z-10 drop-shadow-[0_0_12px_rgba(16,185,129,0.4)]">${db[slot2].icon}</span>
-            <span class="absolute bottom-2 text-xs font-mono uppercase theme-bg px-3 py-1 rounded text-emerald-300 z-10 border theme-border font-bold">${db[slot2].name}</span>
+            <span class="absolute bottom-2 text-xs font-mono uppercase theme-bg px-3 py-1 rounded text-emerald-300 z-10 border theme-border font-bold">${elName}</span>
         `;
         slot2Element.classList.remove('slot-float');
     } else {
         slot2Element.innerHTML = `
-            <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-widest theme-text-muted group-hover:text-emerald-400 transition-colors uppercase font-bold">SLOT_2</div>
-            <div class="text-xs font-mono tracking-widest theme-text-muted group-hover:text-white transition-colors">EMPTY</div>
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-mono tracking-widest theme-text-muted group-hover:text-emerald-400 transition-colors uppercase font-bold">${s2Title}</div>
+            <div class="text-xs font-mono tracking-widest theme-text-muted group-hover:text-emerald-500 transition-colors">${emptyTxt}</div>
         `;
         slot2Element.classList.add('slot-float');
     }
@@ -137,12 +160,15 @@ function updateSlots() {
     if (!isSynthesizing && !reactionMessage.hasAttribute('data-locked')) {
         reactionPanel.className = "w-full h-16 rounded-full theme-slot border flex items-center justify-center px-6 transition-all duration-300 shadow-inner";
 
+        const msgReady = activeLang === 'ru' ? 'Система готова. Загрузите элементы.' : 'System ready. Load elements.';
+        const msgWait = activeLang === 'ru' ? 'Ожидание второго элемента...' : 'Waiting for second element...';
+
         if (slot1 && slot2) {
             synthesize();
         } else if (slot1 || slot2) {
-            reactionMessage.innerHTML = '<span class="theme-text font-bold opacity-80">Ожидание второго элемента...</span>';
+            reactionMessage.innerHTML = `<span class="theme-text font-bold opacity-80">${msgWait}</span>`;
         } else {
-            reactionMessage.innerHTML = '<span class="theme-text-muted font-bold">Система готова. Загрузите элементы.</span>';
+            reactionMessage.innerHTML = `<span class="theme-text-muted font-bold">${msgReady}</span>`;
         }
     }
 }
@@ -165,9 +191,11 @@ function clearReactor() {
 function synthesize() {
     if (!slot1 || !slot2) return;
     isSynthesizing = true;
-    unlockAchievement('FIRST_SYNTHESIS');
 
-    if (inventory.length === Object.keys(db).length) {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+
+    if (typeof unlockAchievement !== 'undefined') unlockAchievement('FIRST_SYNTHESIS');
+    if (inventory.length === Object.keys(db).length && typeof unlockAchievement !== 'undefined') {
         unlockAchievement('ALCHEMY_MASTER');
     }
 
@@ -175,14 +203,21 @@ function synthesize() {
     const combination2 = `${slot2}+${slot1}`;
     const resultId = recipes[combination1] || recipes[combination2];
 
+    const msgInit = activeLang === 'ru' ? 'Инициализация синтеза...' : 'Initializing synthesis...';
+
     reactionMessage.setAttribute('data-locked', 'true');
     reactionPanel.className = "w-full h-16 rounded-full bg-emerald-950/20 border-2 border-emerald-500/50 flex items-center justify-center px-6 transition-all duration-300 shadow-[0_0_25px_rgba(16,185,129,0.2)]";
-    reactionMessage.innerHTML = '<span class="text-emerald-400 animate-pulse tracking-[0.3em] font-bold">Инициализация синтеза...</span>';
+    reactionMessage.innerHTML = `<span class="text-emerald-400 animate-pulse tracking-[0.3em] font-bold">${msgInit}</span>`;
 
     slot1Element.classList.add('animate-pulse');
     slot2Element.classList.add('animate-pulse');
 
+    if ((combination1 === 'obsidian+water' || combination2 === 'obsidian+water') && typeof unlockAchievement !== 'undefined') {
+        unlockAchievement('ALMOST_HELL');
+    }
+
     setTimeout(() => {
+        if (!slot1Element || !slot2Element) return;
         slot1Element.classList.remove('animate-pulse');
         slot2Element.classList.remove('animate-pulse');
 
@@ -192,20 +227,32 @@ function synthesize() {
             if (!inventory.includes(resultId)) {
                 inventory.push(resultId);
                 localStorage.setItem('prismAlchemyProgress', JSON.stringify(inventory));
+
+                const discName = activeLang === 'ru' ? newElement.name : (newElement.nameEn || newElement.name);
+                const toastMsg = activeLang === 'ru' ? `Открыт новый элемент: ${discName}` : `New element discovered: ${discName}`;
                 if (typeof showToast === 'function') {
-                    showToast(newElement.icon, `Открыт новый элемент: ${newElement.name}`);
+                    showToast(newElement.icon, toastMsg);
+                }
+
+                if (resultId === 'human' && typeof unlockAchievement !== 'undefined') {
+                    unlockAchievement('EVOLUTION_PEAK');
                 }
             }
 
             inspectElement(resultId);
+
+            const msgSucc = activeLang === 'ru' ? 'Синтез успешен:' : 'Synthesis successful:';
+            const elName = activeLang === 'ru' ? newElement.name : (newElement.nameEn || newElement.name);
+
             reactionPanel.className = "w-full h-16 rounded-full bg-emerald-500/15 border-2 border-emerald-500 flex items-center justify-center px-6 transition-all duration-300 shadow-[0_0_35px_rgba(16,185,129,0.4)]";
-            reactionMessage.innerHTML = `<span class="theme-text font-bold">Синтез успешен: <span class="text-emerald-400 font-extrabold text-sm">${newElement.name}</span></span>`;
+            reactionMessage.innerHTML = `<span class="theme-text font-bold">${msgSucc} <span class="text-emerald-400 font-extrabold text-sm">${elName}</span></span>`;
 
             slot1 = resultId;
             slot2 = null;
         } else {
+            const msgErr = activeLang === 'ru' ? 'Ошибка: Элементы несовместимы' : 'Error: Elements incompatible';
             reactionPanel.className = "w-full h-16 rounded-full bg-rose-950/20 border-2 border-rose-500/60 flex items-center justify-center px-6 transition-all duration-300 shadow-[0_0_25px_rgba(244,63,94,0.2)]";
-            reactionMessage.innerHTML = '<span class="text-rose-400 font-bold text-xs">Ошибка: Элементы несовместимы</span>';
+            reactionMessage.innerHTML = `<span class="text-rose-400 font-bold text-xs">${msgErr}</span>`;
             slot1 = null;
             slot2 = null;
         }
@@ -215,7 +262,7 @@ function synthesize() {
         renderInventory();
 
         setTimeout(() => {
-            if (!isSynthesizing) {
+            if (!isSynthesizing && reactionMessage) {
                 reactionMessage.removeAttribute('data-locked');
                 updateSlots();
             }
@@ -271,6 +318,22 @@ function exitToMain(event) {
         window.location.href = "index.html";
     }, 800);
 }
+
+window.onLanguageChanged = function(lang) {
+    updateFilterButtonsUI();
+    renderInventory();
+    updateSlots();
+
+    if (!slot1 && !slot2) {
+        infoIcon.innerText = '🧬';
+        infoName.innerText = lang === 'ru' ? 'Панель мониторинга' : 'Monitoring Panel';
+        infoDesc.innerText = lang === 'ru'
+            ? 'Выберите элемент из хранилища для анализа его молекулярного строения.'
+            : 'Select an element from the storage to analyze its molecular structure.';
+    } else {
+        inspectElement(slot1 || slot2);
+    }
+};
 
 let canvas, ctx, bubbles = [];
 function initBubbles() {
@@ -332,6 +395,15 @@ function initBubbles() {
     animate();
 }
 
+function removeTransitionScreen() {
+    const transScreen = document.getElementById('transition-screen');
+    if (transScreen) {
+        setTimeout(() => {
+            transScreen.classList.add('slide-up');
+        }, 150);
+    }
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
     applyTheme();
@@ -344,8 +416,5 @@ window.addEventListener('DOMContentLoaded', () => {
         themeToggleBtn.onclick = handleThemeToggle;
     }
 
-    setTimeout(() => {
-        const transScreen = document.getElementById('transition-screen');
-        if (transScreen) transScreen.classList.add('slide-up');
-    }, 50);
+    removeTransitionScreen();
 });
