@@ -15,12 +15,17 @@ let modalCategory, modalTerm, modalDefinition, modalFormulaBlock, modalFormula, 
 let quizGameScreen, openQuizBtn, exitQuizBtn, gameQuestionText, gameOptionsGrid, gameFeedbackBlock, gameFeedbackIcon, gameFeedbackText, gameScoreLabel, showTermBtn, nextQuestionBtn, gameStreakContainer, gameStreakVal;
 
 const russianAlphabet = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЭЮЯ".split("");
+const englishAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 const categoryColors = {
     "Космос": "text-blue-500 bg-blue-500/10 border-blue-500/20",
+    "Space": "text-blue-500 bg-blue-500/10 border-blue-500/20",
     "Алхимия": "text-purple-500 bg-purple-500/10 border-purple-500/20",
+    "Alchemy": "text-purple-500 bg-purple-500/10 border-purple-500/20",
     "Физика": "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
-    "Все": "text-gray-500 bg-gray-500/10 border-gray-500/20"
+    "Physics": "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+    "Все": "text-gray-500 bg-gray-500/10 border-gray-500/20",
+    "All": "text-gray-500 bg-gray-500/10 border-gray-500/20"
 };
 
 function initializeDOMElements() {
@@ -104,19 +109,28 @@ function updateModeButtons() {
 
 function renderFilters() {
     filterContainer.innerHTML = '';
-    const categories = ["Все", "Космос", "Алхимия", "Физика"];
-    categories.forEach(category => {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+
+    const categoriesRu = ["Все", "Космос", "Алхимия", "Физика"];
+    const categoriesEn = ["All", "Space", "Alchemy", "Physics"];
+
+    const categories = activeLang === 'ru' ? categoriesRu : categoriesEn;
+
+    categories.forEach((category, idx) => {
         const btn = document.createElement('button');
-        const isActive = currentCategory === category;
+        const internalCategoryName = categoriesRu[idx];
+        const isActive = currentCategory === internalCategoryName;
+
         const baseStyle = "px-4 py-2.5 rounded-2xl text-sm font-medium transition-all duration-200 border";
         const activeStyle = isActive
             ? "bg-gemini-border text-gemini-text border-gemini-border shadow-sm"
             : "bg-transparent text-gemini-textMuted border-transparent hover:border-gemini-border hover:bg-gemini-card hover:text-gemini-text";
+
         btn.className = `${baseStyle} ${activeStyle}`;
         btn.textContent = category;
         btn.onclick = () => {
-            currentCategory = category;
-            if (category === "Все") {
+            currentCategory = internalCategoryName;
+            if (internalCategoryName === "Все") {
                 currentLetter = null;
                 searchQuery = "";
                 searchInput.value = "";
@@ -131,12 +145,20 @@ function renderFilters() {
 
 function renderAlphabet() {
     alphabetContainer.innerHTML = '';
-    const availableLetters = [...new Set(glossaryData.map(item => item.term[0].toUpperCase()))];
-    russianAlphabet.forEach(letter => {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const activeAlphabet = activeLang === 'ru' ? russianAlphabet : englishAlphabet;
+
+    const availableLetters = [...new Set(glossaryData.map(item => {
+        const activeTermName = activeLang === 'ru' ? item.term : (item.termEn || item.term);
+        return activeTermName[0].toUpperCase();
+    }))];
+
+    activeAlphabet.forEach(letter => {
         const btn = document.createElement('button');
         const hasTerms = availableLetters.includes(letter);
         const isActive = currentLetter === letter;
         let style = "w-9 h-9 flex items-center justify-center rounded-xl text-sm font-semibold transition-all duration-200 ";
+
         if (isActive) {
             style += "bg-gemini-purple/20 text-gemini-purple border border-gemini-purple/30";
         } else if (hasTerms) {
@@ -144,6 +166,7 @@ function renderAlphabet() {
         } else {
             style += "text-gemini-border cursor-not-allowed opacity-40 border border-transparent";
         }
+
         btn.className = style;
         btn.textContent = letter;
         if (hasTerms) {
@@ -175,17 +198,20 @@ function startNewQuizQuestion() {
     showTermBtn.classList.add('hidden');
     gameOptionsGrid.innerHTML = '';
 
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
     const randomIndex = Math.floor(Math.random() * glossaryData.length);
     currentQuizTerm = glossaryData[randomIndex];
-    gameQuestionText.textContent = currentQuizTerm.definitionSimple;
+
+    gameQuestionText.textContent = activeLang === 'ru' ? currentQuizTerm.definitionSimple : (currentQuizTerm.definitionSimpleEn || currentQuizTerm.definitionSimple);
 
     let wrongOptions = glossaryData
         .filter(item => item.term !== currentQuizTerm.term)
-        .map(item => item.term)
+        .map(item => activeLang === 'ru' ? item.term : (item.termEn || item.term))
         .sort(() => 0.5 - Math.random())
         .slice(0, 3);
 
-    const allOptions = [currentQuizTerm.term, ...wrongOptions].sort(() => 0.5 - Math.random());
+    const correctOptionText = activeLang === 'ru' ? currentQuizTerm.term : (currentQuizTerm.termEn || currentQuizTerm.term);
+    const allOptions = [correctOptionText, ...wrongOptions].sort(() => 0.5 - Math.random());
 
     allOptions.forEach(option => {
         const btn = document.createElement('button');
@@ -198,20 +224,32 @@ function startNewQuizQuestion() {
             nextQuestionBtn.classList.remove('hidden');
             showTermBtn.classList.remove('hidden');
 
-            if (option === currentQuizTerm.term) {
+            if (option === correctOptionText) {
                 btn.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-500');
                 gameFeedbackBlock.className = "mt-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-3 text-emerald-500 bg-emerald-500/10";
                 gameFeedbackIcon.setAttribute('data-lucide', 'check-circle');
-                gameFeedbackText.textContent = "✨ Абсолютно верно! Твои знания расширяются.";
+
+                gameFeedbackText.textContent = activeLang === 'ru'
+                    ? "✨ Абсолютно верно! Твои знания расширяются."
+                    : "✨ Absolutely correct! Your knowledge is expanding.";
+
                 quizScore++;
                 quizStreak++;
                 localStorage.setItem('prism_quiz_score', quizScore);
                 localStorage.setItem('prism_quiz_streak', quizStreak);
+
+                if (quizScore >= 5 && typeof unlockAchievement === 'function') unlockAchievement('QUIZ_HERO');
+                if (quizStreak >= 5 && typeof unlockAchievement === 'function') unlockAchievement('QUIZ_STREAKER');
+
             } else {
                 btn.classList.add('border-red-500', 'bg-red-500/10', 'text-red-500');
                 gameFeedbackBlock.className = "mt-6 p-4 rounded-xl text-sm font-semibold flex items-center gap-3 text-red-500 bg-red-500/10";
                 gameFeedbackIcon.setAttribute('data-lucide', 'alert-circle');
-                gameFeedbackText.textContent = `🪐 Ошибка! Верный ответ: «${currentQuizTerm.term}».`;
+
+                gameFeedbackText.textContent = activeLang === 'ru'
+                    ? `🪐 Ошибка! Верный ответ: «${correctOptionText}».`
+                    : `🪐 Oops! Correct answer is: \"${correctOptionText}\".`;
+
                 quizStreak = 0;
                 localStorage.setItem('prism_quiz_streak', quizStreak);
             }
@@ -223,11 +261,21 @@ function startNewQuizQuestion() {
 }
 
 function openDetails(termObj) {
-    modalTerm.textContent = termObj.term;
-    modalCategory.textContent = termObj.category;
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+
+    modalTerm.textContent = activeLang === 'ru' ? termObj.term : (termObj.termEn || termObj.term);
+
+    const activeCategory = activeLang === 'ru' ? termObj.category : (termObj.categoryEn || termObj.category);
+    modalCategory.textContent = activeCategory;
+
     const tagColors = categoryColors[termObj.category] || categoryColors["Все"];
     modalCategory.className = `px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-gemini-border mb-3 inline-block ${tagColors}`;
-    modalDefinition.textContent = currentMode === "simple" ? termObj.definitionSimple : termObj.definitionScientific;
+
+    if (currentMode === "simple") {
+        modalDefinition.textContent = activeLang === 'ru' ? termObj.definitionSimple : (termObj.definitionSimpleEn || termObj.definitionSimple);
+    } else {
+        modalDefinition.textContent = activeLang === 'ru' ? termObj.definitionScientific : (termObj.definitionScientificEn || termObj.definitionScientific);
+    }
 
     if (termObj.formula) {
         modalFormulaBlock.classList.remove('hidden');
@@ -254,10 +302,14 @@ function openDetails(termObj) {
                 MathContainer.textContent = v.symbol;
             }
             varItem.appendChild(MathContainer);
+
             const textContainer = document.createElement('div');
+            const vName = activeLang === 'ru' ? v.name : (v.nameEn || v.name);
+            const vDesc = activeLang === 'ru' ? v.desc : (v.descEn || v.desc);
+
             textContainer.innerHTML = `
-                <p class="text-xs font-bold text-gemini-text leading-tight mb-0.5">${v.name}</p>
-                <p class="text-[11px] text-gemini-textMuted leading-relaxed">${v.desc}</p>
+                <p class="text-xs font-bold text-gemini-text leading-tight mb-0.5">${vName}</p>
+                <p class="text-[11px] text-gemini-textMuted leading-relaxed">${vDesc}</p>
             `;
             varItem.appendChild(textContainer);
             modalVariablesList.appendChild(varItem);
@@ -268,30 +320,49 @@ function openDetails(termObj) {
 
     modalDynamicBlock.innerHTML = '';
     if (termObj.category === "Алхимия") {
+        const titleAppear = activeLang === 'ru' ? '🌠 Первое появление в природе:' : '🌠 First natural occurrence:';
+        const bodyAppear = activeLang === 'ru' ? termObj.firstAppearance : (termObj.firstAppearanceEn || termObj.firstAppearance);
+        const titleGet = activeLang === 'ru' ? '🛠️ Как можно создать или добыть в реальности:' : '🛠️ Synthesis / Extraction:';
+        const bodyGet = activeLang === 'ru' ? termObj.howToGet : (termObj.howToGetEn || termObj.howToGet);
+
         modalDynamicBlock.innerHTML = `
             <div class="space-y-5">
                 <div class="space-y-1.5">
-                    <span class="text-xs font-bold text-purple-500 uppercase tracking-widest block">🌠 Первое появление в природе:</span>
-                    <p class="text-sm text-gemini-textMuted leading-relaxed text-justify">${termObj.firstAppearance}</p>
+                    <span class="text-xs font-bold text-purple-500 uppercase tracking-widest block">${titleAppear}</span>
+                    <p class="text-sm text-gemini-textMuted leading-relaxed text-justify">${bodyAppear}</p>
                 </div>
                 <div class="pt-4 border-t border-gemini-border/50 space-y-1.5">
-                    <span class="text-xs font-bold text-purple-500 uppercase tracking-widest block">🛠️ Как можно создать или добыть в реальности:</span>
-                    <p class="text-sm text-gemini-textMuted leading-relaxed text-justify">${termObj.howToGet}</p>
+                    <span class="text-xs font-bold text-purple-500 uppercase tracking-widest block">${titleGet}</span>
+                    <p class="text-sm text-gemini-textMuted leading-relaxed text-justify">${bodyGet}</p>
                 </div>
-            </div>
-        `;
-        modalDynamicBlock.classList.remove('hidden');
-    } else if (termObj.fact) {
-        modalDynamicBlock.innerHTML = `
-            <div class="space-y-1.5">
-                <span class="text-xs font-bold text-blue-500 uppercase tracking-widest block">💡 Интригующий факт:</span>
-                <p class="text-sm text-gemini-textMuted leading-relaxed italic text-justify">"${termObj.fact}"</p>
             </div>
         `;
         modalDynamicBlock.classList.remove('hidden');
     } else {
-        modalDynamicBlock.classList.add('hidden');
+        const factBody = activeLang === 'ru' ? termObj.fact : (termObj.factEn || termObj.fact);
+        if (factBody) {
+            const titleFact = activeLang === 'ru' ? '💡 Интригующий факт:' : '💡 Intriguing Fact:';
+            modalDynamicBlock.innerHTML = `
+                <div class="space-y-1.5">
+                    <span class="text-xs font-bold text-blue-500 uppercase tracking-widest block">${titleFact}</span>
+                    <p class="text-sm text-gemini-textMuted leading-relaxed italic text-justify">"${factBody}"</p>
+                </div>
+            `;
+            modalDynamicBlock.classList.remove('hidden');
+        } else {
+            modalDynamicBlock.classList.add('hidden');
+        }
     }
+
+    let viewedTerms = JSON.parse(localStorage.getItem('prism_viewed_terms') || '[]');
+    if (!viewedTerms.includes(termObj.term)) {
+        viewedTerms.push(termObj.term);
+        localStorage.setItem('prism_viewed_terms', JSON.stringify(viewedTerms));
+    }
+    if (viewedTerms.length >= 8 && typeof unlockAchievement === 'function') {
+        unlockAchievement('TERM_COLLECTOR');
+    }
+
     detailsModal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
@@ -303,23 +374,31 @@ function closeModal() {
 
 function renderCards() {
     grid.innerHTML = '';
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
     const isFiltering = searchQuery !== "" || currentCategory !== "Все" || currentLetter !== null;
+
     let filteredData = glossaryData.filter(item => {
         const matchesCategory = currentCategory === "Все" || item.category === currentCategory;
         const searchLower = searchQuery.toLowerCase();
-        const matchesSearch = item.term.toLowerCase().includes(searchLower) ||
-                              item.definitionScientific.toLowerCase().includes(searchLower) ||
-                              item.definitionSimple.toLowerCase().includes(searchLower) ||
+
+        const activeTermName = activeLang === 'ru' ? item.term : (item.termEn || item.term);
+        const activeDefSimple = activeLang === 'ru' ? item.definitionSimple : (item.definitionSimpleEn || item.definitionSimple);
+        const activeDefScientific = activeLang === 'ru' ? item.definitionScientific : (item.definitionScientificEn || item.definitionScientific);
+
+        const matchesSearch = activeTermName.toLowerCase().includes(searchLower) ||
+                              activeDefScientific.toLowerCase().includes(searchLower) ||
+                              activeDefSimple.toLowerCase().includes(searchLower) ||
                               (item.formula && item.formula.toLowerCase().includes(searchLower));
-        const matchesLetter = currentLetter ? item.term[0].toUpperCase() === currentLetter : true;
+
+        const matchesLetter = currentLetter ? activeTermName[0].toUpperCase() === currentLetter : true;
         return matchesCategory && matchesSearch && matchesLetter;
     });
 
     if (searchQuery !== "") {
         const searchLower = searchQuery.toLowerCase();
         filteredData.sort((a, b) => {
-            const aTerm = a.term.toLowerCase();
-            const bTerm = b.term.toLowerCase();
+            const aTerm = (activeLang === 'ru' ? a.term : (a.termEn || a.term)).toLowerCase();
+            const bTerm = (activeLang === 'ru' ? b.term : (b.termEn || b.term)).toLowerCase();
 
             if (aTerm === searchLower && bTerm !== searchLower) return -1;
             if (bTerm === searchLower && aTerm !== searchLower) return 1;
@@ -336,14 +415,23 @@ function renderCards() {
 
     if (!isFiltering) {
         filteredData = filteredData.filter(item => item.isPopular);
-        gridTitle.textContent = "Популярные темы";
+        gridTitle.textContent = activeLang === 'ru' ? "Популярные темы" : "Popular Topics";
     } else {
         if (currentLetter) {
-            gridTitle.textContent = `Темы на букву «${currentLetter}» (${filteredData.length})`;
+            gridTitle.textContent = activeLang === 'ru'
+                ? `Темы на букву «${currentLetter}» (${filteredData.length})`
+                : `Topics starting with "${currentLetter}" (${filteredData.length})`;
         } else if (currentCategory !== "Все") {
-            gridTitle.textContent = `Темы категории «${currentCategory}» (${filteredData.length})`;
+            const catTranslations = { "Космос": "Space", "Алхимия": "Alchemy", "Физика": "Physics" };
+            const catHeaderName = activeLang === 'ru' ? currentCategory : (catTranslations[currentCategory] || currentCategory);
+
+            gridTitle.textContent = activeLang === 'ru'
+                ? `Темы категории «${catHeaderName}» (${filteredData.length})`
+                : `Topics in "${catHeaderName}" category (${filteredData.length})`;
         } else {
-            gridTitle.textContent = `Результаты поиска (${filteredData.length})`;
+            gridTitle.textContent = activeLang === 'ru'
+                ? `Результаты поиска (${filteredData.length})`
+                : `Search Results (${filteredData.length})`;
         }
     }
 
@@ -357,7 +445,13 @@ function renderCards() {
             const card = document.createElement('div');
             const delay = (index % 12) * 0.04;
             const tagColors = categoryColors[item.category] || categoryColors["Все"];
-            const activeDef = currentMode === "simple" ? item.definitionSimple : item.definitionScientific;
+
+            const activeTermName = activeLang === 'ru' ? item.term : (item.termEn || item.term);
+            const activeCategoryName = activeLang === 'ru' ? item.category : (item.categoryEn || item.category);
+
+            const activeDef = currentMode === "simple"
+                ? (activeLang === 'ru' ? item.definitionSimple : (item.definitionSimpleEn || item.definitionSimple))
+                : (activeLang === 'ru' ? item.definitionScientific : (item.definitionScientificEn || item.definitionScientific));
 
             card.className = `fade-in bg-gemini-card border border-transparent hover:border-gemini-border/80 rounded-3xl p-7 transition-all duration-300 hover:bg-gemini-cardHover hover:-translate-y-1.5 shadow-sm hover:shadow-xl hover:shadow-purple-500/5 flex flex-col cursor-pointer`;
             card.style.animationDelay = `${delay}s`;
@@ -370,11 +464,11 @@ function renderCards() {
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-5 gap-3">
                     <div>
-                        <h3 class="text-xl md:text-2xl font-bold text-gemini-text leading-snug tracking-tight">${item.term}</h3>
+                        <h3 class="text-xl md:text-2xl font-bold text-gemini-text leading-snug tracking-tight">${activeTermName}</h3>
                         ${formulaBadge}
                     </div>
                     <span class="px-3 py-1.5 rounded-full text-xs font-semibold border ${tagColors} bg-gemini-bg h-fit whitespace-nowrap">
-                        ${item.category}
+                        ${activeCategoryName}
                     </span>
                 </div>
                 <p class="text-gemini-textMuted text-sm leading-relaxed flex-grow line-clamp-4">
@@ -448,6 +542,16 @@ function bindEvents() {
         if (e.key === 'Escape') closeModal();
     });
 }
+
+window.onLanguageChanged = function(lang) {
+    renderFilters();
+    renderAlphabet();
+    renderCards();
+
+    if (quizGameScreen && !quizGameScreen.classList.contains('hidden')) {
+        startNewQuizQuestion();
+    }
+};
 
 window.addEventListener('DOMContentLoaded', () => {
     initializeDOMElements();
