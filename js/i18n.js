@@ -1,8 +1,3 @@
-/**
- * Глобальная система интернационализации (i18n) для Prism
- * Автоматически управляет кнопкой выбора языка и сохраняет выбор пользователя
- */
-
 const translations = {
     ru: {
         "warn_opt": "ОПТИМИЗИРОВАНО ДЛЯ ПК",
@@ -76,7 +71,35 @@ const translations = {
         "alc_monitor": "Панель мониторинга",
         "alc_monitor_desc": "Выберите элемент из хранилища для анализа его молекулярного строения.",
         "alc_status": "Состояние ядра: Стабильно (100.0%)",
-        "alc_footer_sec": "PRISM // SEC_03"
+        "alc_footer_sec": "PRISM // SEC_03",
+
+        //===ГЛОССАРИЙ===
+        "glo_beta": "Сейчас в базе множество научных тем. Но не переживайте, со временем их станет еще больше.",
+        "glo_back": "На главную",
+        "glo_title": "Глоссарий",
+        "glo_desc": "Энциклопедия природных процессов, законов физики, космических явлений и природных объектов. Переключайтесь между форматами объяснений для максимального удобства.",
+        "glo_quiz_btn": "Викторина",
+        "glo_mode_simple": "Простыми словами",
+        "glo_mode_scientific": "Научно",
+        "glo_search_ph": "Найти термин, переменную или формулу...",
+        "glo_no_results": "Совпадений не обнаружено",
+        "glo_no_results_desc": "Попробуйте изменить формулировку или сбросить фильтры.",
+
+        "quiz_title": "Интерактивная викторина",
+        "quiz_desc": "Попробуй угадать как можно больше научных терминов!",
+        "quiz_exit": "Выйти",
+        "quiz_score": "Общий счёт:",
+        "quiz_streak": "Серия:",
+        "quiz_question": "Загадка:",
+        "quiz_show_term": "Показать тему в глоссарии",
+        "quiz_next": "Далее",
+        "quiz_loading": "Загрузка...",
+
+        "modal_math_model": "Математическая модель",
+        "modal_math_desc": "Математическое выражение закона или состава элемента",
+        "modal_vars": "Расшифровка формулы",
+        "modal_essence": "Суть и объяснение",
+        "modal_close": "Закрыть тему"
     },
     en: {
         "warn_opt": "OPTIMIZED FOR PC",
@@ -150,7 +173,35 @@ const translations = {
         "alc_monitor": "Monitoring Panel",
         "alc_monitor_desc": "Select an element from the storage to analyze its molecular structure.",
         "alc_status": "Core status: Stable (100.0%)",
-        "alc_footer_sec": "PRISM // SEC_03"
+        "alc_footer_sec": "PRISM // SEC_03",
+
+        //===GLOSSARY===
+        "glo_beta": "There are currently many scientific topics. But do not worry, more will be added over time.",
+        "glo_back": "To Main",
+        "glo_title": "Glossary",
+        "glo_desc": "Encyclopedia of natural processes, laws of physics, space phenomena, and natural objects. Toggle explanation formats for maximum comfort.",
+        "glo_quiz_btn": "Quiz",
+        "glo_mode_simple": "In simple terms",
+        "glo_mode_scientific": "Scientific",
+        "glo_search_ph": "Search term, variable or formula...",
+        "glo_no_results": "No matches found",
+        "glo_no_results_desc": "Try changing the wording or resetting filters.",
+
+        "quiz_title": "Interactive Quiz",
+        "quiz_desc": "Try to guess as many scientific terms as possible!",
+        "quiz_exit": "Exit",
+        "quiz_score": "Total Score:",
+        "quiz_streak": "Streak:",
+        "quiz_question": "Riddle:",
+        "quiz_show_term": "Show topic in glossary",
+        "quiz_next": "Next",
+        "quiz_loading": "Loading...",
+
+        "modal_math_model": "Mathematical Model",
+        "modal_math_desc": "Mathematical expression of the law or element composition",
+        "modal_vars": "Formula Decoding",
+        "modal_essence": "Essence & Explanation",
+        "modal_close": "Close Topic"
     }
 };
 
