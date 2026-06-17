@@ -3,20 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prism — Free Fall</title>
+    <title>Prism — Свободное падение</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
     <link rel="stylesheet" href="css/gravity_fall.css">
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/i18n.css">
     <link rel="icon" type="png" href="textures/icon.png">
+
+    <style>
+        @media (min-width: 1025px) {
+            .charts-container {
+                padding-top: 45px;
+            }
+            #lang-switcher-container {
+                top: 20px;
+                right: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <script src="js/i18n.js"></script>
+
     <div class="app-container">
         <div class="control-panel">
-            <h2>⚙️ ПАРАМЕТРЫ</h2>
+            <h2 data-i18n="fall_title">⚙️ ПАРАМЕТРЫ</h2>
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-h">Высота (h₀), м</label>
+                    <label for="input-h" data-i18n="fall_h">Высота (h₀), м</label>
                     <input type="number" id="num-h" min="5" max="100" step="1" value="50" class="num-input">
                 </div>
                 <input type="range" id="input-h" min="5" max="100" step="1" value="50">
@@ -24,16 +40,16 @@
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-v0">Нач. скорость (v₀), м/с</label>
+                    <label for="input-v0" data-i18n="fall_v0">Нач. скорость (v₀), м/с</label>
                     <input type="number" id="num-v0" min="-20" max="20" step="1" value="0" class="num-input">
                 </div>
                 <input type="range" id="input-v0" min="-20" max="20" step="1" value="0">
-                <span class="sub-label">Положительная — вверх, отрицательная — вниз</span>
+                <span class="sub-label" data-i18n="fall_v0_hint">Положительная — вверх, отрицательная — вниз</span>
             </div>
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-g">Гравитация (g), м/с²</label>
+                    <label for="input-g" data-i18n="fall_g">Гравитация (g), м/с²</label>
                     <input type="number" id="num-g" min="1" max="25" step="0.1" value="9.8" class="num-input">
                 </div>
                 <input type="range" id="input-g" min="1" max="25" step="0.1" value="9.8">
@@ -41,7 +57,7 @@
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-m">Масса (m), кг</label>
+                    <label for="input-m" data-i18n="fall_m">Масса (m), кг</label>
                     <input type="number" id="num-m" min="0.1" max="20" step="0.1" value="2" class="num-input">
                 </div>
                 <input type="range" id="input-m" min="0.1" max="20" step="0.1" value="2">
@@ -49,19 +65,19 @@
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-k">Сопротивление (k)</label>
+                    <label for="input-k" data-i18n="fall_k">Сопротивление (k)</label>
                     <input type="number" id="num-k" min="0" max="1" step="0.05" value="0" class="num-input">
                 </div>
                 <input type="range" id="input-k" min="0" max="1" step="0.05" value="0">
             </div>
 
             <div class="buttons-grid">
-                <button id="btn-start" class="btn primary">Старт / Сброс</button>
-                <button id="btn-pause" class="btn secondary">Пауза</button>
+                <button id="btn-start" class="btn primary" data-i18n="fall_start">Старт / Сброс</button>
+                <button id="btn-pause" class="btn secondary" data-i18n="fall_pause">Пауза</button>
             </div>
 
             <div class="stats-panel prediction-panel">
-                <h3>🎯 ТЕОРЕТИЧЕСКИЕ ЗАКОНЫ</h3>
+                <h3 data-i18n="fall_theory">🎯 ТЕОРЕТИЧЕСКИЕ ЗАКОНЫ</h3>
                 <div class="latex-formula-row">
                     <span id="math-ep-formula"></span>
                 </div>
@@ -74,47 +90,47 @@
             </div>
 
             <div class="stats-panel">
-                <h3>📊 СОСТОЯНИЕ В ЦИФРАХ</h3>
-                <p>Время (t): <span id="stat-time">0.00</span> с</p>
-                <p>Высота (y): <span id="stat-y">50.00</span> м</p>
-                <p>Скорость (v): <span id="stat-v">0.00</span> м/с</p>
+                <h3 data-i18n="fall_data_title">📊 СОСТОЯНИЕ В ЦИФРАХ</h3>
+                <p><span data-i18n="fall_stat_time">Время (t):</span> <span id="stat-time">0.00</span> <span data-i18n="fall_unit_s">с</span></p>
+                <p><span data-i18n="fall_stat_y">Высота (y):</span> <span id="stat-y">50.00</span> <span data-i18n="fall_unit_m">м</span></p>
+                <p><span data-i18n="fall_stat_v">Скорость (v):</span> <span id="stat-v">0.00</span> <span data-i18n="fall_unit_m_s">м/с</span></p>
             </div>
 
-            <a href="physics.html" class="back-link">← Назад в модули</a>
+            <a href="physics.html" class="back-link" data-i18n="fall_back_link">← Назад в модули</a>
         </div>
 
         <div class="workspace">
             <div class="canvas-container" id="canvas-wrapper">
                 <canvas id="sim-canvas"></canvas>
-                <div class="canvas-overlay-text">Эксперимент падения</div>
+                <div class="canvas-overlay-text" data-i18n="fall_overlay_txt">Эксперимент падения</div>
             </div>
 
             <div class="charts-container">
                 <div class="bar-chart-panel">
-                    <h4>🔋 БАЛАНС ЭНЕРГИИ</h4>
+                    <h4 data-i18n="fall_energy_title">🔋 БАЛАНС ЭНЕРГИИ</h4>
                     <div class="energy-bar-row">
-                        <div class="bar-label">Потенциальная (E_p)</div>
+                        <div class="bar-label" data-i18n="fall_ep_label">Потенциальная (E_p)</div>
                         <div class="bar-track">
                             <div id="bar-ep" class="bar-fill ep-color"></div>
                         </div>
                         <div id="val-ep" class="bar-value">0 Дж</div>
                     </div>
                     <div class="energy-bar-row">
-                        <div class="bar-label">Кинетическая (E_k)</div>
+                        <div class="bar-label" data-i18n="fall_ek_label">Кинетическая (E_k)</div>
                         <div class="bar-track">
                             <div id="bar-ek" class="bar-fill ek-color"></div>
                         </div>
                         <div id="val-ek" class="bar-value">0 Дж</div>
                     </div>
                     <div class="energy-bar-row">
-                        <div class="bar-label">Потери/Тепло (Q)</div>
+                        <div class="bar-label" data-i18n="fall_q_label">Потери/Тепло (Q)</div>
                         <div class="bar-track">
                             <div id="bar-q" class="bar-fill q-color"></div>
                         </div>
                         <div id="val-q" class="bar-value">0 Дж</div>
                     </div>
                     <div class="energy-bar-row total-row">
-                        <div class="bar-label">Полная механическая (E)</div>
+                        <div class="bar-label" data-i18n="fall_etotal_label">Полная механическая (E)</div>
                         <div class="bar-track">
                             <div id="bar-etotal" class="bar-fill etotal-color"></div>
                         </div>
@@ -123,7 +139,7 @@
                 </div>
 
                 <div class="graph-panel">
-                    <h4>📈 КРИВЫЕ ЭНЕРГИЙ</h4>
+                    <h4 data-i18n="fall_graph_title">📈 КРИВЫЕ ЭНЕРГИЙ</h4>
                     <canvas id="graph-canvas"></canvas>
                 </div>
             </div>
@@ -131,5 +147,6 @@
     </div>
 
     <script src="js/gravity_fall.js"></script>
+    <script src="js/achievements.js"></script>
 </body>
 </html>
