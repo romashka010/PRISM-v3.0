@@ -100,3 +100,6 @@ function hideAll() {
         mainMenu.classList.remove('hidden');
     }
 }
+
+window.onLanguageChanged = function(lang) {
+};
