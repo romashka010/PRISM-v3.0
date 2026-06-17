@@ -140,8 +140,11 @@ function syncInput(key, value, source) {
         state.history = [];
         state.isFinished = false;
         state.isPaused = false;
-        btnStart.innerText = "Старт";
-        btnPause.innerText = "Пауза";
+
+        // Локализация надписи на кнопке Старт/Сброс
+        const activeLang = localStorage.getItem('prism_language') || 'ru';
+        btnStart.innerText = activeLang === 'ru' ? "Старт" : "Start";
+        btnPause.innerText = activeLang === 'ru' ? "Пауза" : "Pause";
 
         const initialEp = p.m * p.g * p.h;
         const initialEk = 0.5 * p.m * p.v0 * p.v0;
@@ -174,13 +177,18 @@ for (let key in inputs) {
 function renderTheoreticalLaTeX() {
     if (typeof katex === 'undefined') return;
 
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const unitJ = activeLang === 'ru' ? '\\text{ Дж}' : '\\text{ J}';
+
     const ep = p.m * p.g * state.y;
     const ek = 0.5 * p.m * state.v * state.v;
     const eFull = ep + ek;
 
-    const epStr = `E_p = mgh \\approx ${ep.toFixed(1)}\\text{ Дж}`;
-    const ekStr = `E_k = \\frac{mv^2}{2} \\approx ${ek.toFixed(1)}\\text{ Дж}`;
-    const efullStr = `E_{\\text{полная}} = E_p + E_k + Q \\approx ${(eFull + state.heatLoss).toFixed(1)}\\text{ Дж}`;
+    const epStr = `E_p = mgh \\approx ${ep.toFixed(1)}${unitJ}`;
+    const ekStr = `E_k = \\frac{mv^2}{2} \\approx ${ek.toFixed(1)}${unitJ}`;
+
+    const eFullTerm = activeLang === 'ru' ? 'E_{\\text{полная}}' : 'E_{\\text{total}}';
+    const efullStr = `${eFullTerm} = E_p + E_k + Q \\approx ${(eFull + state.heatLoss).toFixed(1)}${unitJ}`;
 
     try {
         katex.render(epStr, mathEpFormula, { throwOnError: false });
@@ -195,7 +203,6 @@ function updateEnergyBars() {
     const Ep = p.m * p.g * state.y;
     const Ek = 0.5 * p.m * state.v * state.v;
     const Q = state.heatLoss;
-    const Etotal = Ep + Ek + Q;
 
     const maxVal = Math.max(state.initialMechanicalEnergy, 10);
 
@@ -209,10 +216,13 @@ function updateEnergyBars() {
     bars.q.style.width = qPercent + '%';
     bars.etotal.style.width = etotalPercent + '%';
 
-    barVals.ep.innerText = Ep.toFixed(1) + ' Дж';
-    barVals.ek.innerText = Ek.toFixed(1) + ' Дж';
-    barVals.q.innerText = Q.toFixed(1) + ' Дж';
-    barVals.etotal.innerText = (Ep + Ek).toFixed(1) + ' Дж';
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const unitJ = activeLang === 'ru' ? ' Дж' : ' J';
+
+    barVals.ep.innerText = Ep.toFixed(1) + unitJ;
+    barVals.ek.innerText = Ek.toFixed(1) + unitJ;
+    barVals.q.innerText = Q.toFixed(1) + unitJ;
+    barVals.etotal.innerText = (Ep + Ek).toFixed(1) + unitJ;
 
     stats.time.innerText = state.time.toFixed(2);
     stats.y.innerText = state.y.toFixed(2);
@@ -235,18 +245,21 @@ function integrate(dt) {
         state.v = 0;
         state.isRunning = false;
         state.isFinished = true;
-        btnStart.innerText = "Сброс";
+
+        const activeLang = localStorage.getItem('prism_language') || 'ru';
+        btnStart.innerText = activeLang === 'ru' ? "Сброс" : "Reset";
         state.heatLoss = state.initialMechanicalEnergy;
     }
 }
 
 btnStart.addEventListener('click', () => {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
     if (state.isRunning || state.isPaused || state.isFinished) {
         state.isRunning = false;
         state.isPaused = false;
         state.isFinished = false;
-        btnPause.innerText = "Пауза";
-        btnStart.innerText = "Старт";
+        btnPause.innerText = activeLang === 'ru' ? "Пауза" : "Pause";
+        btnStart.innerText = activeLang === 'ru' ? "Старт" : "Start";
         state.time = 0;
         state.y = p.h;
         state.v = p.v0;
@@ -263,7 +276,7 @@ btnStart.addEventListener('click', () => {
         state.isRunning = true;
         state.isPaused = false;
         state.isFinished = false;
-        btnStart.innerText = "Сброс";
+        btnStart.innerText = activeLang === 'ru' ? "Сброс" : "Reset";
         lastTime = performance.now();
         requestAnimationFrame(loop);
     }
@@ -271,17 +284,18 @@ btnStart.addEventListener('click', () => {
 
 btnPause.addEventListener('click', () => {
     if (!state.isRunning && !state.isPaused) return;
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
 
     if (state.isPaused) {
         state.isPaused = false;
         state.isRunning = true;
-        btnPause.innerText = "Пауза";
+        btnPause.innerText = activeLang === 'ru' ? "Пауза" : "Pause";
         lastTime = performance.now();
         requestAnimationFrame(loop);
     } else {
         state.isPaused = true;
         state.isRunning = false;
-        btnPause.innerText = "Продолжить";
+        btnPause.innerText = activeLang === 'ru' ? "Продолжить" : "Resume";
     }
 });
 
@@ -346,13 +360,17 @@ function draw() {
     ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.font = '10px sans-serif';
     ctx.textAlign = 'right';
+
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const unitM = activeLang === 'ru' ? 'м' : 'm';
+
     for (let hIndex = 0; hIndex <= p.h; hIndex += 10) {
         const yCoord = panY - hIndex * scale;
         ctx.beginPath();
         ctx.moveTo(panX - 73, yCoord);
         ctx.lineTo(panX - 67, yCoord);
         ctx.stroke();
-        ctx.fillText(hIndex + 'м', panX - 78, yCoord + 3);
+        ctx.fillText(hIndex + unitM, panX - 78, yCoord + 3);
     }
 
     ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
@@ -439,6 +457,29 @@ function drawArrow(fromx, fromy, tox, toy, color) {
     ctx.lineWidth = 2.5;
     ctx.stroke();
 }
+
+// Слушатель смены языка на лету
+window.onLanguageChanged = function(lang) {
+    const activeLang = lang || 'ru';
+
+    // Обновляем статический текст кнопок
+    if (state.isRunning) {
+        btnStart.innerText = activeLang === 'ru' ? "Сброс" : "Reset";
+    } else {
+        btnStart.innerText = activeLang === 'ru' ? "Старт" : "Start";
+    }
+
+    if (state.isPaused) {
+        btnPause.innerText = activeLang === 'ru' ? "Продолжить" : "Resume";
+    } else {
+        btnPause.innerText = activeLang === 'ru' ? "Пауза" : "Pause";
+    }
+
+    renderTheoreticalLaTeX();
+    updateEnergyBars();
+    draw();
+    drawGraph();
+};
 
 window.addEventListener('DOMContentLoaded', () => {
     for (let key in p) {
