@@ -7,49 +7,51 @@
 
     <link rel="stylesheet" href="css/kosmos.css">
     <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/i18n.css">
     <link rel="icon" type="png" href="textures/icon.png">
 
     <script>
         window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
-    <script defer src="/_vercel/speed-insights/script.js"></script>
+    <script src="/_vercel/speed-insights/script.js"></script>
 
-    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <script src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
 
     <div id="intro-transition-overlay"></div>
 
     <a href="index.html" id="back-link" class="fade-in-ui">
-        <span>← На главную</span>
+        <span data-i18n="space_back">← На главную</span>
     </a>
 
     <div id="title-container" class="fade-in-ui">
-        <div class="main-title">Солнечная система</div>
-        <div class="sub-title">Это Млечный Путь. Все данные приближены к реальным.</div>
+        <div class="main-title" data-i18n="space_title">Солнечная система</div>
+        <div class="sub-title" data-i18n="space_desc">Это Млечный Путь. Все данные приближены к реальным.</div>
     </div>
 
     <div id="asteroid-tooltip">
-        <strong>Пояс Астероидов</strong>
-        <p>Существует красивая, но печальная легенда о планете Фаэтон, которая якобы взорвалась на этом месте. Однако современная наука говорит о другом: на самом деле здесь никогда не было целой планеты.</p>
-        <p>Когда 4,6 миллиарда лет назад формировались планеты, в этой области тоже начал собираться строительный материал. Но «новорожденный» Юпитер стал настолько массивным, что его мощнейшая гравитация начала буквально растаскивать камни в разные стороны. Он не дал им слипнуться в единое целое. Пояс астероидов — это «космическая стройплощадка», работу на которой остановил сосед-гигант.</p>
-        <p>Пояс находится в так называемой «зоне пустоты», где гравитационные силы Марса и Юпитера ведут вечную борьбу. Юпитер постоянно «встряхивает» астероиды, заставляя их сталкиваться на огромных скоростях. Из-за этих столкновений камни не объединяются, а наоборот — дробятся.</p>
+        <strong data-i18n="space_asteroid_belt_title">Пояс Астероидов</strong>
+        <p data-i18n="space_asteroid_belt_p1">Существует красивая, но печальная легенда о планете Фаэтон, которая якобы взорвалась на этом месте. Однако современная наука говорит о другом: на самом деле здесь никогда не было целой планеты.</p>
+        <p data-i18n="space_asteroid_belt_p2">Когда 4,6 миллиарда лет назад формировались планеты, в этой области тоже начал собираться строительный материал. Но «новорожденный» Юпитер стал настолько массивным, что его мощнейшая гравитация начала буквально растаскивать камни в разные стороны. Он не дал им слипнуться в единое целое. Пояс астероидов — это «космическая стройплощадка», работу на которой остановил сосед-гигант.</p>
+        <p data-i18n="space_asteroid_belt_p3">Пояс находится в так называемой «зоне пустоты», где гравитационные силы Марса и Юпитера ведут вечную борьбу. Юпитер постоянно «встряхивает» астероиды, заставляя их сталкиваться на огромных скоростях. Из-за этих столкновений камни не объединяются, а наоборот — дробятся.</p>
     </div>
 
-    <button id="reset-btn" class="fade-in-ui">Сбросить вид</button>
+    <button id="reset-btn" class="fade-in-ui" data-i18n="space_reset_btn">Сбросить вид</button>
 
     <div id="info-panel">
         <div class="close-btn" id="ui-close-btn">×</div>
-        <h2 id="p-name">Объект</h2>
+        <h2 id="p-name" data-i18n="space_obj_default">Объект</h2>
         <div style="font-size:13px; color:#aaa; margin-bottom:12px;">
-            Дистанция: <span id="p-dist" style="color:#fff">0</span> млн км
+            <span data-i18n="space_dist_label">Дистанция:</span> <span id="p-dist" style="color:#fff">0</span> <span data-i18n="space_dist_unit">млн км</span>
         </div>
-        <p id="p-desc" style="font-size:14px; line-height:1.6; color:#ccc;">Данные сканирования...</p>
+        <p id="p-desc" style="font-size:14px; line-height:1.6; color:#ccc;" data-i18n="space_scanning">Данные сканирования...</p>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
+    <script src="js/i18n.js"></script>
     <script src="js/kosmos.js"></script>
     <script src="js/achievements.js"></script>
 </body>
