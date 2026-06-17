@@ -238,14 +238,24 @@ function calculateTheoreticalPrediction() {
 function renderTheoreticalLaTeX(hMax, lMax) {
     if (typeof katex === 'undefined') return;
 
-    const hString = `H_{\\text{max}} = h_0 + \\frac{v_0^2 \\sin^2\\alpha}{2g} \\approx ${hMax.toFixed(2)}\\text{ м}`;
-    const lString = `L_{\\text{max}} = \\frac{v_0 \\cos\\alpha}{g} \\left( v_0 \\sin\\alpha + \\sqrt{v_0^2 \\sin^2\\alpha + 2gh_0} \\right) \\approx ${lMax.toFixed(2)}\\text{ м}`;
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const unitM = activeLang === 'ru' ? '\\text{ м}' : '\\text{ m}';
+
+    const hString = `H_{\\text{max}} = h_0 + \\frac{v_0^2 \\sin^2\\alpha}{2g} \\approx ${hMax.toFixed(2)}${unitM}`;
+    const lString = `L_{\\text{max}} = \\frac{v_0 \\cos\\alpha}{g} \\left( v_0 \\sin\\alpha + \\sqrt{v_0^2 \\sin^2\\alpha + 2gh_0} \\right) \\approx ${lMax.toFixed(2)}${unitM}`;
 
     try {
         katex.render(hString, mathHFormula, { throwOnError: false });
         katex.render(lString, mathLFormula, { throwOnError: false });
     } catch (err) {
         console.error("Ошибка KaTeX:", err);
+    }
+}
+
+function updateStatusText(key) {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    if (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang][key]) {
+        statusText.innerText = translations[activeLang][key];
     }
 }
 
@@ -261,7 +271,7 @@ btnStart.addEventListener('click', () => {
     state.vy = p.v0 * Math.sin(rad);
 
     state.isRunning = true;
-    statusText.innerText = "В ПОЛЕТЕ";
+    updateStatusText("bal_status_flight");
 
     tryUnlock('SNIPER');
     if (Math.abs(p.angle - 45) < 0.1) {
@@ -280,14 +290,23 @@ btnReset.addEventListener('click', () => {
     state.trajectory = [];
     state.flags = [];
     state.apex = { x: 0, y: p.h0 };
-    statusText.innerText = "ОЖИДАНИЕ ЗАПУСКА";
+    updateStatusText("bal_status_idle");
     updateStats();
     requestAnimationFrame(draw);
 });
 
 btnCamera.addEventListener('click', () => {
     state.cameraLocked = !state.cameraLocked;
-    btnCamera.innerText = state.cameraLocked ? "Следить: ВКЛ" : "Следить: ВЫКЛ";
+
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const labelKey = state.cameraLocked ? "bal_cam_on" : "bal_cam_off";
+
+    if (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang][labelKey]) {
+        btnCamera.innerText = translations[activeLang][labelKey];
+    } else {
+        btnCamera.innerText = state.cameraLocked ? "Следить: ВКЛ" : "Следить: ВЫКЛ";
+    }
+
     btnCamera.classList.toggle('active', state.cameraLocked);
     if (!state.isRunning) requestAnimationFrame(draw);
 });
@@ -313,7 +332,7 @@ function loop(timestamp) {
     if (state.y <= 0) {
         state.y = 0;
         state.isRunning = false;
-        statusText.innerText = "ПРИЗЕМЛЕНИЕ";
+        updateStatusText("bal_status_land");
 
         state.flags.push(state.x);
         if (state.flags.length > 3) state.flags.shift();
@@ -353,6 +372,9 @@ function draw() {
     ctx.lineWidth = 2;
     ctx.stroke();
 
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const unitM = activeLang === 'ru' ? 'м' : 'm';
+
     state.flags.forEach((flagX, index) => {
         const px = w2sX(flagX);
         const py = w2sY(0);
@@ -367,7 +389,7 @@ function draw() {
 
         ctx.fillStyle = "rgba(255,255,255,0.6)";
         ctx.font = "10px sans-serif";
-        ctx.fillText(flagX.toFixed(1) + "м", px - 10, py + 15);
+        ctx.fillText(flagX.toFixed(1) + unitM, px - 10, py + 15);
     });
 
     if (!state.isRunning) {
@@ -428,7 +450,7 @@ function draw() {
 
         ctx.fillStyle = "#fff";
         ctx.font = "bold 10px sans-serif";
-        ctx.fillText(`H = ${state.apex.y.toFixed(2)}м (x: ${state.apex.x.toFixed(2)}м)`, ax + 8, ay - 4);
+        ctx.fillText(`H = ${state.apex.y.toFixed(2)}${unitM} (x: ${state.apex.x.toFixed(2)}${unitM})`, ax + 8, ay - 4);
     }
 
     if (p.h0 > 0) {
@@ -502,6 +524,20 @@ function drawArrow(fromx, fromy, tox, toy, color) {
     ctx.lineWidth = 2;
     ctx.stroke();
 }
+
+window.onLanguageChanged = function(lang) {
+    calculateTheoreticalPrediction();
+
+    const labelKey = state.cameraLocked ? "bal_cam_on" : "bal_cam_off";
+    if (typeof translations !== 'undefined' && translations[lang] && translations[lang][labelKey]) {
+        btnCamera.innerText = translations[lang][labelKey];
+    }
+
+    const stateKey = state.isRunning ? "bal_status_flight" : (state.time > 0 ? "bal_status_land" : "bal_status_idle");
+    updateStatusText(stateKey);
+
+    draw();
+};
 
 window.addEventListener('DOMContentLoaded', () => {
     for (let key in p) {
