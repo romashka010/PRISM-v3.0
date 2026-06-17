@@ -1,39 +1,67 @@
 const ACHIEVEMENTS = {
-    ALCHEMY_MASTER: { id: 'alc_master', title: 'Великий Алхимик', desc: 'Открыть все элементы на складе алхимии', icon: '🏆' },
-    FIRST_SYNTHESIS: { id: 'first_synth', title: 'Первая Искра', desc: 'Создать свой самый первый химический элемент', icon: '✨' },
-    EVOLUTION_PEAK: { id: 'evo_peak', title: 'Высшая степень эволюции', desc: 'Синтезировать человека в реакторе слияния', icon: '👤' },
-    ALMOST_HELL: { id: 'almost_hell', title: 'До ада осталось немного', desc: 'Попытаться соединить обсидиан с водой в реакторе', icon: '🌋' },
+    ALCHEMY_MASTER: { id: 'alc_master', key: 'alc_master', icon: '🏆' },
+    FIRST_SYNTHESIS: { id: 'first_synth', key: 'first_synth', icon: '✨' },
+    EVOLUTION_PEAK: { id: 'evo_peak', key: 'evo_peak', icon: '👤' },
+    ALMOST_HELL: { id: 'almost_hell', key: 'almost_hell', icon: '🌋' },
 
-    GLOSSARY_SAGE: { id: 'glo_sage', title: 'Вечный Студент', desc: 'Провести суммарно 30 минут в глоссарии', icon: '📜' },
-    QUIZ_HERO: { id: 'quiz_hero', title: 'Интеллектуал', desc: 'Набрать 5 очков в интерактивной викторине глоссария', icon: '🧠' },
-    QUIZ_STREAKER: { id: 'quiz_streaker', title: 'Эрудит в ударе', desc: 'Дать 5 правильных ответов подряд в викторине', icon: '🔥' },
-    TERM_COLLECTOR: { id: 'term_collector', title: 'Жажда знаний', desc: 'Изучить подробное описание 8 различных терминов', icon: '📚' },
+    GLOSSARY_SAGE: { id: 'glo_sage', key: 'glo_sage', icon: '📜' },
+    QUIZ_HERO: { id: 'quiz_hero', key: 'quiz_hero', icon: '🧠' },
+    QUIZ_STREAKER: { id: 'quiz_streaker', key: 'quiz_streaker', icon: '🔥' },
+    TERM_COLLECTOR: { id: 'term_collector', key: 'term_collector', icon: '📚' },
 
-    FIND_NEPTUNE: { id: 'neptune', title: 'Это конец..?', desc: 'Запустить подробное сканирование ледяного гиганта Нептуна', icon: '❄️' },
-    SUN_EXPLORER: { id: 'sun_explorer', title: 'Прикосновение к звезде', desc: 'Нажать на Солнце и изучить его характеристики', icon: '☀️' },
+    FIND_NEPTUNE: { id: 'neptune', key: 'neptune', icon: '❄️' },
+    SUN_EXPLORER: { id: 'sun_explorer', key: 'sun_explorer', icon: '☀️' },
 
-    EXPLORER: { id: 'explorer', title: 'Первооткрыватель', desc: 'Посетить все 4 научных сектора Prism', icon: '🧭' },
-    LET_THERE_BE_LIGHT: { id: 'light', title: 'Да будет свет', desc: 'Сменить тему интерфейса со светлой на тёмную', icon: '🌓' },
+    EXPLORER: { id: 'explorer', key: 'explorer', icon: '🧭' },
+    LET_THERE_BE_LIGHT: { id: 'light', key: 'light', icon: '🌓' },
 
-    PHYS_WELCOME: { id: 'phys_welcome', title: 'Теория и практика', desc: 'Впервые зайти в раздел физических симуляций', icon: '🍎' },
-    PHYS_EXPERIMENTER: { id: 'phys_experimenter', title: 'Заслуженный Экспериментатор', desc: 'Изучить все 5 физических направлений', icon: '🧪' },
-    DESKTOP_CHAD: { id: 'desktop_chad', title: 'ПК Боярин', desc: 'Запустить физику на полноценном мониторе без мобильных предупреждений', icon: '🖥️' },
-    EINSTEIN_BRAIN: { id: 'einstein_brain', title: 'Теория Относительности', desc: 'Секрет: Постучать по вывеске физических модулей', icon: '🧠' },
-    TESLA_DISCIPLE: { id: 'tesla_disciple', title: 'Искры Теслы', desc: 'Секрет: Пощелкать по иконке молнии электрических цепей', icon: '🔌' },
-    PERPETUUM_MOBILE: { id: 'perpetuum_mobile', title: 'Вечный Двигатель', desc: 'Провести на странице физики более 5 минут', icon: '⏳' },
+    PHYS_WELCOME: { id: 'phys_welcome', key: 'phys_welcome', icon: '🍎' },
+    PHYS_EXPERIMENTER: { id: 'phys_experimenter', key: 'phys_experimenter', icon: '🧪' },
+    DESKTOP_CHAD: { id: 'desktop_chad', key: 'desktop_chad', icon: '🖥️' },
+    EINSTEIN_BRAIN: { id: 'einstein_brain', key: 'einstein_brain', icon: '🧠' },
+    TESLA_DISCIPLE: { id: 'tesla_disciple', key: 'tesla_disciple', icon: '🔌' },
+    PERPETUUM_MOBILE: { id: 'perpetuum_mobile', key: 'perpetuum_mobile', icon: '⏳' },
 
-    SHORT_CIRCUIT: { id: 'short_circuit', title: 'Короткое замыкание', desc: 'Перегрузить и заблокировать источник питания высоким током', icon: '💥' },
-    FUSE_BURNT: { id: 'fuse_burnt', title: 'Огнеупорный', desc: 'Сжечь плавкий предохранитель высоким током в цепи', icon: '🛡️' },
-    SNIPER: { id: 'sniper', title: 'Снайпер', desc: 'Запустить снаряд в баллистическом симуляторе', icon: '🎯' },
-    PERFECT_ANGLE: { id: 'perfect_angle', title: 'Идеальный угол', desc: 'Выстрелить под углом 45° для достижения максимальной дальности', icon: '📐' },
-    GRAVITY_MASTER: { id: 'gravity_master', title: 'Повелитель притяжения', desc: 'Добавить на электростатический стенд разноименные заряды и пластины', icon: '🌌' },
-    TOTAL_REFLECTION: { id: 'total_reflection', title: 'Мираж', desc: 'Добиться полного внутреннего отражения на границе двух сред', icon: '🌈' },
-    LENS_FOCUS: { id: 'lens_focus', title: 'Фокусировка', desc: 'Изменить фокусное расстояние или положение предмета у линзы', icon: '🔎' }
+    SHORT_CIRCUIT: { id: 'short_circuit', key: 'short_circuit', icon: '💥' },
+    FUSE_BURNT: { id: 'fuse_burnt', key: 'fuse_burnt', icon: '🛡️' },
+    SNIPER: { id: 'sniper', key: 'sniper', icon: '🎯' },
+    PERFECT_ANGLE: { id: 'perfect_angle', key: 'perfect_angle', icon: '📐' },
+    GRAVITY_MASTER: { id: 'gravity_master', key: 'gravity_master', icon: '🌌' },
+    TOTAL_REFLECTION: { id: 'total_reflection', key: 'total_reflection', icon: '🌈' },
+    LENS_FOCUS: { id: 'lens_focus', key: 'lens_focus', icon: '🔎' }
 };
 
 function isUnlocked(achId) {
     const unlocked = JSON.parse(localStorage.getItem('prism_achievements') || '[]');
     return unlocked.includes(achId);
+}
+
+function getLocalizedAchData(achKey) {
+    const ach = ACHIEVEMENTS[achKey];
+    if (!ach) return null;
+
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+
+    const titleKey = `ach_title_${ach.key}`;
+    const descKey = `ach_desc_${ach.key}`;
+
+    let title = "Achievement";
+    let desc = "Condition locked";
+
+    if (typeof translations !== 'undefined' && translations[activeLang]) {
+        if (translations[activeLang][titleKey] !== undefined) title = translations[activeLang][titleKey];
+        if (translations[activeLang][descKey] !== undefined) desc = translations[activeLang][descKey];
+    } else {
+        title = achKey;
+        desc = "Locked";
+    }
+
+    return {
+        id: ach.id,
+        icon: ach.icon,
+        title: title,
+        desc: desc
+    };
 }
 
 function unlockAchievement(achKey) {
@@ -44,18 +72,27 @@ function unlockAchievement(achKey) {
     unlocked.push(ach.id);
     localStorage.setItem('prism_achievements', JSON.stringify(unlocked));
 
-    showAchievementToast(ach);
+    const localizedData = getLocalizedAchData(achKey);
+    if (localizedData) {
+        showAchievementToast(localizedData);
+    }
     renderAchievementsModal();
 }
 
-function showAchievementToast(ach) {
+function showAchievementToast(achData) {
     const toast = document.createElement('div');
     toast.className = 'achievement-toast';
+
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const toastHeader = (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang]["ach_toast_header"])
+        ? translations[activeLang]["ach_toast_header"]
+        : "ACHIEVEMENT UNLOCKED";
+
     toast.innerHTML = `
-        <div class="ach-toast-icon">${ach.icon}</div>
+        <div class="ach-toast-icon">${achData.icon}</div>
         <div class="ach-toast-info">
-            <div class="ach-toast-header">ДОСТИЖЕНИЕ ПОЛУЧЕНО</div>
-            <div class="ach-toast-title">${ach.title}</div>
+            <div class="ach-toast-header">${toastHeader}</div>
+            <div class="ach-toast-title">${achData.title}</div>
         </div>
     `;
     document.body.appendChild(toast);
@@ -73,19 +110,24 @@ function initAchievementsUI() {
     const btn = document.createElement('button');
     btn.id = 'prism-ach-btn';
     btn.innerHTML = '🏆';
-    btn.title = 'Достижения';
+    btn.title = 'Achievements';
     btn.onclick = toggleAchievementsModal;
     document.body.appendChild(btn);
 
     const modal = document.createElement('div');
     modal.id = 'prism-ach-modal';
+
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const mTitle = (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang]["ach_title"]) ? translations[activeLang]["ach_title"] : "Achievements";
+    const mStats = (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang]["ach_stats"]) ? translations[activeLang]["ach_stats"] : "Unlocked: <span id=\"ach-stats-count\">0</span>";
+
     modal.innerHTML = `
         <div class="ach-modal-content">
             <div class="ach-modal-header">
-                <h2>Ваши Достижения</h2>
+                <h2 id="ach-modal-title-text">${mTitle}</h2>
                 <button onclick="toggleAchievementsModal()" class="ach-close-btn">✕</button>
             </div>
-            <div class="ach-modal-stats">Разблокировано: <span id="ach-stats-count">0</span> / ${Object.keys(ACHIEVEMENTS).length}. ДОСТИЖЕНИЯ МОГУТ ПРИХОДИТЬ С ЗАДЕРЖКОЙ</div>
+            <div class="ach-modal-stats" id="ach-modal-stats-text">${mStats}</div>
             <div class="ach-list" id="ach-list-container"></div>
         </div>
     `;
@@ -96,6 +138,7 @@ function initAchievementsUI() {
 
 function toggleAchievementsModal() {
     const modal = document.getElementById('prism-ach-modal');
+    if (!modal) return;
     modal.classList.toggle('active');
     renderAchievementsModal();
 }
@@ -105,27 +148,49 @@ function renderAchievementsModal() {
     const countSpan = document.getElementById('ach-stats-count');
     if (!container) return;
 
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const mTitleText = document.getElementById('ach-modal-title-text');
+    const mStatsText = document.getElementById('ach-modal-stats-text');
+
+    if (mTitleText && typeof translations !== 'undefined' && translations[activeLang]) {
+        mTitleText.innerText = translations[activeLang]["ach_title"] || "Achievements";
+    }
+    if (mStatsText && typeof translations !== 'undefined' && translations[activeLang]) {
+        mStatsText.innerHTML = translations[activeLang]["ach_stats"] || "Unlocked: <span id=\"ach-stats-count\">0</span>";
+    }
+
     container.innerHTML = '';
     let unlockedCount = 0;
 
-    Object.values(ACHIEVEMENTS).forEach(ach => {
-        const unlocked = isUnlocked(ach.id);
+    Object.keys(ACHIEVEMENTS).forEach(achKey => {
+        const rawAch = ACHIEVEMENTS[achKey];
+        const unlocked = isUnlocked(rawAch.id);
         if (unlocked) unlockedCount++;
 
+        const data = getLocalizedAchData(achKey);
         const item = document.createElement('div');
         item.className = `ach-item ${unlocked ? 'unlocked' : 'locked'}`;
+
+        const hiddenTitle = (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang]["ach_hidden_title"]) ? translations[activeLang]["ach_hidden_title"] : "Hidden";
+        const hiddenDesc = (typeof translations !== 'undefined' && translations[activeLang] && translations[activeLang]["ach_hidden_desc"]) ? translations[activeLang]["ach_hidden_desc"] : "Locked";
+
         item.innerHTML = `
-            <div class="ach-item-icon">${unlocked ? ach.icon : '🔒'}</div>
+            <div class="ach-item-icon">${unlocked ? data.icon : '🔒'}</div>
             <div class="ach-item-info">
-                <div class="ach-item-title">${unlocked ? ach.title : 'Скрытое достижение'}</div>
-                <div class="ach-item-desc">${unlocked ? ach.desc : 'Условия получения скрыты'}</div>
+                <div class="ach-item-title">${unlocked ? data.title : hiddenTitle}</div>
+                <div class="ach-item-desc">${unlocked ? data.desc : hiddenDesc}</div>
             </div>
         `;
         container.appendChild(item);
     });
 
-    if (countSpan) countSpan.textContent = unlockedCount;
+    const freshCountSpan = document.getElementById('ach-stats-count');
+    if (freshCountSpan) freshCountSpan.textContent = unlockedCount;
 }
+
+window.onLanguageChanged = function(lang) {
+    renderAchievementsModal();
+};
 
 window.addEventListener('DOMContentLoaded', () => {
     initAchievementsUI();
@@ -150,7 +215,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }
 
-    // Слушатель глобального изменения тем
     document.addEventListener('click', (e) => {
         if (e.target.closest('#themeToggleBtn') || e.target.closest('.theme-switcher')) {
             unlockAchievement('LET_THERE_BE_LIGHT');
