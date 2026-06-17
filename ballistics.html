@@ -4,19 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prism — Ballistics</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+
     <link rel="stylesheet" href="css/ballistics.css">
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/i18n.css"> <!-- Стили переключателя языков -->
     <link rel="icon" type="png" href="textures/icon.png">
 </head>
 <body>
     <div class="app-container">
         <div class="control-panel">
-            <h2>⚙️ ПАРАМЕТРЫ</h2>
+            <h2 data-i18n="bal_title">⚙️ ПАРАМЕТРЫ</h2>
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-v0">Скорость (v₀), м/с</label>
+                    <label for="input-h0" data-i18n="bal_h0">Начальная высота (h₀), м</label>
+                    <input type="number" id="num-h0" min="0" max="50" step="1" value="0" class="num-input">
+                </div>
+                <input type="range" id="input-h0" min="0" max="50" step="1" value="0">
+            </div>
+
+            <div class="control-group">
+                <div class="control-label-row">
+                    <label for="input-v0" data-i18n="bal_v0">Скорость (v₀), м/с</label>
                     <input type="number" id="num-v0" min="5" max="50" step="1" value="20" class="num-input">
                 </div>
                 <input type="range" id="input-v0" min="5" max="50" step="1" value="20">
@@ -24,15 +36,15 @@
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-angle">Угол (α), °</label>
-                    <input type="number" id="num-angle" min="5" max="85" step="1" value="45" class="num-input">
+                    <label for="input-angle" data-i18n="bal_angle">Угол (α), °</label>
+                    <input type="number" id="num-angle" min="1" max="85" step="1" value="45" class="num-input">
                 </div>
-                <input type="range" id="input-angle" min="5" max="85" step="1" value="45">
+                <input type="range" id="input-angle" min="1" max="85" step="1" value="45">
             </div>
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-g">Гравитация (g), м/с²</label>
+                    <label for="input-g" data-i18n="bal_g">Гравитация (g), м/с²</label>
                     <input type="number" id="num-g" min="1" max="25" step="0.1" value="9.8" class="num-input">
                 </div>
                 <input type="range" id="input-g" min="1" max="25" step="0.1" value="9.8">
@@ -40,7 +52,7 @@
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-m">Масса (m), кг</label>
+                    <label for="input-m" data-i18n="bal_m">Масса (m), кг</label>
                     <input type="number" id="num-m" min="0.1" max="50" step="0.1" value="5" class="num-input">
                 </div>
                 <input type="range" id="input-m" min="0.1" max="50" step="0.1" value="5">
@@ -48,24 +60,24 @@
 
             <div class="control-group">
                 <div class="control-label-row">
-                    <label for="input-k">Сопротивление (k)</label>
+                    <label for="input-k" data-i18n="bal_k">Сопротивление (k)</label>
                     <input type="number" id="num-k" min="0" max="2" step="0.05" value="0" class="num-input">
                 </div>
                 <input type="range" id="input-k" min="0" max="2" step="0.05" value="0">
             </div>
 
-            <div class="info-box">
+            <div class="info-box" data-i18n="bal_hint">
                 💡 Масса тела влияет на дальность полета <b>только</b> при сопротивлении воздуха k > 0.
             </div>
 
             <div class="buttons-grid">
-                <button id="btn-start" class="btn primary">Запуск / Рестарт</button>
-                <button id="btn-reset" class="btn secondary">Очистить</button>
-                <button id="btn-camera" class="btn toggle">Следить: ВЫКЛ</button>
+                <button id="btn-start" class="btn primary" data-i18n="bal_start">Запуск / Рестарт</button>
+                <button id="btn-reset" class="btn secondary" data-i18n="bal_clear">Очистить</button>
+                <button id="btn-camera" class="btn toggle" data-i18n="bal_cam_off">Следить: ВЫКЛ</button>
             </div>
 
             <div class="stats-panel prediction-panel">
-                <h3>🎯 ТЕОРЕТИЧЕСКИЙ РАСЧЕТ</h3>
+                <h3 data-i18n="bal_theory">🎯 ТЕОРЕТИЧЕСКИЙ РАСЧЕТ</h3>
                 <div class="latex-formula-row">
                     <span id="math-h-formula"></span>
                 </div>
@@ -75,27 +87,30 @@
             </div>
 
             <div class="stats-panel">
-                <h3>📊 ДАННЫЕ ПОЛЕТА (ТЕКУЩИЕ)</h3>
-                <p>Время (t): <span id="stat-time">0.00</span> с</p>
-                <p>Высота (y): <span id="stat-y">0.00</span> м</p>
-                <p>Дальность (x): <span id="stat-x">0.00</span> м</p>
+                <h3 data-i18n="bal_data_title">📊 ДАННЫЕ ПОЛЕТА (ТЕКУЩИЕ)</h3>
+                <p><span data-i18n="bal_stat_time">Время (t):</span> <span id="stat-time">0.00</span> <span data-i18n="bal_unit_s">с</span></p>
+                <p><span data-i18n="bal_stat_y">Высота (y):</span> <span id="stat-y">0.00</span> <span data-i18n="bal_unit_m">м</span></p>
+                <p><span data-i18n="bal_stat_x">Дальность (x):</span> <span id="stat-x">0.00</span> <span data-i18n="bal_unit_m">м</span></p>
             </div>
 
-            <a href="physics.html" class="back-link">← Назад в модули</a>
+            <a href="physics.html" class="back-link" data-i18n="bal_back_link">← Назад в модули</a>
         </div>
 
         <div class="canvas-container" id="canvas-wrapper">
             <canvas id="sim-canvas"></canvas>
-            <div class="canvas-overlay-text" id="status-text">Перетаскивай экран мышкой</div>
+            <div class="canvas-overlay-text" id="status-text" data-i18n="bal_overlay_txt">Перетаскивай экран мышкой</div>
 
             <div class="legend">
-                <div class="legend-item"><div class="color-box" style="background: var(--accent-red)"></div> Вектор скорости</div>
-                <div class="legend-item"><div class="color-box" style="background: var(--accent-green)"></div> Вектор гравитации</div>
-                <div class="legend-item"><div class="color-box" style="background: var(--accent-orange)"></div> Максимальный подъем</div>
+                <div class="legend-item"><div class="color-box" style="background: var(--accent-red)"></div> <span data-i18n="bal_leg_v">Вектор скорости</span></div>
+                <div class="legend-item"><div class="color-box" style="background: var(--accent-green)"></div> <span data-i18n="bal_leg_g">Вектор гравитации</span></div>
+                <div class="legend-item"><div class="color-box" style="background: var(--accent-orange)"></div> <span data-i18n="bal_leg_apex">Максимальный подъем</span></div>
             </div>
         </div>
     </div>
 
+    <!-- ПОДКЛЮЧАЕМ СИСТЕМУ ПЕРЕВОДА ПЕРЕД ДВИЖКОМ -->
+    <script src="js/i18n.js"></script>
     <script src="js/ballistics.js"></script>
+    <script src="js/achievements.js"></script>
 </body>
 </html>
