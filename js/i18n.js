@@ -74,7 +74,7 @@ const translations = {
         "alc_footer_sec": "PRISM // SEC_03",
 
         //===ГЛОССАРИЙ===
-        "glo_beta": "Сейчас в базе множество научных тем. Но не переживайте, со временем их станет еще больше.",
+        "glo_beta": "Сейчас в нашей базе множество научных тем. Но не переживайте, со временем их станет еще больше.",
         "glo_back": "На главную",
         "glo_title": "Глоссарий",
         "glo_desc": "Энциклопедия природных процессов, законов физики, космических явлений и природных объектов. Переключайтесь между форматами объяснений для максимального удобства.",
@@ -99,7 +99,21 @@ const translations = {
         "modal_math_desc": "Математическое выражение закона или состава элемента",
         "modal_vars": "Расшифровка формулы",
         "modal_essence": "Суть и объяснение",
-        "modal_close": "Закрыть тему"
+        "modal_close": "Закрыть тему",
+
+        //===КОСМОС===
+        "space_back": "← На главную",
+        "space_title": "Солнечная система",
+        "space_desc": "Это Млечный Путь. Все данные приближены к реальным.",
+        "space_reset_btn": "Сбросить вид",
+        "space_obj_default": "Объект",
+        "space_dist_label": "Дистанция:",
+        "space_dist_unit": "млн км",
+        "space_scanning": "Данные сканирования...",
+        "space_asteroid_belt_title": "Пояс Астероидов",
+        "space_asteroid_belt_p1": "Существует красивая, но печальная легенда о планете Фаэтон, которая якобы взорвалась на этом месте. Однако современная наука говорит о другом: на самом деле здесь никогда не было целой планеты.",
+        "space_asteroid_belt_p2": "Когда 4,6 миллиарда лет назад формировались планеты, в этой области тоже начал собираться строительный материал. Но «новорожденный» Юпитер стал настолько массивным, что его мощнейшая гравитация начала буквально растаскивать камни в разные стороны. Он не дал им слипнуться в единое целое. Пояс астероидов — это «космическая стройплощадка», работу на которой остановил сосед-гигант.",
+        "space_asteroid_belt_p3": "Пояс находится в так называемой «зоне пустоты», где гравитационные силы Марса и Юпитера ведут вечную борьбу. Юпитер постоянно «встряхивает» астероиды, заставляя их сталкиваться на огромных скоростях. Из-за этих столкновений камни не объединяются, а наоборот — дробятся."
     },
     en: {
         "warn_opt": "OPTIMIZED FOR PC",
@@ -201,7 +215,21 @@ const translations = {
         "modal_math_desc": "Mathematical expression of the law or element composition",
         "modal_vars": "Formula Decoding",
         "modal_essence": "Essence & Explanation",
-        "modal_close": "Close Topic"
+        "modal_close": "Close Topic",
+
+        //===KOSMOS===
+        "space_back": "← To Main",
+        "space_title": "Solar System",
+        "space_desc": "This is the Milky Way. All data approximates physical reality.",
+        "space_reset_btn": "Reset View",
+        "space_obj_default": "Object",
+        "space_dist_label": "Distance:",
+        "space_dist_unit": "million km",
+        "space_scanning": "Scanning database...",
+        "space_asteroid_belt_title": "The Asteroid Belt",
+        "space_asteroid_belt_p1": "There is a beautiful but tragic legend about a planet called Phaeton that supposedly exploded here. Modern science, however, says otherwise: a whole planet never actually existed in this orbit.",
+        "space_asteroid_belt_p2": "When the planets were forming 4.6 billion years ago, cosmic debris began accumulating in this region as well. However, the newly-born Jupiter grew so massive that its powerful gravity continually pulled the rocky chunks in different directions, preventing them from fusing together.",
+        "space_asteroid_belt_p3": "The belt is located in a 'gravitational void' zone where Mars and Jupiter wage a perpetual tug-of-war. Jupiter constantly stirs the asteroids, causing them to collide at high velocities, which breaks them apart instead of allowing them to merge."
     }
 };
 
