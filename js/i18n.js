@@ -1,5 +1,11 @@
+/**
+ * Глобальная система интернационализации (i18n) для Prism
+ * Управляет языковым барьером на всех страницах и наследует выбор пользователя.
+ */
+
 const translations = {
     ru: {
+        // Оверлеи и модалки предупреждений
         "warn_opt": "ОПТИМИЗИРОВАНО ДЛЯ ПК",
         "warn_txt1": "Пожалуйста, откройте этот раздел на компьютере или включите режим отображения «Версия для ПК» в браузере.",
         "warn_txt2": "Нажимая эту кнопку, вы продолжаете на свой страх и риск.",
@@ -8,6 +14,7 @@ const translations = {
         "trans_phys_desc": "Данный сектор исследований находится в процессе симуляций. Физическое ядро Prism подготавливается к запуску и станет доступно в следующих циклах обновления.",
         "trans_back": "Вернуться назад",
 
+        // Модальное окно контактов
         "contact_tag": "Шлюз связи",
         "contact_title": "Написать Prism",
         "contact_name_label": "Ваше Имя",
@@ -21,10 +28,12 @@ const translations = {
         "contact_succ_desc": "Данные успешно экспортированы. В новой вкладке открылся Gmail для отправки сообщения. Если вкладка не открылась, проверьте настройки блокировщика всплывающих окон.",
         "contact_succ_btn": "Вернуться к сайту",
 
+        // Слайд 1: Главный экран
         "hero_sub": "Обучение • Исследования",
         "hero_desc": "Исследование фундаментальных основ Вселенной",
         "hero_scroll": "Прокрутите вниз для ознакомления",
 
+        // Слайд 2: Концепция
         "man_step": "02 / Концепция",
         "man_sub": "Исследование фундаментальных истин",
         "man_tag": "Концепция знаний",
@@ -32,6 +41,7 @@ const translations = {
         "man_desc": "Жизнь состоит из множества граней, и каждая из них заслуживает понимания. Это пространство создано для тех, кто не боится задавать сложные вопросы и искать на них честные ответы.",
         "man_btn": "Перейти к выбору дисциплин →",
 
+        // Слайд 3: Меню секторов
         "menu_tag": "Направления научных исследований",
         "menu_title": "Научные Грани",
         "menu_phys": "Физика",
@@ -44,6 +54,7 @@ const translations = {
         "menu_glo_sub": "Терминология",
         "menu_footer": "ВЫБЕРИТЕ ПРИЗМУ ИНТЕРЕСА",
 
+        // Слайд 4: Подвал и контакты
         "out_step": "04 / Синтез",
         "out_sub": "Новые Горизонты",
         "out_tag": "Сотрудничество",
@@ -56,7 +67,7 @@ const translations = {
         "out_boosty": "Поддержать автора",
         "out_footer": "PRISM | 2026 • ИСКУССТВО ЧИСТОГО ПОЗНАНИЯ",
 
-        //===АЛХИМИЯ===
+        // === ИНТЕРФЕЙС АЛХИМИИ ===
         "alc_back": "← На главную",
         "alc_subtitle": "SEC_03 // Молекулярный Синтез",
         "alc_beta": "Это игра, и она находится в бета-тестировании",
@@ -73,7 +84,7 @@ const translations = {
         "alc_status": "Состояние ядра: Стабильно (100.0%)",
         "alc_footer_sec": "PRISM // SEC_03",
 
-        //===ГЛОССАРИЙ===
+        // === ИНТЕРФЕЙС ГЛОССАРИЯ ===
         "glo_beta": "Сейчас в нашей базе множество научных тем. Но не переживайте, со временем их станет еще больше.",
         "glo_back": "На главную",
         "glo_title": "Глоссарий",
@@ -101,7 +112,7 @@ const translations = {
         "modal_essence": "Суть и объяснение",
         "modal_close": "Закрыть тему",
 
-        //===КОСМОС===
+        // === ИНТЕРФЕЙС КОСМОСА ===
         "space_back": "← На главную",
         "space_title": "Солнечная система",
         "space_desc": "Это Млечный Путь. Все данные приближены к реальным.",
@@ -115,7 +126,7 @@ const translations = {
         "space_asteroid_belt_p2": "Когда 4,6 миллиарда лет назад формировались планеты, в этой области тоже начал собираться строительный материал. Но «новорожденный» Юпитер стал настолько массивным, что его мощнейшая гравитация начала буквально растаскивать камни в разные стороны. Он не дал им слипнуться в единое целое. Пояс астероидов — это «космическая стройплощадка», работу на которой остановил сосед-гигант.",
         "space_asteroid_belt_p3": "Пояс находится в так называемой «зоне пустоты», где гравитационные силы Марса и Юпитера ведут вечную борьбу. Юпитер постоянно «встряхивает» астероиды, заставляя их сталкиваться на огромных скоростях. Из-за этих столкновений камни не объединяются, а наоборот — дробятся.",
 
-        //===ФИЗИКА===
+        // === ИНТЕРФЕЙС ХАБА ФИЗИКИ ===
         "phys_title": "ФИЗИЧЕСКИЕ МОДУЛИ",
         "phys_back_nav": "← На главную",
         "phys_warn_opt": "ОПТИМИЗИРОВАНО ДЛЯ ПК",
@@ -157,9 +168,133 @@ const translations = {
 
         "phys_header_circ": "ЭЛЕКТРИЧЕСКИЕ ЦЕПИ",
         "phys_lab_circ_sandbox": "Песочница",
-        "phys_lab_circ_ohm": "Закон Ома для полной цепи"
+        "phys_lab_circ_ohm": "Закон Ома для полной цепи",
+
+        // === СИСТЕМА ДОСТИЖЕНИЙ ===
+        "ach_title": "Ваши Достижения",
+        "ach_stats": "Разблокировано: <span id=\"ach-stats-count\">0</span> / 24. НАГРАДЫ МОГУТ ПРИХОДИТЬ С ЗАДЕРЖКОЙ",
+        "ach_toast_header": "ДОСТИЖЕНИЕ ПОЛУЧЕНО",
+        "ach_hidden_title": "Скрытое достижение",
+        "ach_hidden_desc": "Условия получения скрыты (выполните опыты)",
+
+        // Локализация достижений по ID
+        "ach_title_alc_master": "Великий Алхимик",
+        "ach_desc_alc_master": "Открыть все элементы на складе алхимии",
+        "ach_title_first_synth": "Первая Искра",
+        "ach_desc_first_synth": "Создать свой самый первый химический элемент",
+        "ach_title_evo_peak": "Высшая степень эволюции",
+        "ach_desc_evo_peak": "Синтезировать человека в реакторе слияния",
+        "ach_title_almost_hell": "До ада осталось немного",
+        "ach_desc_almost_hell": "Попытаться соединить обсидиан с водой в реакторе",
+
+        "ach_title_glo_sage": "Вечный Студент",
+        "ach_desc_glo_sage": "Провести суммарно 30 минут в глоссарии",
+        "ach_title_quiz_hero": "Интеллектуал",
+        "ach_desc_quiz_hero": "Набрать 5 очков в интерактивной викторине глоссария",
+        "ach_title_quiz_streaker": "Эрудит в ударе",
+        "ach_desc_quiz_streaker": "Дать 5 правильных ответов подряд в викторине",
+        "ach_title_term_collector": "Жажда знаний",
+        "ach_desc_term_collector": "Изучить подробное описание 8 различных терминов",
+
+        "ach_title_neptune": "Это конец..?",
+        "ach_desc_neptune": "Запустить подробное сканирование ледяного гиганта Нептуна",
+        "ach_title_sun_explorer": "Прикосновение к звезде",
+        "ach_desc_sun_explorer": "Нажать на Солнце и изучить его характеристики",
+
+        "ach_title_explorer": "Первооткрыватель",
+        "ach_desc_explorer": "Посетить все 4 научных сектора Prism",
+        "ach_title_light": "Да будет свет",
+        "ach_desc_light": "Сменить тему интерфейса со светлой на тёмную",
+
+        "ach_title_phys_welcome": "Теория и практика",
+        "ach_desc_phys_welcome": "Впервые зайти в раздел физических симуляций",
+        "ach_title_phys_experimenter": "Заслуженный Экспериментатор",
+        "ach_desc_phys_experimenter": "Изучить все 5 физических направлений",
+        "ach_title_desktop_chad": "ПК Боярин",
+        "ach_desc_desktop_chad": "Запустить физику на полноценном мониторе без мобильных предупреждений",
+        "ach_title_einstein_brain": "Теория Относительности",
+        "ach_desc_einstein_brain": "Секрет: Постучать по вывеске физических модулей",
+        "ach_title_tesla_disciple": "Искры Теслы",
+        "ach_desc_tesla_disciple": "Секрет: Пощелкать по иконке молнии электрических цепей",
+        "ach_title_perpetuum_mobile": "Вечный Двигатель",
+        "ach_desc_perpetuum_mobile": "Провести на странице физики более 5 минут",
+
+        "ach_title_short_circuit": "Короткое замыкание",
+        "ach_desc_short_circuit": "Перегрузить и заблокировать источник питания высоким током",
+        "ach_title_fuse_burnt": "Огнеупорный",
+        "ach_desc_fuse_burnt": "Сжечь плавкий предохранитель высоким током в цепи",
+        "ach_title_sniper": "Снайпер",
+        "ach_desc_sniper": "Запустить артиллерийский снаряд в баллистическом симуляторе",
+        "ach_title_perfect_angle": "Идеальный угол",
+        "ach_desc_perfect_angle": "Выстрелить под углом 45° для достижения максимальной дальности",
+        "ach_title_gravity_master": "Повелитель притяжения",
+        "ach_desc_gravity_master": "Добавить на электростатический стенд разноименные заряды и пластины",
+        "ach_title_total_reflection": "Мираж",
+        "ach_desc_total_reflection": "Добиться полного внутреннего отражения на границе двух сред",
+        "ach_title_lens_focus": "Фокусировка",
+        "ach_desc_lens_focus": "Изменить фокусное расстояние или положение предмета у линзы",
+
+        // === БАЛЛИСТИКА ===
+        "bal_title": "⚙️ ПАРАМЕТРЫ",
+        "bal_h0": "Начальная высота (h₀), м",
+        "bal_v0": "Скорость (v₀), м/с",
+        "bal_angle": "Угол (α), °",
+        "bal_g": "Гравитация (g), м/с²",
+        "bal_m": "Масса (m), кг",
+        "bal_k": "Сопротивление (k)",
+        "bal_hint": "💡 Масса тела влияет на дальность полета <b>только</b> при сопротивлении воздуха k > 0.",
+        "bal_start": "Запуск / Рестарт",
+        "bal_clear": "Очистить",
+        "bal_cam_off": "Следить: ВЫКЛ",
+        "bal_cam_on": "Следить: ВКЛ",
+        "bal_theory": "🎯 ТЕОРЕТИЧЕСКИЙ РАСЧЕТ",
+        "bal_data_title": "📊 ДАННЫЕ ПОЛЕТА (ТЕКУЩИЕ)",
+        "bal_stat_time": "Время (t):",
+        "bal_stat_y": "Высота (y):",
+        "bal_stat_x": "Дальность (x):",
+        "bal_unit_s": "с",
+        "bal_unit_m": "м",
+        "bal_back_link": "← Назад в модули",
+        "bal_overlay_txt": "Перетаскивай экран мышкой",
+        "bal_leg_v": "Вектор скорости",
+        "bal_leg_g": "Вектор гравитации",
+        "bal_leg_apex": "Максимальный подъем",
+        "bal_status_idle": "ОЖИДАНИЕ ЗАПУСКА",
+        "bal_status_flight": "В ПОЛЕТЕ",
+        "bal_status_land": "ПРИЗЕМЛЕНИЕ",
+
+        // === СВОБОДНОЕ ПАДЕНИЕ ===
+        "fall_title": "⚙️ ПАРАМЕТРЫ",
+        "fall_h": "Высота (h₀), м",
+        "fall_v0": "Нач. скорость (v₀), м/с",
+        "fall_v0_hint": "Положительная — вверх, отрицательная — вниз",
+        "fall_g": "Гравитация (g), м/с²",
+        "fall_m": "Масса (m), кг",
+        "fall_k": "Сопротивление (k)",
+        "fall_start": "Старт / Сброс",
+        "fall_pause": "Пауза",
+        "fall_pause_resume": "Продолжить",
+        "fall_theory": "🎯 ТЕОРЕТИЧЕСКИЕ ЗАКОНЫ",
+        "fall_data_title": "📊 СОСТОЯНИЕ В ЦИФРАХ",
+        "fall_stat_time": "Время (t):",
+        "fall_stat_y": "Высота (y):",
+        "fall_stat_v": "Скорость (v):",
+        "fall_back_link": "← Назад в модули",
+        "fall_overlay_txt": "Эксперимент падения",
+        "fall_energy_title": "🔋 БАЛАНС ЭНЕРГИИ",
+        "fall_ep_label": "Потенциальная (E_p)",
+        "fall_ek_label": "Кинетическая (E_k)",
+        "fall_q_label": "Потери/Тепло (Q)",
+        "fall_etotal_label": "Полная механическая (E)",
+        "fall_graph_title": "📈 КРИВЫЕ ЭНЕРГИЙ",
+        "fall_unit_s": "с",
+        "fall_unit_m": "м",
+        "fall_unit_m_s": "м/с",
+        "fall_unit_j": "Дж",
+        "fall_scale_marker": "м"
     },
     en: {
+        // Overlays & Modals
         "warn_opt": "OPTIMIZED FOR PC",
         "warn_txt1": "Please open this section on a computer or enable 'Desktop site' mode in your mobile browser.",
         "warn_txt2": "By clicking this button, you proceed at your own risk.",
@@ -168,6 +303,7 @@ const translations = {
         "trans_phys_desc": "This research sector is undergoing simulations. The Prism physical engine is preparing for launch and will be available in future update cycles.",
         "trans_back": "Go back",
 
+        // Contact Modal
         "contact_tag": "Comms Gateway",
         "contact_title": "Contact Prism",
         "contact_name_label": "Your Name",
@@ -181,10 +317,12 @@ const translations = {
         "contact_succ_desc": "Data successfully exported. A new tab opened Gmail to send the message. If it didn't open, check your pop-up blocker settings.",
         "contact_succ_btn": "Return to site",
 
+        // Slide 1: Hero
         "hero_sub": "Education • Research",
         "hero_desc": "Exploring the fundamental foundations of the Universe",
         "hero_scroll": "Scroll down to explore",
 
+        // Slide 2: Concept
         "man_step": "02 / Concept",
         "man_sub": "Exploring fundamental truths",
         "man_tag": "Concept of Knowledge",
@@ -192,6 +330,7 @@ const translations = {
         "man_desc": "Life consists of many facets, and each deserves understanding. This space is created for those who aren't afraid to ask complex questions and seek honest answers.",
         "man_btn": "Proceed to disciplines →",
 
+        // Slide 3: Menu
         "menu_tag": "Scientific Research Directions",
         "menu_title": "Scientific Facets",
         "menu_phys": "Physics",
@@ -204,6 +343,7 @@ const translations = {
         "menu_glo_sub": "Terminology",
         "menu_footer": "SELECT A PRISM OF INTEREST",
 
+        // Slide 4: Outro
         "out_step": "04 / Synthesis",
         "out_sub": "New Horizons",
         "out_tag": "Collaboration",
@@ -216,7 +356,7 @@ const translations = {
         "out_boosty": "Support the Author",
         "out_footer": "PRISM | 2026 • THE ART OF PURE KNOWLEDGE",
 
-        //===ALCHEMY===
+        // === ALCHEMY ===
         "alc_back": "← To Main",
         "alc_subtitle": "SEC_03 // Molecular Synthesis",
         "alc_beta": "This is a game in beta testing phase",
@@ -233,7 +373,7 @@ const translations = {
         "alc_status": "Core status: Stable (100.0%)",
         "alc_footer_sec": "PRISM // SEC_03",
 
-        //===GLOSSARY===
+        // === GLOSSARY ===
         "glo_beta": "There are currently many scientific topics. But do not worry, more will be added over time.",
         "glo_back": "To Main",
         "glo_title": "Glossary",
@@ -261,7 +401,7 @@ const translations = {
         "modal_essence": "Essence & Explanation",
         "modal_close": "Close Topic",
 
-        //===SPACE===
+        // === SPACE ===
         "space_back": "← To Main",
         "space_title": "Solar System",
         "space_desc": "This is the Milky Way. All data approximates physical reality.",
@@ -275,7 +415,7 @@ const translations = {
         "space_asteroid_belt_p2": "When the planets were forming 4.6 billion years ago, cosmic debris began accumulating in this region as well. However, the newly-born Jupiter grew so massive that its powerful gravity continually pulled the rocky chunks in different directions, preventing them from fusing together.",
         "space_asteroid_belt_p3": "The belt is located in a 'gravitational void' zone where Mars and Jupiter wage a perpetual tug-of-war. Jupiter constantly stirs the asteroids, causing them to collide at high velocities, which breaks them apart instead of allowing them to merge.",
 
-        //===PHYSICS===
+        // === PHYSICS HUB INTERFACE ===
         "phys_title": "PHYSICAL MODULES",
         "phys_back_nav": "← To Main",
         "phys_warn_opt": "OPTIMIZED FOR PC",
@@ -283,6 +423,7 @@ const translations = {
         "phys_warn_hint": "Please open this section on a desktop computer or leave this section.",
         "phys_warn_back": "← To Main",
 
+        // Tiles
         "phys_tile_mech": "Mechanics",
         "phys_tile_mech_desc": "Kinematics, free fall, and dynamics of bodies.",
         "phys_tile_coul": "Electrostatics",
@@ -294,8 +435,10 @@ const translations = {
         "phys_tile_thermo": "Thermodynamics",
         "phys_tile_thermo_desc": "Gas processes and the ideal gas cycle.",
 
+        // Back Buttons
         "phys_back_btn": "← Back",
 
+        // Submenus
         "phys_header_mech": "MECHANICS",
         "phys_lab_ballistics": "Ballistics",
         "phys_lab_freefall": "Free Fall",
@@ -317,7 +460,130 @@ const translations = {
 
         "phys_header_circ": "ELECTRICAL CIRCUITS",
         "phys_lab_circ_sandbox": "Sandbox",
-        "phys_lab_circ_ohm": "Ohm's Law for Full Circuit"
+        "phys_lab_circ_ohm": "Ohm's Law for Full Circuit",
+
+        // === SYSTEM ACHIEVEMENTS ===
+        "ach_title": "Your Achievements",
+        "ach_stats": "Unlocked: <span id=\"ach-stats-count\">0</span> / 24. REWARDS MAY ARRIVE WITH A DELAY",
+        "ach_toast_header": "ACHIEVEMENT UNLOCKED",
+        "ach_hidden_title": "Hidden Achievement",
+        "ach_hidden_desc": "Unlock conditions are hidden (run experiments)",
+
+        // Localization of achievements by ID
+        "ach_title_alc_master": "Grand Alchemist",
+        "ach_desc_alc_master": "Unlock all elements in the alchemy storage",
+        "ach_title_first_synth": "First Spark",
+        "ach_desc_first_synth": "Synthesize your very first chemical element",
+        "ach_title_evo_peak": "Peak of Evolution",
+        "ach_desc_evo_peak": "Synthesize a human in the fusion reactor",
+        "ach_title_almost_hell": "On the Edge of Hell",
+        "ach_desc_almost_hell": "Attempt to combine obsidian and water in the reactor",
+
+        "ach_title_glo_sage": "Perpetual Student",
+        "ach_desc_glo_sage": "Spend a total of 30 minutes in the glossary",
+        "ach_title_quiz_hero": "Intellectual",
+        "ach_desc_quiz_hero": "Score 5 points in the interactive glossary quiz",
+        "ach_title_quiz_streaker": "Erudite on Fire",
+        "ach_desc_quiz_streaker": "Give 5 correct answers in a row during the quiz",
+        "ach_title_term_collector": "Thirst for Knowledge",
+        "ach_desc_term_collector": "Explore the detailed description of 8 different terms",
+
+        "ach_title_neptune": "Is This the End..?",
+        "ach_desc_neptune": "Perform a detailed scan of the ice giant Neptune",
+        "ach_title_sun_explorer": "Touch the Star",
+        "ach_desc_sun_explorer": "Click on the Sun and analyze its characteristics",
+
+        "ach_title_explorer": "Pioneer",
+        "ach_desc_explorer": "Visit all 4 scientific sectors of Prism",
+        "ach_title_light": "Let There Be Light",
+        "ach_desc_light": "Switch the interface theme from light to dark",
+
+        "ach_title_phys_welcome": "Theory and Practice",
+        "ach_desc_phys_welcome": "First visit to the physics simulations sector",
+        "ach_title_phys_experimenter": "Honored Experimenter",
+        "ach_desc_phys_experimenter": "Explore all 5 physical modules",
+        "ach_title_desktop_chad": "PC Master",
+        "ach_desc_desktop_chad": "Launch physics on a full desktop monitor without mobile warnings",
+        "ach_title_einstein_brain": "Theory of Relativity",
+        "ach_desc_einstein_brain": "Secret: Knock on the physical modules title banner",
+        "ach_title_tesla_disciple": "Tesla Sparks",
+        "ach_desc_tesla_disciple": "Secret: Repeatedly click on the electrical circuits lightning icon",
+        "ach_title_perpetuum_mobile": "Perpetual Motion Machine",
+        "ach_desc_perpetuum_mobile": "Spend more than 5 minutes on the physics page",
+
+        "ach_title_short_circuit": "Short Circuit",
+        "ach_desc_short_circuit": "Overload and lock down the power source with high current",
+        "ach_title_fuse_burnt": "Fireproof",
+        "ach_desc_fuse_burnt": "Blow a fusible safety link with excessive current in a circuit",
+        "ach_title_sniper": "Sniper",
+        "ach_desc_sniper": "Launch an artillery shell in the ballistics simulator",
+        "ach_title_perfect_angle": "Perfect Angle",
+        "ach_desc_perfect_angle": "Fire a projectile at a 45° angle to achieve maximum range",
+        "ach_title_gravity_master": "Master of Attraction",
+        "ach_desc_gravity_master": "Assemble both positive/negative charges and plates on the electrostatic stand",
+        "ach_title_total_reflection": "Mirage",
+        "ach_desc_total_reflection": "Achieve total internal reflection at the boundary of two media",
+        "ach_title_lens_focus": "Focusing",
+        "ach_desc_lens_focus": "Change the focal length or shift the object near a lens",
+
+        // === BALLISTICS ===
+        "bal_title": "⚙| PARAMETERS",
+        "bal_h0": "Initial Height (h₀), m",
+        "bal_v0": "Velocity (v₀), m/s",
+        "bal_angle": "Angle (α), °",
+        "bal_g": "Gravity (g), m/s²",
+        "bal_m": "Mass (m), kg",
+        "bal_k": "Air Resistance (k)",
+        "bal_hint": "💡 Body mass affects flight distance <b>only</b> with air resistance k > 0.",
+        "bal_start": "Launch / Restart",
+        "bal_clear": "Clear",
+        "bal_cam_off": "Camera: OFF",
+        "bal_cam_on": "Camera: ON",
+        "bal_theory": "🎯 THEORETICAL PREDICTION",
+        "bal_data_title": "📊 FLIGHT DATA (CURRENT)",
+        "bal_stat_time": "Time (t):",
+        "bal_stat_y": "Height (y):",
+        "bal_stat_x": "Distance (x):",
+        "bal_unit_s": "s",
+        "bal_unit_m": "m",
+        "bal_back_link": "← Back to Modules",
+        "bal_overlay_txt": "Drag screen with mouse",
+        "bal_leg_v": "Velocity Vector",
+        "bal_leg_g": "Gravity Vector",
+        "bal_leg_apex": "Maximum Apex",
+        "bal_status_idle": "AWAITING LAUNCH",
+        "bal_status_flight": "IN FLIGHT",
+        "bal_status_land": "LANDED",
+
+        // === FREE FALL ===
+        "fall_title": "⚙️ PARAMETERS",
+        "fall_h": "Height (h₀), m",
+        "fall_v0": "Init. Velocity (v₀), m/s",
+        "fall_v0_hint": "Positive — upwards, negative — downwards",
+        "fall_g": "Gravity (g), m/s²",
+        "fall_m": "Mass (m), kg",
+        "fall_k": "Resistance (k)",
+        "fall_start": "Start / Reset",
+        "fall_pause": "Pause",
+        "fall_pause_resume": "Resume",
+        "fall_theory": "🎯 THEORETICAL LAWS",
+        "fall_data_title": "📊 NUMERICAL STATUS",
+        "fall_stat_time": "Time (t):",
+        "fall_stat_y": "Height (y):",
+        "fall_stat_v": "Velocity (v):",
+        "fall_back_link": "← Back to Modules",
+        "fall_overlay_txt": "Fall experiment",
+        "fall_energy_title": "🔋 ENERGY BALANCE",
+        "fall_ep_label": "Potential (E_p)",
+        "fall_ek_label": "Kinetic (E_k)",
+        "fall_q_label": "Losses/Heat (Q)",
+        "fall_etotal_label": "Total mechanical (E)",
+        "fall_graph_title": "📈 ENERGY CURVES",
+        "fall_unit_s": "s",
+        "fall_unit_m": "m",
+        "fall_unit_m_s": "m/s",
+        "fall_unit_j": "J",
+        "fall_scale_marker": "m"
     }
 };
 
