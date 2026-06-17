@@ -67,8 +67,10 @@ sunGroup.add(sunHitbox);
 
 const sunData = {
     name: "Солнце",
+    nameEn: "The Sun",
     dist: 0,
     desc: "Центральная звезда нашей системы, желтый карлик. Её масса составляет 99,86% от суммарной массы всей Солнечной системы. Температура на поверхности достигает 5500 °C, а в ядре — около 15 миллионов градусов. Без энергии Солнца жизнь на Земле была бы невозможна.",
+    descEn: "The central star of our system, a yellow dwarf. Its mass accounts for 99.86% of the total mass of the entire Solar System. The surface temperature reaches 5500 °C, and in the core—about 15 million degrees. Without the Sun's energy, life on Earth would be impossible.",
     mesh: sunGroup,
     size: 25
 };
@@ -231,16 +233,17 @@ const earthShader = {
 
 const planets = [];
 const configs = [
-    { name: "Меркурий",
+    { name: "Меркурий", nameEn: "Mercury",
         size: 2,
         color: 0x999999,
         texture: 'textures/mercury.jpg',
         dist: 58,
         e: 0.205,
         speed: 0.005,
-        desc: "Самая близкая к Солнцу планета. У него нет плотной атмосферы, поэтому на нем либо адская жара (днём +430 °C), либо космический холод (ночью -180 °C). Весь покрыт шрамами от столкновений с астероидами, из-за чего очень похож на нашу Луну. Год на Меркурии длится всего 88 дней, зато один день (оборот вокруг оси) тянется целых 59 земных суток."
+        desc: "Самая близкая к Солнцу планета. У него нет плотной атмосферы, поэтому на нем либо адская жара (днём +430 °C), либо космический холод (ночью -180 °C). Весь покрыт шрамами от столкновений с астероидами, из-за чего очень похож на нашу Луну. Год на Меркурии длится всего 88 дней, зато один день (оборот вокруг оси) тянется целых 59 земных суток.",
+        descEn: "The closest planet to the Sun. It has no dense atmosphere, so it experiences either hellish heat (daytime +430 °C) or cosmic cold (nighttime -180 °C). It is heavily cratered from asteroid impacts, making it resemble our Moon. A year on Mercury lasts only 88 days, but one day (rotation on its axis) stretches for 59 Earth days."
     },
-    { name: "Венера",
+    { name: "Венера", nameEn: "Venus",
         size: 3.5,
         color: 0xe3bb76,
         texture: 'textures/venus_surface.jpg',
@@ -249,9 +252,10 @@ const configs = [
         speed: 0.0035,
         hasAtmosphere: true,
         atmosphereTexture: 'textures/venus_atmosphere.jpg',
-        desc: "Сестра Земли, скрытая под плотными облаками из серной кислоты. Хотя она не самая близкая к Солнцу, на ней жарче всего из-за плотных облаков (+460 °C), которые создают сильный парниковый эффект. Давление на поверхности настолько колоссальное, что человека расплющило бы как на глубине 900 метров под водой. Кроме того, она одна из немногих планет, вращающихся по часовой стрелке."
+        desc: "Сестра Земли, скрытая под плотными облаками из серной кислоты. Хотя она не самая близкая к Солнцу, на ней жарче всего из-за плотных облаков (+460 °C), которые создают сильный парниковый эффект. Давление на поверхности настолько колоссальное, что человека расплющило бы как на глубине 900 метров под водой. Кроме того, она одна из немногих планет, вращающихся по часовой стрелке.",
+        descEn: "Earth's sister, hidden under thick clouds of sulfuric acid. Although not the closest to the Sun, it is the hottest planet due to these clouds (+460 °C), which create a powerful greenhouse effect. The surface pressure is so colossal that a human would be crushed as if at a depth of 900 meters underwater. Additionally, it is one of the few planets that rotate clockwise."
     },
-    { name: "Земля",
+    { name: "Земля", nameEn: "Earth",
         size: 3.8,
         dist: 150,
         e: 0.017,
@@ -263,9 +267,10 @@ const configs = [
             dist: 12,
             speed: 0.015,
             texture: 'textures/moon.jpg' }],
-        desc: "Наш дом. Единственная известная планета во Вселенной с жидкой водой на поверхности и разнообразными биосферными экосистемами. Её единственный естественный спутник — Луна, которая управляет океанскими приливами и стабилизирует климат Земли."
+        desc: "Наш дом. Единственная известная планета во Вселенной с жидкой водой на поверхности и разнообразными биосферными экосистемами. Её единственный естественный спутник — Луна, которая управляет океанскими приливами и стабилизирует климат Земли.",
+        descEn: "Our home. The only known planet in the Universe with liquid water on its surface and diverse biospheric ecosystems. Its sole natural satellite is the Moon, which controls ocean tides and stabilizes Earth's climate."
     },
-    { name: "Марс",
+    { name: "Марс", nameEn: "Mars",
         size: 2.8,
         color: 0xff4422,
         texture: 'textures/mars.jpg',
@@ -283,9 +288,10 @@ const configs = [
             dist: 8,
             speed: 0.012,
             texture: 'textures/deimos.jpg' }],
-        desc: "Красная планета. Характерный оттенок обусловлен высоким содержанием оксида железа (ржавчины). Здесь находится самый высокий потухший вулкан в Солнечной системе — Олимп. У Марса есть два небольших спутника — Фобос и Деймос, которые, скорее всего, являются захваченными гравитацией астероидами.\\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно."
+        desc: "Красная планета. Характерный оттенок обусловлен высоким содержанием оксида железа (ржавчины). Здесь находится самый высокий потухший вулкан в Солнечной системе — Олимп. У Марса есть два небольших спутника — Фобос и Деймос, которые, скорее всего, являются захваченными гравитацией астероидами.\\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно.",
+        descEn: "The Red Planet. Its characteristic hue is due to a high content of iron oxide (rust). It features Olympus Mons, the tallest volcano in the Solar System. Mars has two small moons, Phobos and Deimos, which are likely captured asteroids.\\n\\n*Some planets have moons but lack textures, which is normal as sourcing satellite textures is difficult."
     },
-    { name: "Юпитер",
+    { name: "Юпитер", nameEn: "Jupiter",
         size: 12,
         color: 0xd3a57c,
         texture: 'textures/jupiter.jpg',
@@ -298,9 +304,10 @@ const configs = [
             dist: 20,
             speed: 0.01,
             texture: 'textures/europa.jpg' }],
-        desc: "Крупнейший газовый гигант нашей системы. Знаменитое Большое Красное Пятно — это мегашторм-антициклон, бушующий как минимум 300 лет. Окружен десятками спутников, среди которых выделяется ледяная Европа — под её толстым льдом скрывается глобальный океан, где теоретически возможна жизнь.\\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно."
+        desc: "Крупнейший газовый гигант нашей системы. Знаменитое Большое Красное Пятно — это мегашторм-антициклон, бушующий как минимум 300 лет. Окружен десятками спутников, среди которых выделяется ледяная Европа — под её толстым льдом скрывается глобальный океан, где теоретически возможна жизнь.\\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно.",
+        descEn: "The largest gas giant in our system. The famous Great Red Spot is a giant anticyclonic storm raging for at least 300 years. It is orbited by dozens of moons, including the icy Europa—beneath its thick ice cover lies a global ocean where life could theoretically exist.\\n\\n*Some planets have moons but lack textures, which is normal as sourcing satellite textures is difficult."
     },
-    { name: "Сатурн",
+    { name: "Сатурн", nameEn: "Saturn",
         size: 10,
         color: 0xead6b8,
         texture: 'textures/saturn.jpg',
@@ -309,9 +316,10 @@ const configs = [
         speed: 0.0006,
         hasRings: true,
         ringTexture: 'textures/saturn_ring.png',
-        desc: "Властелин величественных колец, состоящих из миллиардов частиц космического льда, каменных обломков и силикатной пыли. Обладает крайне низкой средней плотностью — если бы во Вселенной существовал гигантский океан, Сатурн мог бы плавать на его поверхности."
+        desc: "Властелин величественных колец, состоящих из миллиардов частиц космического льда, каменных обломков и силикатной пыли. Обладает крайне низкой средней плотностью — если бы во Вселенной существовал гигантский океан, Сатурн мог бы плавать на его поверхности.",
+        descEn: "Lord of the majestic rings made of billions of particles of cosmic ice, rocky debris, and silicate dust. It has an extremely low average density—if there were a gigantic ocean in the Universe, Saturn could float on its surface."
     },
-    { name: "Уран",
+    { name: "Уран", nameEn: "Uranus",
         size: 6,
         color: 0x4fd0e7,
         texture: 'textures/uranus.jpg',
@@ -321,9 +329,10 @@ const configs = [
         hasRings: true,
         ringTexture: 'textures/uranus_ring.png',
         isUranus: true,
-        desc: "Ледяной гигант, уникальный тем, что вращается практически лежа на боку. Наклон его оси равен 98 градусам. Имеет бледно-бирюзовый окрас из-за метана в верхних слоях атмосферы и является самой холодной планетой системы."
+        desc: "Ледяной гигант, уникальный тем, что вращается практически лежа на боку. Наклон его оси равен 98 градусам. Имеет бледно-бирюзовый окрас из-за метана в верхних слоях атмосферы и является самой холодной планетой системы.",
+        descEn: "An ice giant unique because it rotates almost completely on its side. Its axial tilt is 98 degrees. It has a pale cyan color due to methane in the upper atmosphere and is the coldest planet in the system."
     },
-    { name: "Нептун",
+    { name: "Нептун", nameEn: "Neptune",
         size: 5.8,
         color: 0x3b5cc3,
         texture: 'textures/neptune.jpg',
@@ -336,7 +345,8 @@ const configs = [
             dist: 12,
             speed: 0.008,
             texture: 'textures/triton.jpg' }],
-        desc: "Удаленный темно-синий ледяной гигант, где бушуют самые яростные ураганы и ветры в Солнечной системе, скорость которых превосходит скорость звука (до 2000 км/ч). Из-за огромного расстояния солнечный свет добирается сюда более 4 часов.Его крупнейший спутник Тритон уникален тем, что вращается в обратном направлении, а на его поверхности извергаются ледяные гейзеры (криовулканы). \\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно."
+        desc: "Удаленный темно-синий ледяной гигант, где бушуют самые яростные ураганы и ветры в Солнечной системе, скорость которых превосходит скорость звука (до 2000 км/ч). Из-за огромного расстояния солнечный свет добирается сюда более 4 часов.Его крупнейший спутник Тритон уникален тем, что вращается в обратном направлении, а на его поверхности извергаются ледяные гейзеры (криовулканы). \\n\\n*У некоторых планет есть спутники, но нету текстур, это нормально, так как найти текстуры на спутники сложно.",
+        descEn: "A remote, deep-blue ice giant with the most violent winds and hurricanes in the Solar System, blowing at speeds exceeding the speed of sound (up to 2000 km/h). Due to the vast distance, sunlight takes more than 4 hours to reach it. Its largest moon, Triton, is unique because it orbits in a retrograde direction, and icy geysers (cryovolcanoes) erupt on its surface.\\n\\n*Some planets have moons but lack textures, which is normal as sourcing satellite textures is difficult."
     }
 ];
 
@@ -510,6 +520,19 @@ window.addEventListener('mousemove', (e) => {
     }
 });
 
+function displayPlanetInfo(planetObj) {
+    const activeLang = localStorage.getItem('prism_language') || 'ru';
+    const panel = document.getElementById('info-panel');
+    if (!panel) return;
+
+    panel.classList.add('active');
+
+    document.getElementById('p-name').innerText = activeLang === 'ru' ? planetObj.name : (planetObj.nameEn || planetObj.name);
+    document.getElementById('p-dist').innerText = planetObj.dist;
+
+    document.getElementById('p-desc').innerText = activeLang === 'ru' ? planetObj.desc : (planetObj.descEn || planetObj.desc);
+}
+
 window.addEventListener('pointerup', (e) => {
     if (e.target.tagName !== 'CANVAS') return;
 
@@ -550,10 +573,7 @@ window.addEventListener('pointerup', (e) => {
             unlockAchievement('FIND_NEPTUNE');
         }
 
-        document.getElementById('info-panel').classList.add('active');
-        document.getElementById('p-name').innerText = selectedPlanet.name;
-        document.getElementById('p-dist').innerText = selectedPlanet.dist;
-        document.getElementById('p-desc').innerText = selectedPlanet.desc;
+        displayPlanetInfo(selectedPlanet);
     }
 });
 
@@ -682,6 +702,12 @@ function animate() {
     controls.update();
     renderer.render(scene, camera);
 }
+
+window.onLanguageChanged = function(lang) {
+    if (selectedPlanet) {
+        displayPlanetInfo(selectedPlanet);
+    }
+};
 
 function startSimulationSafely() {
     animate();
