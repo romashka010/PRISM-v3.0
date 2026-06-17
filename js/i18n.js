@@ -113,7 +113,51 @@ const translations = {
         "space_asteroid_belt_title": "Пояс Астероидов",
         "space_asteroid_belt_p1": "Существует красивая, но печальная легенда о планете Фаэтон, которая якобы взорвалась на этом месте. Однако современная наука говорит о другом: на самом деле здесь никогда не было целой планеты.",
         "space_asteroid_belt_p2": "Когда 4,6 миллиарда лет назад формировались планеты, в этой области тоже начал собираться строительный материал. Но «новорожденный» Юпитер стал настолько массивным, что его мощнейшая гравитация начала буквально растаскивать камни в разные стороны. Он не дал им слипнуться в единое целое. Пояс астероидов — это «космическая стройплощадка», работу на которой остановил сосед-гигант.",
-        "space_asteroid_belt_p3": "Пояс находится в так называемой «зоне пустоты», где гравитационные силы Марса и Юпитера ведут вечную борьбу. Юпитер постоянно «встряхивает» астероиды, заставляя их сталкиваться на огромных скоростях. Из-за этих столкновений камни не объединяются, а наоборот — дробятся."
+        "space_asteroid_belt_p3": "Пояс находится в так называемой «зоне пустоты», где гравитационные силы Марса и Юпитера ведут вечную борьбу. Юпитер постоянно «встряхивает» астероиды, заставляя их сталкиваться на огромных скоростях. Из-за этих столкновений камни не объединяются, а наоборот — дробятся.",
+
+        //===ФИЗИКА===
+        "phys_title": "ФИЗИЧЕСКИЕ МОДУЛИ",
+        "phys_back_nav": "← На главную",
+        "phys_warn_opt": "ОПТИМИЗИРОВАНО ДЛЯ ПК",
+        "phys_warn_desc": "Физические интерактивные лаборатории и симуляции требуют высокой точности управления и простора экрана.",
+        "phys_warn_hint": "Пожалуйста, откройте этот раздел на компьютере или покиньте этот раздел.",
+        "phys_warn_back": "← На главную",
+
+        "phys_tile_mech": "Механика",
+        "phys_tile_mech_desc": "Кинематика, свободное падение и движение тел.",
+        "phys_tile_coul": "Электростатика",
+        "phys_tile_coul_desc": "Взаимодействие зарядов и силовые линии.",
+        "phys_tile_circ": "Цепи и Ток",
+        "phys_tile_circ_desc": "Законы Ома и проектирование схем.",
+        "phys_tile_opt": "Оптика",
+        "phys_tile_opt_desc": "Линзы, преломление и ход лучей.",
+        "phys_tile_thermo": "Термодинамика",
+        "phys_tile_thermo_desc": "Изопроцессы и идеальный газ.",
+
+        "phys_back_btn": "← Назад",
+
+        "phys_header_mech": "МЕХАНИКА",
+        "phys_lab_ballistics": "Баллистика",
+        "phys_lab_freefall": "Свободное падение",
+
+        "phys_header_opt": "ОПТИКА",
+        "phys_lab_lenses": "Тонкие линзы и фокус",
+        "phys_lab_refraction": "Преломление",
+
+        "phys_header_thermo": "ТЕРМОДИНАМИКА",
+        "phys_lab_iso": "Изопроцессы (P-V диаграммы)",
+        "phys_lab_carnot": "Цикл Карно (КПД)",
+
+        "phys_header_coul": "ЭЛЕКТРОСТАТИКА",
+        "phys_lab_st_sandbox": "Свободный режим (Песочница)",
+        "phys_lab_st1": "Лабораторная работа №1",
+        "phys_lab_st1_sub": "Исследование закона Кулона",
+        "phys_lab_st2": "Лабораторная работа №2",
+        "phys_lab_st2_sub": "Напряженность и потенциал",
+
+        "phys_header_circ": "ЭЛЕКТРИЧЕСКИЕ ЦЕПИ",
+        "phys_lab_circ_sandbox": "Песочница",
+        "phys_lab_circ_ohm": "Закон Ома для полной цепи"
     },
     en: {
         "warn_opt": "OPTIMIZED FOR PC",
@@ -217,7 +261,7 @@ const translations = {
         "modal_essence": "Essence & Explanation",
         "modal_close": "Close Topic",
 
-        //===KOSMOS===
+        //===SPACE===
         "space_back": "← To Main",
         "space_title": "Solar System",
         "space_desc": "This is the Milky Way. All data approximates physical reality.",
@@ -229,7 +273,51 @@ const translations = {
         "space_asteroid_belt_title": "The Asteroid Belt",
         "space_asteroid_belt_p1": "There is a beautiful but tragic legend about a planet called Phaeton that supposedly exploded here. Modern science, however, says otherwise: a whole planet never actually existed in this orbit.",
         "space_asteroid_belt_p2": "When the planets were forming 4.6 billion years ago, cosmic debris began accumulating in this region as well. However, the newly-born Jupiter grew so massive that its powerful gravity continually pulled the rocky chunks in different directions, preventing them from fusing together.",
-        "space_asteroid_belt_p3": "The belt is located in a 'gravitational void' zone where Mars and Jupiter wage a perpetual tug-of-war. Jupiter constantly stirs the asteroids, causing them to collide at high velocities, which breaks them apart instead of allowing them to merge."
+        "space_asteroid_belt_p3": "The belt is located in a 'gravitational void' zone where Mars and Jupiter wage a perpetual tug-of-war. Jupiter constantly stirs the asteroids, causing them to collide at high velocities, which breaks them apart instead of allowing them to merge.",
+
+        //===PHYSICS===
+        "phys_title": "PHYSICAL MODULES",
+        "phys_back_nav": "← To Main",
+        "phys_warn_opt": "OPTIMIZED FOR PC",
+        "phys_warn_desc": "Physical interactive laboratories and simulations require high precision controls and screen estate.",
+        "phys_warn_hint": "Please open this section on a desktop computer or leave this section.",
+        "phys_warn_back": "← To Main",
+
+        "phys_tile_mech": "Mechanics",
+        "phys_tile_mech_desc": "Kinematics, free fall, and dynamics of bodies.",
+        "phys_tile_coul": "Electrostatics",
+        "phys_tile_coul_desc": "Charge interactions and electric field lines.",
+        "phys_tile_circ": "Circuits & Current",
+        "phys_tile_circ_desc": "Ohm's laws and electric circuit design.",
+        "phys_tile_opt": "Optics",
+        "phys_tile_opt_desc": "Lenses, refraction, and optical raytracing.",
+        "phys_tile_thermo": "Thermodynamics",
+        "phys_tile_thermo_desc": "Gas processes and the ideal gas cycle.",
+
+        "phys_back_btn": "← Back",
+
+        "phys_header_mech": "MECHANICS",
+        "phys_lab_ballistics": "Ballistics",
+        "phys_lab_freefall": "Free Fall",
+
+        "phys_header_opt": "OPTICS",
+        "phys_lab_lenses": "Thin Lenses & Focus",
+        "phys_lab_refraction": "Refraction",
+
+        "phys_header_thermo": "THERMODYNAMICS",
+        "phys_lab_iso": "Isoprocesses (P-V Diagrams)",
+        "phys_lab_carnot": "Carnot Cycle (Efficiency)",
+
+        "phys_header_coul": "ELECTROSTATICS",
+        "phys_lab_st_sandbox": "Sandbox Mode (Free Mode)",
+        "phys_lab_st1": "Laboratory Work №1",
+        "phys_lab_st1_sub": "Coulomb's Law Investigation",
+        "phys_lab_st2": "Laboratory Work №2",
+        "phys_lab_st2_sub": "Field Strength & Potential",
+
+        "phys_header_circ": "ELECTRICAL CIRCUITS",
+        "phys_lab_circ_sandbox": "Sandbox",
+        "phys_lab_circ_ohm": "Ohm's Law for Full Circuit"
     }
 };
 
