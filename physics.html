@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prism — Физика</title>
+    <title>Prism — Physics</title>
 
     <link rel="stylesheet" href="css/achievements.css">
     <link rel="stylesheet" href="css/physics.css">
+    <link rel="stylesheet" href="css/i18n.css">
     <link rel="icon" type="png" href="textures/icon.png">
 
     <script>
         window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>
     <script src="/_vercel/speed-insights/script.js"></script>
-
     <script src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </head>
 <body>
@@ -22,120 +22,121 @@
     <div id="mobile-warning-overlay" class="hidden">
         <div class="warning-card">
             <span class="warning-icon">🖥️</span>
-            <h2>ОПТИМИЗИРОВАНО ДЛЯ ПК</h2>
-            <p>Физические интерактивные лаборатории и симуляции требуют высокой точности управления и простора экрана.</p>
-            <p class="warning-hint">Пожалуйста, откройте этот раздел на компьютере или покиньте этот раздел.</p>
-            <a href="index.html" class="warning-back-btn">← На главную</a>
+            <h2 data-i18n="phys_warn_opt">ОПТИМИЗИРОВАНО ДЛЯ ПК</h2>
+            <p data-i18n="phys_warn_desc">Физические интерактивные лаборатории и симуляции требуют высокой точности управления и простора экрана.</p>
+            <p class="warning-hint" data-i18n="phys_warn_hint">Пожалуйста, откройте этот раздел на компьютере или покиньте этот раздел.</p>
+            <a href="index.html" class="warning-back-btn" data-i18n="phys_warn_back">← На главную</a>
         </div>
     </div>
 
     <div id="main-menu" class="container">
-        <h1 id="physics-main-title" style="letter-spacing: 5px; color: var(--accent); margin-bottom: 0; cursor: pointer; user-select: none;">ФИЗИЧЕСКИЕ МОДУЛИ</h1>
+        <h1 id="physics-main-title" data-i18n="phys_title" style="letter-spacing: 5px; color: var(--accent); margin-bottom: 0; cursor: pointer; user-select: none;">ФИЗИЧЕСКИЕ МОДУЛИ</h1>
         <div class="tiles-grid">
 
             <div class="tile" onclick="showSub('sub-mechanics')">
                 <span class="icon">⚙️</span>
-                <h3>Механика</h3>
-                <p>Кинематика, свободное падение и движение тел.</p>
+                <h3 data-i18n="phys_tile_mech">Механика</h3>
+                <p data-i18n="phys_tile_mech_desc">Кинематика, свободное падение и движение тел.</p>
             </div>
 
             <div class="tile" onclick="showSub('sub-coulomb')">
                 <span class="icon">⚛️</span>
-                <h3>Электростатика</h3>
-                <p>Взаимодействие зарядов и силовые линии.</p>
+                <h3 data-i18n="phys_tile_coul">Электростатика</h3>
+                <p data-i18n="phys_tile_coul_desc">Взаимодействие зарядов и силовые линии.</p>
             </div>
 
             <div class="tile" onclick="showSub('sub-circuits')">
                 <span class="icon" id="tesla-icon" style="cursor: pointer;">⚡</span>
-                <h3>Цепи и Ток</h3>
-                <p>Законы Ома и проектирование схем.</p>
+                <h3 data-i18n="phys_tile_circ">Цепи и Ток</h3>
+                <p data-i18n="phys_tile_circ_desc">Законы Ома и проектирование схем.</p>
             </div>
 
             <div class="tile" onclick="showSub('sub-optics')">
                 <span class="icon">🔍</span>
-                <h3>Оптика</h3>
-                <p>Линзы, преломление и ход лучей.</p>
+                <h3 data-i18n="phys_tile_opt">Оптика</h3>
+                <p data-i18n="phys_tile_opt_desc">Линзы, преломление и ход лучей.</p>
             </div>
 
             <div class="tile" onclick="showSub('sub-thermo')">
                 <span class="icon">🌡️</span>
-                <h3>Термодинамика</h3>
-                <p>Изопроцессы и идеальный газ.</p>
+                <h3 data-i18n="phys_tile_thermo">Термодинамика</h3>
+                <p data-i18n="phys_tile_thermo_desc">Изопроцессы и идеальный газ.</p>
             </div>
         </div>
-        <a href="index.html" class="back-nav">← На главную</a>
+        <a href="index.html" class="back-nav" data-i18n="phys_back_nav">← На главную</a>
     </div>
 
     <div id="sub-mechanics" class="container hidden">
-        <h2 style="color: var(--mech);">МЕХАНИКА</h2>
+        <h2 style="color: var(--mech);" data-i18n="phys_header_mech">МЕХАНИКА</h2>
         <div class="submenu" style="display: flex;">
             <a href="ballistics.html" class="sub-option">
-                <b>Баллистика</b>
+                <b data-i18n="phys_lab_ballistics">Баллистика</b>
             </a>
             <a href="gravity_fall.html" class="sub-option">
-                <b>Свободное падение</b>
+                <b data-i18n="phys_lab_freefall">Свободное падение</b>
             </a>
         </div>
-        <button class="back-btn" onclick="hideAll()">← Назад</button>
+        <button class="back-btn" onclick="hideAll()" data-i18n="phys_back_btn">← Назад</button>
     </div>
 
     <div id="sub-optics" class="container hidden">
-        <h2 style="color: var(--opt);">ОПТИКА</h2>
+        <h2 style="color: var(--opt);" data-i18n="phys_header_opt">ОПТИКА</h2>
         <div class="submenu" style="display: flex;">
             <a href="optics_lenses.html" class="sub-option">
-                <b>Тонкие линзы и фокус</b>
+                <b data-i18n="phys_lab_lenses">Тонкие линзы и фокус</b>
             </a>
             <a href="optics_refraction.html" class="sub-option">
-                <b>Преломление</b>
+                <b data-i18n="phys_lab_refraction">Преломление</b>
             </a>
         </div>
-        <button class="back-btn" onclick="hideAll()">← Назад</button>
+        <button class="back-btn" onclick="hideAll()" data-i18n="phys_back_btn">← Назад</button>
     </div>
 
     <div id="sub-thermo" class="container hidden">
-        <h2 style="color: var(--thermo);">ТЕРМОДИНАМИКА</h2>
+        <h2 style="color: var(--thermo);" data-i18n="phys_header_thermo">ТЕРМОДИНАМИКА</h2>
         <div class="submenu" style="display: flex;">
             <a href="thermo_iso.html" class="sub-option">
-                <b>Изопроцессы (P-V диаграммы)</b>
+                <b data-i18n="phys_lab_iso">Изопроцессы (P-V диаграммы)</b>
             </a>
             <a href="thermo_carnot.html" class="sub-option">
-                <b>Цикл Карно (КПД)</b>
+                <b data-i18n="phys_lab_carnot">Цикл Карно (КПД)</b>
             </a>
         </div>
-        <button class="back-btn" onclick="hideAll()">← Назад</button>
+        <button class="back-btn" onclick="hideAll()" data-i18n="phys_back_btn">← Назад</button>
     </div>
 
     <div id="sub-coulomb" class="container hidden">
-        <h2 style="color: var(--accent);">ЭЛЕКТРОСТАТИКА</h2>
+        <h2 style="color: var(--accent);" data-i18n="phys_header_coul">ЭЛЕКТРОСТАТИКА</h2>
         <div class="submenu" style="display: flex;">
             <a href="sandbox_st.html" class="sub-option">
-                <b>Свободный режим (Песочница)</b>
+                <b data-i18n="phys_lab_st_sandbox">Свободный режим (Песочница)</b>
             </a>
             <a href="st_lab1.html" class="sub-option">
-                <b>Лабораторная работа №1</b>
-                <span>Исследование закона Кулона</span>
+                <b data-i18n="phys_lab_st1">Лабораторная работа №1</b>
+                <span data-i18n="phys_lab_st1_sub">Исследование закона Кулона</span>
             </a>
             <a href="st_lab2.html" class="sub-option">
-                <b>Лабораторная работа №2</b>
-                <span>Напряженность и потенциал</span>
+                <b data-i18n="phys_lab_st2">Лабораторная работа №2</b>
+                <span data-i18n="phys_lab_st2_sub">Напряженность и потенциал</span>
             </a>
         </div>
-        <button class="back-btn" onclick="hideAll()">← Назад</button>
+        <button class="back-btn" onclick="hideAll()" data-i18n="phys_back_btn">← Назад</button>
     </div>
 
     <div id="sub-circuits" class="container hidden">
-    	<h2 style="color: var(--blue);">ЭЛЕКТРИЧЕСКИЕ ЦЕПИ</h2>
+    	<h2 style="color: var(--blue);" data-i18n="phys_header_circ">ЭЛЕКТРИЧЕСКИЕ ЦЕПИ</h2>
     	<div class="submenu" style="display: flex;">
             <a href="sandbox_el.html" class="sub-option">
-            	<b>Песочница</b>
+            	<b data-i18n="phys_lab_circ_sandbox">Песочница</b>
             </a>
             <a href="ohm_full.html" class="sub-option">
-            	<b>Закон Ома для полной цепи</b>
+            	<b data-i18n="phys_lab_circ_ohm">Закон Ома для полной цепи</b>
             </a>
         </div>
-        <button class="back-btn" onclick="hideAll()">← Назад</button>
+        <button class="back-btn" onclick="hideAll()" data-i18n="phys_back_btn">← Назад</button>
     </div>
 
+    <script src="js/i18n.js"></script>
     <script src="js/achievements.js"></script>
     <script src="js/physics.js"></script>
 </body>
